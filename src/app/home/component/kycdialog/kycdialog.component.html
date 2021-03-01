@@ -1,0 +1,14 @@
+<nb-card>
+  <nb-card-header>{{ title }} - ({{ type.service }})</nb-card-header>
+  <nb-card-body>
+    <ngx-aepsicici
+      (kycOnBoardedStatus)="childResponse($event)"
+      [service]="type"
+    ></ngx-aepsicici>
+  </nb-card-body>
+  <nb-card-footer>
+    <button class="cancel" nbButton status="danger" (click)="cancel()">
+      Cancel
+    </button>
+  </nb-card-footer>
+</nb-card>

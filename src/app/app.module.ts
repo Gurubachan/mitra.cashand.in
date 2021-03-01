@@ -5,12 +5,13 @@
  */
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { NgModule  } from '@angular/core';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CoreModule } from './@core/core.module';
 import { ThemeModule } from './@theme/theme.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { HttpconfigInterceptor } from './httpconfig.interceptor';
 import {
   NbChatModule,
   NbDatepickerModule,
@@ -20,6 +21,9 @@ import {
   NbToastrModule,
   NbWindowModule,
 } from '@nebular/theme';
+import { NbTokenLocalStorage, NbTokenStorage } from '@nebular/auth';
+import { AuthGuard } from './auth.guard';
+import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 
 @NgModule({
   declarations: [AppComponent],
@@ -39,8 +43,17 @@ import {
     }),
     CoreModule.forRoot(),
     ThemeModule.forRoot(),
+    NgIdleKeepaliveModule.forRoot(),
   ],
   bootstrap: [AppComponent],
+  providers: [
+    { provide: NbTokenStorage, useClass: NbTokenLocalStorage },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpconfigInterceptor,
+      multi: true,
+    },
+    AuthGuard,
+  ],
 })
-export class AppModule {
-}
+export class AppModule {}

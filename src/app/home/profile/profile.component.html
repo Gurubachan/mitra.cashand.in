@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-lg-12">
+    <nb-card size="large">
+      <nb-tabset fullWidth (changeTab)="changeTab($event)">
+        <nb-tab tabTitle="Basic" [lazyLoad]="true">
+          <div class="chart-container">
+            <ngx-about [about]="user"></ngx-about>
+          </div>
+        </nb-tab>
+        <nb-tab tabTitle="KYC" [lazyLoad]="true">
+          <div class="chart-container">
+            <ngx-kyc [kyc]="user"> </ngx-kyc>
+          </div>
+        </nb-tab>
+        <nb-tab tabTitle="Bank" [lazyLoad]="true">
+          <div class="chart-container">
+            <ngx-bank [bank]="user"></ngx-bank>
+          </div>
+        </nb-tab>
+      </nb-tabset>
+      <button class="btn btn-success" (click)="close()" *ngIf="isModal">
+        Close
+      </button>
+    </nb-card>
+  </div>
+</div>

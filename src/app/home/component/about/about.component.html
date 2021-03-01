@@ -1,0 +1,448 @@
+<div class = "row" *ngIf="!showForm">
+  <div class = " col-sm-6" >
+    <div class="row">
+      <div class="col-sm-4">Name : </div>
+      <div class="col-sm-8"> {{ about?.fname + ' ' + about?.lname}}</div>
+      <div class="col-sm-4">DOB : </div>
+      <div class="col-sm-8"> {{ dateOfBirth | date: "dd-mm-yyyy"}}</div>
+      <div class="col-sm-4">Gender : </div>
+      <div class="col-sm-8"> {{ about?.gender }}</div>
+      <div class="col-sm-4">Email : </div>
+      <div class="col-sm-8"> {{ about?.email }}
+        <small *ngIf="!isEmailVerified"
+               style="color: red"
+               (click)="verify('email')"
+        >
+          Email Not Verified, Click to verify.
+        </small>
+        <nb-icon
+          icon="checkmark-outline"
+          status="success"
+          *ngIf="isEmailVerified">
+        </nb-icon>
+      </div>
+      <div class="col-sm-4">Contact : </div>
+      <div class="col-sm-8"> {{ about?.contact}}
+        <small *ngIf="!isContactVerified"
+               style="color: red"
+               (click)="verify('contact')"
+        >
+          Contact Not Verified, Click to verify.
+        </small>
+        <nb-icon
+          icon="checkmark-outline"
+          status="success"
+          *ngIf="isContactVerified">
+        </nb-icon>
+      </div>
+      <div class="col-sm-4">Whatsapp : </div>
+      <div class="col-sm-8"> {{ about?.whatsapp}}</div>
+      <div class="col-sm-4">Address : </div>
+      <div class="col-sm-8"> {{ about?.address}}</div>
+      <div class="col-sm-4">District : </div>
+      <div class="col-sm-8"> {{ about?.district}}</div>
+      <div class="col-sm-4">State : </div>
+      <div class="col-sm-8"> {{ about?.state}}</div>
+      <div class="col-sm-4">Pin code : </div>
+      <div class="col-sm-8"> {{ about?.PinCode}}</div>
+    </div>
+  </div>
+  <div class = " col-sm-6" >
+    <div class="row">
+      <div class="col-sm-4">Picture : </div>
+      <div class=" col-sm-8">
+        <img [src]="about.myPic" width="100px">
+      </div>
+    </div>
+  </div>
+
+</div>
+<button
+
+  (click)="edit()"
+  *ngIf="!showForm"
+  class="btn btn-success fa-pull-right">
+  Edit
+</button>
+
+<div class="container-fluid" *ngIf="showForm">
+
+  <nb-alert
+    *ngIf="showMessages.error && errors?.length && !submitted"
+    outline="danger"
+    role="alert"
+  >
+    <p class="alert-title"><b>Oh snap!</b></p>
+    <ul class="alert-message-list">
+      <li *ngFor="let error of errors" class="alert-message">{{ error }}</li>
+    </ul>
+  </nb-alert>
+
+  <nb-alert
+    *ngIf="showMessages.success && messages?.length && !submitted"
+    outline="success"
+    role="alert"
+  >
+    <p class="alert-title"><b>Hooray!</b></p>
+    <ul class="alert-message-list">
+      <li *ngFor="let message of messages" class="alert-message">
+        {{ message }}
+      </li>
+    </ul>
+  </nb-alert>
+
+  <form (ngSubmit)="onFormSubmit()"
+        #form="ngForm"
+        aria-labelledby="title"
+        class="form-horizontal row">
+    <div class="form-control-group  col-sm-4">
+      <label class="label" for="input-fname">First Name:</label>
+      <input
+        nbInput
+        fullWidth
+        [(ngModel)]="user.fname"
+        #fname="ngModel"
+        name="fname"
+        id="input-fname"
+        pattern="[A-Za-z]{2,30}"
+        placeholder="User First Name"
+        autofocus
+        [status]="
+        fname.dirty ? (fname.invalid ? 'danger' : 'success') : 'basic'
+      "
+        [required]="true"
+        [attr.aria-invalid]="fname.invalid && fname.touched ? true : null"
+      />
+      <ng-container *ngIf="fname.invalid && fname.touched">
+        <p class="caption status-danger" *ngIf="fname.errors?.required">
+          User First Name is required!
+        </p>
+        <p class="caption status-danger" *ngIf="fname.errors?.pattern">
+          User First Name should be character!
+        </p>
+      </ng-container>
+    </div>
+    <div class="form-control-group  col-sm-4">
+      <label class="label" for="input-mname">Middle Name:</label>
+      <input
+        nbInput
+        fullWidth
+        [(ngModel)]="user.mname"
+        #mname="ngModel"
+        name="mname"
+        id="input-mname"
+        pattern="[A-Za-z]{1,10}"
+        placeholder="User Middle Name"
+        autofocus
+        [status]="
+        mname.dirty ? (mname.invalid ? 'danger' : 'success') : 'basic'
+      "
+        [required]="false"
+        [attr.aria-invalid]="mname.invalid && mname.touched ? true : null"
+      />
+      <ng-container *ngIf="mname.invalid && mname.touched">
+        <p class="caption status-danger" *ngIf="mname.errors?.required">
+          User First Name is required!
+        </p>
+        <p class="caption status-danger" *ngIf="mname.errors?.pattern">
+          User First Name should be character!
+        </p>
+      </ng-container>
+    </div>
+
+    <div class="form-control-group  col-sm-4">
+      <label class="label" for="input-lname">Last Name:</label>
+      <input
+        nbInput
+        fullWidth
+        [(ngModel)]="user.lname"
+        #lname="ngModel"
+        name="lname"
+        id="input-lname"
+        pattern="[A-Za-z]{2,20}"
+        placeholder="User Last Name"
+        autofocus
+        [status]="
+        lname.dirty ? (lname.invalid ? 'danger' : 'success') : 'basic'
+      "
+        [required]="true"
+        [attr.aria-invalid]="lname.invalid && lname.touched ? true : null"
+      />
+      <ng-container *ngIf="lname.invalid && lname.touched">
+        <p class="caption status-danger" *ngIf="lname.errors?.required">
+          User Last Name is required!
+        </p>
+        <p class="caption status-danger" *ngIf="lname.errors?.pattern">
+          User Last Name should be character!
+        </p>
+      </ng-container>
+    </div>
+
+    <div class="form-control-group  col-sm-4">
+      <label class="label" for="input-email">Email:</label>
+      <input
+        nbInput
+        fullWidth
+        [(ngModel)]="user.email"
+        #email="ngModel"
+        name="email"
+        id="input-email"
+        pattern=".+@.+..+"
+        placeholder="Email Address"
+        autofocus
+        [status]="
+        email.dirty ? (email.invalid ? 'danger' : 'success') : 'basic'
+      "
+        [required]="true"
+        [attr.aria-invalid]="email.invalid && email.touched ? true : null"
+      />
+      <ng-container *ngIf="email.invalid && email.touched">
+        <p class="caption status-danger" *ngIf="email.errors?.required">
+          User Email is required!
+        </p>
+        <p class="caption status-danger" *ngIf="email.errors?.pattern">
+          User Email should be real one!
+        </p>
+      </ng-container>
+    </div>
+
+    <div class="form-control-group  col-sm-4">
+      <label class="label" for="input-contact">Contact  Number:</label>
+      <input
+        nbInput
+        fullWidth
+        [(ngModel)]="user.contact"
+        #contact="ngModel"
+        name="contact"
+        id="input-contact"
+        pattern="[6-9]{1}[0-9]{9}"
+        placeholder="Contact Number"
+        autofocus
+        [status]="
+        contact.dirty ? (contact.invalid ? 'danger' : 'success') : 'basic'
+      "
+        [required]="true"
+        [attr.aria-invalid]="contact.invalid && contact.touched ? true : null"
+      />
+      <ng-container *ngIf="contact.invalid && contact.touched">
+        <p class="caption status-danger" *ngIf="contact.errors?.required">
+          User Contact number is required!
+        </p>
+        <p class="caption status-danger" *ngIf="contact.errors?.pattern">
+          Contact number should be real one!
+        </p>
+      </ng-container>
+    </div>
+    <div class="form-control-group  col-sm-4">
+      <label class="label" for="input-whatsapp">Whatsapp :</label>
+      <input
+        nbInput
+        fullWidth
+        [(ngModel)]="user.whatsapp"
+        #whatsapp="ngModel"
+        name="whatsapp"
+        id="input-whatsapp"
+        pattern="[6-9]{1}[0-9]{9}"
+        placeholder="Whatsapp number"
+        autofocus
+        [status]="
+        whatsapp.dirty ? (whatsapp.invalid ? 'danger' : 'success') : 'basic'
+      "
+        [required]="true"
+        [attr.aria-invalid]="whatsapp.invalid && whatsapp.touched ? true : null"
+      />
+      <ng-container *ngIf="whatsapp.invalid && whatsapp.touched">
+        <p class="caption status-danger" *ngIf="whatsapp.errors?.required">
+          Whatsapp number is required!
+        </p>
+        <p class="caption status-danger" *ngIf="whatsapp.errors?.pattern">
+          Whatsapp number should be real one!
+        </p>
+      </ng-container>
+    </div>
+
+    <div class="form-control-group  col-sm-4">
+      <label class="label" for="input-pin">PIN Code :</label>
+      <input
+        nbInput
+        fullWidth
+        [(ngModel)]="user.pin"
+        #pin="ngModel"
+        name="pin"
+        id="input-pin"
+        pattern="[0-9]{6}"
+        placeholder="Pin code"
+        autofocus
+        [status]="
+        pin.dirty ? (pin.invalid ? 'danger' : 'success') : 'basic'
+      "
+        [required]="true"
+        [attr.aria-invalid]="pin.invalid && pin.touched ? true : null"
+        (change)="getPinCodeDetails()"
+      />
+      <ng-container *ngIf="pin.invalid && pin.touched">
+        <p class="caption status-danger" *ngIf="pin.errors?.required">
+          Pin Code is required!
+        </p>
+        <p class="caption status-danger" *ngIf="pin.errors?.pattern">
+          Pin code should be real one and 6 digit number!
+        </p>
+      </ng-container>
+    </div>
+
+    <div class="form-control-group  col-sm-4">
+      <label class="label" >PIN Code wise area :</label><br>
+      <nb-select
+        [(ngModel)]="user.pinCode"
+        #pinCode="ngModel"
+        name="pinCode"
+        id="pinCode"
+        [status]="
+        pinCode.dirty ? (pinCode.invalid ? 'danger' : 'success') : 'basic'
+        "
+        [attr.aria-invalid]="pinCode.invalid && pinCode.touched ? true : null"
+        [required]="true"
+        placeholder="Select Address"
+        [(selected)]='selectedPinCodeId'
+      >
+
+        <nb-option *ngFor="let p of pinCodes" [value]="p?.id">
+          <small>
+            {{p.village+"-"+p.poName+"-"+p.district+"-"+p.state}}
+          </small>
+        </nb-option>
+
+      </nb-select>
+
+      <ng-container *ngIf="pinCode.invalid && pinCode.touched">
+        <p class="caption status-danger" *ngIf="pinCode.errors?.required">
+          Pin Code is required!
+        </p>
+        <p class="caption status-danger" *ngIf="pinCode.errors?.pattern">
+          Pin code should be real one and 6 digit number!
+        </p>
+      </ng-container>
+    </div>
+    <div class="form-control-group  col-sm-4">
+      <label class="label" for="input-address">Address :</label>
+      <textarea
+        nbInput
+        fullWidth
+        [(ngModel)]="user.address"
+        #address="ngModel"
+        name="address"
+        id="input-address"
+        pattern="[A-Za-z ,-/.0-9]{10,100}"
+        placeholder="Address"
+        autofocus
+        [status]="
+        address.dirty ? (address.invalid ? 'danger' : 'success') : 'basic'
+      "
+        [required]="true"
+        [attr.aria-invalid]="address.invalid && address.touched ? true : null"
+
+      >
+      </textarea>
+      <ng-container *ngIf="address.invalid && address.touched">
+        <p class="caption status-danger" *ngIf="address.errors?.required">
+          Address is required!
+        </p>
+        <p class="caption status-danger" *ngIf="address.errors?.pattern">
+          Address must be in character and minimum 10 character and maximum 100.
+        </p>
+      </ng-container>
+    </div>
+
+    <div class="form-control-group  col-sm-4">
+      <label class="label" for="input-address">DOB :</label><br>
+      <input
+        nbInput
+        placeholder="Pick Date"
+        [nbDatepicker]="dateTimePicker"
+        [(ngModel)]="user.dob"
+        #dob="ngModel"
+        name="dob"
+        autofocus
+        [status]="
+        dob.dirty ? (dob.invalid ? 'danger' : 'success') : 'basic'
+      "
+        [required]="true"
+        [attr.aria-invalid]="dob.invalid && dob.touched ? true : null"
+        [readOnly]="true"
+        type="date"
+      >
+      <nb-datepicker #dateTimePicker format="yyyy-MM-dd"></nb-datepicker>
+      <ng-container *ngIf="dob.invalid && dob.touched">
+        <p class="caption status-danger" *ngIf="dob.errors?.required">
+          Date of birth is required!
+        </p>
+        <p class="caption status-danger" *ngIf="dob.errors?.pattern">
+          Date of birth always in dd/mm/yyyy format.
+        </p>
+      </ng-container>
+    </div>
+    <div class="form-control-group col-sm-4">
+      <label class="label" for="input-gender">Gender</label><br>
+      <nb-select
+        [(ngModel)]="user.gender"
+        #gender="ngModel"
+        name="gender"
+        id="input-gender"
+        [status]="
+        gender.dirty ? (gender.invalid ? 'danger' : 'success') : 'basic'
+        "
+        [attr.aria-invalid]="gender.invalid && gender.touched ? true : null"
+        [required]="true"
+        placeholder="Select Gender"
+        [(selected)]='genderSelected'
+      >
+        <nb-option value="m">Male</nb-option>
+        <nb-option value="f">Female</nb-option>
+        <nb-option value="o">Other</nb-option>
+      </nb-select>
+      <ng-container *ngIf="gender.invalid && gender.touched">
+        <p class="caption status-danger" *ngIf="gender.errors?.required">
+          Gender is required!
+        </p>
+        <p class="caption status-danger" *ngIf="gender.errors?.pattern">
+          Select gender from dropdown
+        </p>
+      </ng-container>
+    </div>
+    <div class="form-control-group col-sm-4">
+      <label class="label">Image : </label><br>
+      <img
+        [src]="image"
+        width="160px"
+        height="160px"
+        (click)="selectImageSource()">
+      <input
+        type="file"
+        #fileInput
+        (change)="uploadFile($event)"
+        hidden="true"
+        accept="image/*"
+      />
+    </div>
+    <div class="container row">
+      <div class="col-sm-4">
+        <button
+          type="button"
+          class="btn btn-danger btn-block"
+          (click)="reset()"
+        >Reset</button>
+      </div>
+      <div class="col-sm-4"></div>
+      <div class="col-sm-4">
+        <button
+          nbButton
+          fullWidth
+          status="success"
+          [disabled]="submitted || !form.valid"
+          [class.btn-pulse]="submitted">
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

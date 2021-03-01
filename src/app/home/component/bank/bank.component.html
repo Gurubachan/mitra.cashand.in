@@ -1,0 +1,168 @@
+<div class="row" *ngIf="!showForm">
+  <div class="col-sm-3">Bank Name: {{ bank.bankname }}</div>
+  <div class="col-sm-3">IFSC Code: {{ bank.ifsc }}</div>
+  <div class="col-sm-3">Account No: {{ bank.accountNo }}</div>
+  <div class="col-sm-3">
+    <img [src]="passbookImage" width="100%" />
+  </div>
+</div>
+<button
+  type="button"
+  class="btn btn-primary fa-pull-right"
+  (click)="edit()"
+  *ngIf="!showForm"
+>
+  Edit
+</button>
+
+<div class="container-fluid" *ngIf="showForm">
+  <nb-alert
+    *ngIf="showMessages.error && errors?.length && !submitted"
+    outline="danger"
+    role="alert"
+  >
+    <p class="alert-title"><b>Oh snap!</b></p>
+    <ul class="alert-message-list">
+      <li *ngFor="let error of errors" class="alert-message">{{ error }}</li>
+    </ul>
+  </nb-alert>
+
+  <nb-alert
+    *ngIf="showMessages.success && messages?.length && !submitted"
+    outline="success"
+    role="alert"
+  >
+    <p class="alert-title"><b>Hooray!</b></p>
+    <ul class="alert-message-list">
+      <li *ngFor="let message of messages" class="alert-message">
+        {{ message }}
+      </li>
+    </ul>
+  </nb-alert>
+  <form
+    (ngSubmit)="onFormSubmit()"
+    #bankform="ngForm"
+    aria-labelledby="title"
+    class="form-horizontal row"
+  >
+    <div class="form-control-group col-sm-3">
+      <label class="label" for="input-ifsc">IFSC :</label><br />
+      <input
+        nbInput
+        fullWidth
+        [(ngModel)]="user.ifsccode"
+        #ifsccode="ngModel"
+        name="ifsccode"
+        id="input-ifsc"
+        pattern="[A-Z]{4}[0-9]{7}"
+        placeholder="Enter IFSC Code"
+        autofocus
+        [status]="
+          ifsccode.dirty ? (ifsccode.invalid ? 'danger' : 'success') : 'basic'
+        "
+        [required]="true"
+        [attr.aria-invalid]="ifsccode.invalid && ifsccode.touched ? true : null"
+        (change)="getBankName()"
+      />
+      <ng-container *ngIf="ifsccode.invalid && ifsccode.touched">
+        <p class="caption status-danger" *ngIf="ifsccode.errors?.required">
+          IFSC Code required.
+        </p>
+        <p class="caption status-danger" *ngIf="ifsccode.errors?.pattern">
+          Enter Valid IFSC code.
+        </p>
+      </ng-container>
+    </div>
+    <div class="form-control-group col-sm-3">
+      <label class="label" for="input-bankname">Bank :</label><br />
+      <input
+        nbInput
+        fullWidth
+        [(ngModel)]="user.bankname"
+        #bankname="ngModel"
+        name="bankname"
+        id="input-bankname"
+        pattern="[A-Za-z ]{3,50}"
+        placeholder="Enter Bank Name"
+        autofocus
+        [status]="
+          bankname.dirty ? (bankname.invalid ? 'danger' : 'success') : 'basic'
+        "
+        disabled
+        [required]="true"
+        [attr.aria-invalid]="bankname.invalid && bankname.touched ? true : null"
+      />
+      <ng-container *ngIf="bankname.invalid && bankname.touched">
+        <p class="caption status-danger" *ngIf="bankname.errors?.required">
+          Bank Name required.
+        </p>
+        <p class="caption status-danger" *ngIf="bankname.errors?.pattern">
+          Bank name must be in character.<br />
+          Enter bank full name.
+        </p>
+      </ng-container>
+    </div>
+
+    <div class="form-control-group col-sm-3">
+      <label class="label" for="input-account">Account Number :</label><br />
+      <input
+        nbInput
+        fullWidth
+        [(ngModel)]="user.account"
+        #account="ngModel"
+        name="account"
+        id="input-account"
+        pattern="[0-9]{9,18}"
+        placeholder="Enter Account number"
+        autofocus
+        [status]="
+          account.dirty ? (account.invalid ? 'danger' : 'success') : 'basic'
+        "
+        [required]="true"
+        [attr.aria-invalid]="account.invalid && account.touched ? true : null"
+      />
+      <ng-container *ngIf="account.invalid && account.touched">
+        <p class="caption status-danger" *ngIf="account.errors?.required">
+          Account number required.
+        </p>
+        <p class="caption status-danger" *ngIf="account.errors?.pattern">
+          Enter Valid account number.
+        </p>
+      </ng-container>
+    </div>
+    <div class="form-control-group col-sm-3">
+      <label class="label">Passbook Image : </label><br />
+      <img [src]="image" width="50%" (click)="selectImageSource()" />
+      <input
+        type="file"
+        #fileInput
+        (change)="uploadFile($event)"
+        hidden="true"
+        accept="image/*"
+      />
+    </div>
+    <div class="container row">
+      <div class="col-sm-4">
+        <button
+          type="button"
+          class="btn btn-danger btn-block"
+          (click)="reset()"
+        >
+          Reset
+        </button>
+      </div>
+      <div class="col-sm-4"></div>
+      <div class="col-sm-4">
+        <button
+          nbButton
+          fullWidth
+          status="success"
+          [disabled]="submitted || !bankform.valid"
+          [class.btn-pulse]="submitted"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

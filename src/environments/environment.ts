@@ -10,4 +10,6 @@
 
 export const environment = {
   production: false,
+  uri: "http://127.0.0.1:8000/api/",
+  //uri: "http://api.cashand.in/api/",
 };

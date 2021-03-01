@@ -1,0 +1,25 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Services</th>
+      <th>Onboard</th>
+      <th>Onboard Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let sl of serviceList; let i = index">
+      <td>{{ sl.service }}</td>
+      <td>
+        <button
+          nbButton
+          status="success"
+          *ngIf="sl.onBoardRequired && !sl.onboarded"
+          (click)="doOnBoarding(i)"
+        >
+          On Board
+        </button>
+      </td>
+      <td>{{ sl.onBoardRequired == 1 ? sl.onboardStatus : "" }}</td>
+    </tr>
+  </tbody>
+</table>

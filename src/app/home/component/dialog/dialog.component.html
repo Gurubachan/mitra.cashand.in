@@ -1,0 +1,12 @@
+<nb-card>
+  <nb-card-header>{{title}}</nb-card-header>
+  <nb-card-body>
+    <input #otp nbInput placeholder="Enter Verification Code" required="required"><br>
+    <span (click)="sendOtp()" *ngIf="resend">Resend : </span><label>{{timer}}</label>
+    <span *ngIf="error">{{errorMessage}}</span>
+  </nb-card-body>
+  <nb-card-footer>
+    <button class="cancel" nbButton status="danger" (click)="cancel()">Cancel</button>
+    <button nbButton status="success" (click)="submit(otp.value)">Verify</button>
+  </nb-card-footer>
+</nb-card>

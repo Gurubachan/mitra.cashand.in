@@ -1,0 +1,81 @@
+<div class="row">
+  <div class="col-sm-3">
+    <nb-card status="success">
+      <nb-card-header>Role Assign</nb-card-header>
+      <nb-card-body *ngIf="office.role == 0">
+        <nb-select
+          placeholder="Select Group"
+          [(ngModel)]="roleAssign.userGroup"
+          (selectedChange)="getType()"
+          shape="round"
+        >
+          <nb-option *ngFor="let ug of userGroup" value="{{ ug.id }}">{{
+            ug.groupName
+          }}</nb-option>
+        </nb-select>
+
+        <nb-select
+          placeholder="Select Type"
+          [(ngModel)]="roleAssign.userRole"
+          shape="round"
+        >
+          <nb-option *ngFor="let ut of userType" value="{{ ut.id }}">{{
+            ut.types
+          }}</nb-option>
+        </nb-select>
+      </nb-card-body>
+      <nb-card-body *ngIf="office.role > 0">
+        {{ office.userRole }}</nb-card-body
+      >
+      <nb-card-footer *ngIf="office.role == 0"
+        ><button nbButton fullWidth status="success" (click)="assignRole()">
+          Assign Role
+        </button></nb-card-footer
+      >
+    </nb-card>
+  </div>
+  <div class="col-sm-9">
+    <nb-card status="success" size="medium">
+      <nb-card-header>Service Assign </nb-card-header>
+      <nb-card-body>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Asign</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let s of services">
+              <!-- <td>
+                <nb-checkbox
+                  value="{{ s.id }}"
+                  [(ngModel)]="s.isChecked"
+                  [checked]="true"
+                  >{{ s.service }}</nb-checkbox
+                >
+              </td> -->
+              <td>{{ s.service }}</td>
+              <td>
+                <!-- <nb-toggle
+                  status="success"
+                  [(ngModel)]="s.isChecked"
+                  [checked]="s.isActive == '1' ? 'true' : 'false'"
+                  >{{ s.service }}</nb-toggle
+                > -->
+                <nb-checkbox status="success" [(ngModel)]="s.isActive">{{
+                  s.service
+                }}</nb-checkbox>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </nb-card-body>
+      <nb-card-footer
+        ><button class="btn btn-primary" (click)="assignServices()">
+          Update
+        </button></nb-card-footer
+      >
+    </nb-card>
+  </div>
+</div>
