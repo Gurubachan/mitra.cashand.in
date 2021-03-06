@@ -1,53 +1,47 @@
-import { Component, OnInit } from '@angular/core';
-
-import {HttpService} from '../../../services/http.service';
-
+import { Component, OnInit } from "@angular/core";
+import { HttpService } from "../../../services/http.service";
 
 @Component({
-  selector: 'ngx-aeps',
-  templateUrl: './aeps.component.html',
-  styleUrls: ['./aeps.component.scss'],
+  selector: "ngx-aeps",
+  templateUrl: "./aeps.component.html",
+  styleUrls: ["./aeps.component.scss"],
 })
 export class AepsComponent implements OnInit {
-  aepsKyc: any = {};
-  states: any;
-  districts: any;
   submitted: boolean = false;
   showMessages: any = {};
   errors: string[] = [];
   messages: string[] = [];
-  constructor(private http: HttpService) { }
-
+  constructor(private http: HttpService) {}
+  myIp: string = null;
   ngOnInit(): void {
-    this.getState();
+    this.getMyIp();
   }
-
-  onFormSubmit() {
-    this.submitted = true;
-    console.log(this.aepsKyc);
-    this.http
-      .post('services/iciciKyc', this.aepsKyc)
-      .subscribe((result: any) => {
+  loadAEPSFrame(url) {
+    let x = document.createElement("IFRAME");
+    x.setAttribute("src", url);
+    let frm = document.getElementById("aeps");
+    frm.appendChild(x);
+  }
+  getMyIp() {
+    /* this.httpClient
+      .get("https://api.ipify.org/?format=json")
+      .subscribe((result) => {
         console.log(result);
-      }, (error) => {
-        this.submitted = false;
-        this.showMessages.error = true;
-        this.errors.push(error);
+      }); */
+    fetch("https://api.ipify.org/?format=json")
+      .then((result) => result.json())
+      .then((data) => {
+        this.http
+          .post("services/initTransaction", { myIp: data.ip })
+          .subscribe((result) => {
+            console.log(result);
+            this.myIp = result.data;
+            let url =
+              "https://icici.bankmitra.org/Location.aspx?text=" +
+              result.data[0].Result;
+           // this.loadAEPSFrame(url);
+           window.open(url, "_blank");
+          });
       });
   }
-  getState() {
-    this.http.get('state').subscribe(result => {
-      this.states = result;
-    });
-  }
-
-  getDistrict(e) {
-    this.http
-      .post('district', {'stateid': e})
-      .subscribe(result => {
-      this.districts = result;
-    });
-  }
-
-
 }

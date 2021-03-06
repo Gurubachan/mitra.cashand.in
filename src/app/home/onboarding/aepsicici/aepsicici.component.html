@@ -21,10 +21,12 @@
     </li>
   </ul>
 </nb-alert>
-<form (ngSubmit)="onFormSubmit()"
-      #aeps="ngForm"
-      aria-labelledby="title"
-      class="form-horizontal ">
+<form
+  (ngSubmit)="onFormSubmit()"
+  #aeps="ngForm"
+  aria-labelledby="title"
+  class="form-horizontal"
+>
   <div class="form-control-group row">
     <div class="col-sm-4">
       <input
@@ -34,11 +36,13 @@
         [(ngModel)]="aepsKyc.shopName"
         #shopName="ngModel"
         pattern="[A-Za-z ]{2,30}"
-        [status]="shopName.dirty ? (shopName.invalid ? 'danger' : 'success') : 'basic'"
+        [status]="
+          shopName.dirty ? (shopName.invalid ? 'danger' : 'success') : 'basic'
+        "
         [required]="true"
         [attr.aria-invalid]="shopName.invalid && shopName.touched ? true : null"
         placeholder="Shop Name"
-      >
+      />
       <ng-container *ngIf="shopName.invalid && shopName.touched">
         <p class="caption status-danger" *ngIf="shopName.errors?.required">
           Shop Name is required!
@@ -56,15 +60,14 @@
         [(ngModel)]="aepsKyc.shopType"
         #shopType="ngModel"
         pattern="[A-Za-z ]{3,30}"
-        [status]="shopType.dirty ? (shopType.invalid ? 'danger' : 'success') : 'basic'"
+        [status]="
+          shopType.dirty ? (shopType.invalid ? 'danger' : 'success') : 'basic'
+        "
         [required]="true"
         [attr.aria-invalid]="shopType.invalid && shopType.touched ? true : null"
         placeholder="Shop Type"
-      >
-      <small>- Kirana Shop
-        - Mobile Shop
-        - Copier Shop
-        - Internet cafe</small>
+      />
+      <small>- Kirana Shop - Mobile Shop - Copier Shop - Internet cafe</small>
       <ng-container *ngIf="shopType.invalid && shopType.touched">
         <p class="caption status-danger" *ngIf="shopType.errors?.required">
           Shop Type is required!
@@ -82,15 +85,20 @@
         [(ngModel)]="aepsKyc.shopLocation"
         #shopLocation="ngModel"
         pattern="[A-Za-z ]{3,30}"
-        [status]="shopLocation.dirty ? (shopLocation.invalid ? 'danger' : 'success') : 'basic'"
+        [status]="
+          shopLocation.dirty
+            ? shopLocation.invalid
+              ? 'danger'
+              : 'success'
+            : 'basic'
+        "
         [required]="true"
-        [attr.aria-invalid]="shopLocation.invalid && shopLocation.touched ? true : null"
+        [attr.aria-invalid]="
+          shopLocation.invalid && shopLocation.touched ? true : null
+        "
         placeholder="Shop Location"
-      >
-      <small>- Rural
-        - Urban
-        - Metro
-        -Semi Urban</small>
+      />
+      <small>- Rural - Urban - Metro -Semi Urban</small>
       <ng-container *ngIf="shopLocation.invalid && shopLocation.touched">
         <p class="caption status-danger" *ngIf="shopLocation.errors?.required">
           Shop Location is required!
@@ -107,12 +115,16 @@
         #state="ngModel"
         name="state"
         id="state"
-        [status]="state.dirty ? (state.invalid ? 'danger' : 'success') : 'basic'"
+        [status]="
+          state.dirty ? (state.invalid ? 'danger' : 'success') : 'basic'
+        "
         [attr.aria-invalid]="state.invalid && state.touched ? true : null"
         [required]="true"
         (selectedChange)="getDistrict($event)"
       >
-        <nb-option value="{{s.stateid}}" *ngFor="let s of states">{{ s.statename }}</nb-option>
+        <nb-option value="{{ s.stateid }}" *ngFor="let s of states">{{
+          s.statename
+        }}</nb-option>
       </nb-select>
     </div>
     <div class="col-sm-3">
@@ -123,12 +135,14 @@
         name="district"
         id="district"
         [status]="
-        district.dirty ? (district.invalid ? 'danger' : 'success') : 'basic'
+          district.dirty ? (district.invalid ? 'danger' : 'success') : 'basic'
         "
         [attr.aria-invalid]="district.invalid && district.touched ? true : null"
         [required]="true"
       >
-        <nb-option value="{{d.districtid}}" *ngFor="let d of districts">{{d.districtname}}</nb-option>
+        <nb-option value="{{ d.districtid }}" *ngFor="let d of districts">{{
+          d.districtname
+        }}</nb-option>
       </nb-select>
     </div>
     <div class="col-sm-3">
@@ -139,9 +153,15 @@
         name="population"
         id="population"
         [status]="
-        population.dirty ? (population.invalid ? 'danger' : 'success') : 'basic'
+          population.dirty
+            ? population.invalid
+              ? 'danger'
+              : 'success'
+            : 'basic'
         "
-        [attr.aria-invalid]="population.invalid && population.touched ? true : null"
+        [attr.aria-invalid]="
+          population.invalid && population.touched ? true : null
+        "
         [required]="true"
       >
         <nb-option value="0 to 2000">0 to 2000</nb-option>
@@ -160,9 +180,15 @@
         name="qualification"
         id="qualification"
         [status]="
-        qualification.dirty ? (qualification.invalid ? 'danger' : 'success') : 'basic'
+          qualification.dirty
+            ? qualification.invalid
+              ? 'danger'
+              : 'success'
+            : 'basic'
         "
-        [attr.aria-invalid]="qualification.invalid && qualification.touched ? true : null"
+        [attr.aria-invalid]="
+          qualification.invalid && qualification.touched ? true : null
+        "
         [required]="true"
       >
         <nb-option value="SSC">SSC</nb-option>
@@ -172,14 +198,51 @@
         <nb-option value="Post Graduate">Post Graduate</nb-option>
       </nb-select>
     </div>
-
+    <div class="col-sm-6">
+      AADHAAR CARD FULL PHOTO <br /><small>Photo size less than 200 kb</small
+      ><br />
+      <img
+        [src]="aadhaarimage"
+        width="50%"
+        (click)="selectImageSource('aadhaarimage')"
+      />
+      <input
+        nbInput
+        type="file"
+        #fileInputAadhaar
+        (change)="uploadFile($event, 'aadhaarimage')"
+        hidden="true"
+        [required]="true"
+        accept="image/*"
+      />
+      <br />
+    </div>
+    <div class="col-sm-6">
+      PAN CARD PHOTO <small><br />Photo size less than 200 kb</small><br />
+      <img
+        [src]="panimage"
+        width="50%"
+        (click)="selectImageSource('panimage')"
+      />
+      <input
+        type="file"
+        nbInput
+        #fileInputPan
+        (change)="uploadFile($event, 'panimage')"
+        hidden="true"
+        [required]="true"
+        accept="image/*"
+      />
+    </div>
+    <span style="color: red" *ngIf="showErrors">{{ showMessage }}</span>
   </div>
   <button
     nbButton
     status="success"
     class="float-right"
     [disabled]="submitted || !aeps.valid"
-    [class.btn-pulse]="submitted">
+    [class.btn-pulse]="submitted"
+  >
     Save
   </button>
 </form>

@@ -5,7 +5,6 @@ import { Router } from "@angular/router";
 import { Idle, DEFAULT_INTERRUPTSOURCES } from "@ng-idle/core";
 import { Keepalive } from "@ng-idle/keepalive";
 import { NbAuthService } from "@nebular/auth";
-import { isDefined } from "@angular/compiler/src/util";
 
 @Component({
   selector: "ngx-home",
@@ -65,7 +64,7 @@ export class HomeComponent implements OnInit {
 
   menu = MENU_ITEMS[parseInt(this.user.role)];
   ngOnInit(): void {
-    console.log(this.user);
+    //console.log(this.user);
   }
 
   reset() {

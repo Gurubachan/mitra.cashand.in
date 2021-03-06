@@ -57,4 +57,9 @@ export class ServiceListComponent implements OnInit {
         this.cd.detectChanges();
       });
   }
+  checkICICIKyc() {
+    this.http.post("services/checkKyc", {}).subscribe((response) => {
+      this.getServices();
+    });
+  }
 }

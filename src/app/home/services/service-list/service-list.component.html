@@ -4,6 +4,7 @@
       <th>Services</th>
       <th>Onboard</th>
       <th>Onboard Status</th>
+      <th>Check Status</th>
     </tr>
   </thead>
   <tbody>
@@ -13,13 +14,36 @@
         <button
           nbButton
           status="success"
-          *ngIf="sl.onBoardRequired && !sl.onboarded"
           (click)="doOnBoarding(i)"
+          *ngIf="sl.onBoardRequired && sl.onboardStatus != 'active'"
         >
           On Board
         </button>
+        <span *ngIf="sl.onBoardRequired && sl.onboarded">{{
+          sl.onBoardReferance
+        }}</span>
       </td>
-      <td>{{ sl.onBoardRequired == 1 ? sl.onboardStatus : "" }}</td>
+      <td>
+        {{
+          sl.onBoardRequired == 1 && sl.onboarded == 0
+            ? sl.onboardStatus
+            : sl.remark
+        }}
+      </td>
+      <td>
+        <button
+          nbButton
+          status="success"
+          (click)="checkICICIKyc()"
+          *ngIf="
+            sl.onboarded == 1 &&
+            sl.onBoardRequired == 1 &&
+            sl.onboardStatus != 'active'
+          "
+        >
+          Check
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>

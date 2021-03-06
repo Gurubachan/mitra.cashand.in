@@ -1,4 +1,12 @@
-import { Component, EventEmitter, OnInit, Output, Input } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  Input,
+  ViewChild,
+  ElementRef,
+} from "@angular/core";
 import { HttpService } from "../../../services/http.service";
 
 @Component({
@@ -48,5 +56,48 @@ export class AepsiciciComponent implements OnInit {
     this.http.post("district", { stateid: e }).subscribe((result) => {
       this.districts = result;
     });
+  }
+  panimage: any = "../../../../assets/images/cs_logo.png";
+  aadhaarimage: any = "../../../../assets/images/cs_logo.png";
+  image: any = "../../../../assets/images/cs_logo.png";
+  showErrors: boolean = false;
+  showMessage: any;
+  uploadFile(event: EventTarget, documentType: string) {
+    const eventObj: MSInputMethodContext = event as MSInputMethodContext;
+    const target: HTMLInputElement = eventObj.target as HTMLInputElement;
+    const file: File = target.files[0];
+    console.log(file.size / 1024);
+    if (file.size / 1024 <= 200) {
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        console.log(e.target.result);
+        this.image = e.target.result;
+
+        if (documentType === "panimage") {
+          this.panimage = this.image;
+          this.aepsKyc.panimage = this.panimage;
+        }
+        if (documentType === "aadhaarimage") {
+          this.aadhaarimage = this.image;
+          this.aepsKyc.aadhaarimage = this.aadhaarimage;
+        }
+        // this.cd.detectChanges();
+      };
+      reader.readAsDataURL(file);
+    } else {
+      this.showErrors = true;
+      this.showMessage = "Image Size greater than 200 KB";
+    }
+  }
+  @ViewChild("fileInputAadhaar", { static: false })
+  fileInputAadhaar: ElementRef;
+  @ViewChild("fileInputPan", { static: false }) fileInputPan: ElementRef;
+  selectImageSource(documentType: string) {
+    if (documentType === "panimage") {
+      this.fileInputPan.nativeElement.click();
+    }
+    if (documentType === "aadhaarimage") {
+      this.fileInputAadhaar.nativeElement.click();
+    }
   }
 }
