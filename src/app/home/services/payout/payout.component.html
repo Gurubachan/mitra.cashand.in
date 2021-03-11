@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col-sm-4">
+    <nb-card size="tiny">
+      <nb-card-header>Account Settlement Details</nb-card-header>
+      <nb-card-body>
+        Bank Name : State Bank Of India<br />
+        Account Number : 20202689570<br />
+        IFSC Code : SBIN0006934<br />
+        Wallet Balance : ₹ 500.00<br />
+        Drawable Balance : ₹ 500.00
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-sm-4">
+    <nb-card size="tiny">
+      <nb-card-header>Setteled to own account</nb-card-header>
+      <nb-card-body>
+        <input
+          nbInput
+          fullWidth
+          type="number"
+          required
+          [ngModel]="wallet.amount"
+        />
+        <nb-select fullWidth [ngModel]="wallet.paymentMode">
+          <nb-option value="1" selected>NEFT</nb-option>
+          <nb-option value="2">IMPS</nb-option>
+        </nb-select>
+        <button
+          nbButton
+          class="btn btn-success"
+          type="submit"
+          (click)="initPayout()"
+          style="float: right"
+        >
+          Payout Initiate
+        </button>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-sm-4">
+    <nb-card size="tiny">
+      <nb-card-header>Settlement Status</nb-card-header>
+      <nb-card-body>
+        Bank Name : State Bank Of India<br />
+        Account Number : 20202689570<br />
+        IFSC Code : SBIN0006934<br />
+        RRN No : 5216890<br />
+        Date : 09-03-2021<br />
+        Status : SUCCESS
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

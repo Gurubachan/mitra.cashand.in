@@ -56,4 +56,10 @@ export class UsersComponent implements OnInit {
   increment(value: number) {
     return (value = value + 1);
   }
+
+  loginUpdate(user) {
+    this.http
+      .post("user/update", { id: user.id, loginAllowed: user.loginAllowed })
+      .subscribe((result) => {});
+  }
 }

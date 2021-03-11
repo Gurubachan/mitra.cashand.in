@@ -14,6 +14,9 @@ import {
   NbMenuModule,
   NbTabsetModule,
   NbToggleModule,
+  NbPopoverModule,
+  NbTooltipModule,
+  NbSpinnerModule,
 } from "@nebular/theme";
 import { ThemeModule } from "../@theme/theme.module";
 
@@ -27,6 +30,7 @@ import { AdminProfileComponent } from "./backoffice/admin-profile/admin-profile.
 import { UsersComponent } from "./users/users.component";
 import { FormsModule } from "@angular/forms";
 import { ViewProfileComponent } from "./users/view-profile/view-profile.component";
+import { RetailerDashboardComponent } from "./backoffice/retailer-dashboard/retailer-dashboard.component";
 
 @NgModule({
   declarations: [
@@ -37,6 +41,7 @@ import { ViewProfileComponent } from "./users/view-profile/view-profile.componen
     AdminProfileComponent,
     UsersComponent,
     ViewProfileComponent,
+    RetailerDashboardComponent,
   ],
   imports: [
     NbActionsModule,
@@ -57,6 +62,9 @@ import { ViewProfileComponent } from "./users/view-profile/view-profile.componen
     ComponentModule,
     FormsModule,
     NbToggleModule,
+    NbPopoverModule,
+    NbTooltipModule,
+    NbSpinnerModule,
   ],
 })
 export class HomeModule {}

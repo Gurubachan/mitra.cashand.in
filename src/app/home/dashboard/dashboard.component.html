@@ -1,11 +1,6 @@
-<nb-card>
-  <nb-card-header>{{ title }}</nb-card-header>
-  <nb-card-body>
-    <div *ngIf="user.role == 4">
-      <p>Retailer Dashboard</p>
-    </div>
-    <div *ngIf="user.role == 9">
-      <ngx-admin-dashboard></ngx-admin-dashboard>
-    </div>
-  </nb-card-body>
-</nb-card>
+<div *ngIf="user.role == 4">
+  <ngx-retailer-dashboard></ngx-retailer-dashboard>
+</div>
+<div *ngIf="user.role == 9">
+  <ngx-admin-dashboard></ngx-admin-dashboard>
+</div>

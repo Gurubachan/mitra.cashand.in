@@ -15,6 +15,7 @@ import {
   NbButtonModule,
   NbCheckboxModule,
   NbInputModule,
+  NbSpinnerModule,
 } from "@nebular/theme";
 import { LoginComponent } from "./login/login.component";
 import { RequestPasswordComponent } from "./request-password/request-password.component";
@@ -40,6 +41,7 @@ import { LogoutComponent } from "./logout/logout.component";
     NbInputModule,
     NbButtonModule,
     NbCheckboxModule,
+    NbSpinnerModule,
     NbAuthModule.forRoot({
       forms: {
         login: {

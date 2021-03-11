@@ -106,6 +106,7 @@
     status="success"
     [disabled]="submitted || !form.valid"
     [class.btn-pulse]="submitted"
+    [nbSpinner]="loading" nbSpinnerStatus="danger"
   >
     Sign In
   </button>

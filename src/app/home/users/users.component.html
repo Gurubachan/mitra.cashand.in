@@ -45,7 +45,7 @@
             <nb-toggle
               status="success"
               [checked]="user.loginAllowed == '1' ? 'true' : 'false'"
-              (change)="test(user)"
+              (change)="loginUpdate(user)"
               [(ngModel)]="user.loginAllowed"
             ></nb-toggle>
           </td>
@@ -65,4 +65,3 @@
     </table>
   </nb-card-body>
 </nb-card>
-

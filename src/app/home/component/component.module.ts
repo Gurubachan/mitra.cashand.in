@@ -20,6 +20,7 @@ import { KycdialogComponent } from "./kycdialog/kycdialog.component";
 import { OnboardingModule } from "../onboarding/onboarding.module";
 import { VerifyComponent } from "./verify/verify.component";
 import { ServiceListComponent } from "../services/service-list/service-list.component";
+import { MoreviewComponent } from './popover/moreview/moreview.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { ServiceListComponent } from "../services/service-list/service-list.comp
     KycdialogComponent,
     VerifyComponent,
     ServiceListComponent,
+    MoreviewComponent,
   ],
   imports: [
     CommonModule,

@@ -29,6 +29,7 @@ export class LoginComponent extends NbLoginComponent {
 
   // user: { contact: bigint; password: string };
   user: any = {};
+  loading = false;
 
   submitted: boolean = false;
   socialLinks: NbAuthSocialLink[];
@@ -54,11 +55,12 @@ export class LoginComponent extends NbLoginComponent {
     this.errors = [];
     this.messages = [];
     this.submitted = true;
-
+    this.loading = true;
     this.service
       .authenticate(this.strategy, this.user)
       .subscribe((result: NbAuthResult) => {
         this.submitted = false;
+        this.loading = false;
         console.log(result.getResponse());
         if (result.isSuccess()) {
           // console.log(result.getToken().token);

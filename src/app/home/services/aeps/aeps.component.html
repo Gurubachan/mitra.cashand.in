@@ -1,8 +1,21 @@
-<nb-card>
-  <nb-card-header>AEPS</nb-card-header>
-  <nb-card-body>
-    <div class="row">
-      <div class="col-sm-12" id="aeps"></div>
-    </div>
-  </nb-card-body>
-</nb-card>
+<div class="row">
+  <div class="col-sm-4">
+    <nb-card (click)="openICICI()">
+      <nb-card-body>
+        <img [src]="iciciAEPS" style="width: 100%; height: 100px" />
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-sm-4">
+    <nb-card (click)="openRBL()">
+      <nb-card-body>
+        <img [src]="rblAEPS" style="width: 100%; height: 100px" />
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-sm-4"></div>
+</div>
+
+<nb-alert status="{{ sts }}" closable (close)="closed = true" *ngIf="!closed">{{
+  message
+}}</nb-alert>

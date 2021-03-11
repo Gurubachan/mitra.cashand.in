@@ -15,6 +15,7 @@ import {
   NbSelectModule,
 } from "@nebular/theme";
 import { FormsModule } from "@angular/forms";
+import { PayoutComponent } from './payout/payout.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { FormsModule } from "@angular/forms";
     AepsComponent,
     RechargeComponent,
     DmtComponent,
+    PayoutComponent,
   ],
   imports: [
     CommonModule,

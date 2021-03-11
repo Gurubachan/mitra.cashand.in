@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+
+import * as $ from "jquery";
 import { HttpService } from "../../../services/http.service";
 
 @Component({
@@ -11,37 +13,45 @@ export class AepsComponent implements OnInit {
   showMessages: any = {};
   errors: string[] = [];
   messages: string[] = [];
-  constructor(private http: HttpService) {}
   myIp: string = null;
-  ngOnInit(): void {
+  closed = true;
+  sts: string = "success";
+  iciciAEPS: any = "../../../../assets/images/ICICIAeps.png";
+  rblAEPS: any = "../../../../assets/images/RBLAeps.png";
+  constructor(private http: HttpService) {}
+  ngOnInit(): void {}
+  openICICI() {
     this.getMyIp();
   }
-  loadAEPSFrame(url) {
-    let x = document.createElement("IFRAME");
-    x.setAttribute("src", url);
-    let frm = document.getElementById("aeps");
-    frm.appendChild(x);
-  }
+  openRBL() {}
+  url: any = null;
+  message: string = "Fetching IP address.";
   getMyIp() {
-    /* this.httpClient
-      .get("https://api.ipify.org/?format=json")
-      .subscribe((result) => {
-        console.log(result);
-      }); */
+    this.closed = false;
+    this.sts = "success";
     fetch("https://api.ipify.org/?format=json")
       .then((result) => result.json())
       .then((data) => {
-        this.http
-          .post("services/initTransaction", { myIp: data.ip })
-          .subscribe((result) => {
+        this.message = "Authenticate with bank server.";
+        this.http.post("services/initTransaction", { myIp: data.ip }).subscribe(
+          (result) => {
             console.log(result);
             this.myIp = result.data;
-            let url =
+            this.url =
               "https://icici.bankmitra.org/Location.aspx?text=" +
               result.data[0].Result;
-           // this.loadAEPSFrame(url);
-           window.open(url, "_blank");
-          });
+            //$("#aeps").load(this.url);
+            // this.loadAEPSFrame(url);
+            this.message =
+              "You have been successfully authenticated and redirect to bank end.!";
+            window.open(this.url, "_blank");
+          },
+          (err) => {
+            this.sts = "danger";
+            this.message = err.error.message;
+            console.log(err.error.message);
+          }
+        );
       });
   }
 }
