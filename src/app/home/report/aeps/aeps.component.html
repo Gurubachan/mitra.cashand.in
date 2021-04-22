@@ -1,0 +1,33 @@
+<nb-card>
+  <nb-card-header>Trasaction Details</nb-card-header>
+  <nb-card-body>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>TXN ID</th>
+          <th>Bank</th>
+          <th>Amount</th>
+          <th>Type</th>
+          <th>RRN</th>
+          <th>STAN NO</th>
+          <th>Aadhar</th>
+          <th>Status</th>
+          <th>Remark</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of transactions">
+          <td>{{ t.id }}</td>
+          <td>{{ t.bankName }}</td>
+          <td>{{ t.amount }}</td>
+          <td>{{ t.txnType }}</td>
+          <td>{{ t.rrn }}</td>
+          <td>{{ t.stanNo }}</td>
+          <td>{{ t.aadhar }}</td>
+          <td>{{ t.status }}</td>
+          <td>{{ t.bank_response_message }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </nb-card-body>
+</nb-card>

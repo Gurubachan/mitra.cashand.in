@@ -1,4 +1,20 @@
 <div class="p-4">
-  <a class="btn btn-link" (click)="payout()"> Withdrawal Money </a>
-  <button type="submit" class="btn btn-link">View Statement</button>
+  <nb-user
+    size="large"
+    name="Withdrawal Money"
+    title="transfer wallet money to your linked account."
+    picture="https://open-frontend-bucket.s3.ap-south-1.amazonaws.com/open-money/icons/dashboard/withdraw-money.svg"
+    (click)="payout()"
+  >
+  </nb-user>
+  <nb-user
+    size="large"
+    name="View Statement"
+    title="Your wallet credit debit report."
+    picture="https://open-frontend-bucket.s3.ap-south-1.amazonaws.com/open-money/icons/dashboard/view-statement.svg"
+    (click)="viewStatement()"
+  >
+  </nb-user>
+  <!-- <a class="btn btn-link" (click)="payout()"><img src="https://open-frontend-bucket.s3.ap-south-1.amazonaws.com/open-money/icons/dashboard/withdraw-money.svg"> Withdrawal Money </a><br /> -->
+  <!-- <a class="btn btn-link" (click)="viewStatement()">View Statement</a> -->
 </div>

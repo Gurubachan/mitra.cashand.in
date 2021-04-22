@@ -1,5 +1,5 @@
 <div *ngIf="user.role == 4">
-  <ngx-retailer-dashboard></ngx-retailer-dashboard>
+  <ngx-retailer-dashboard [user]="user"></ngx-retailer-dashboard>
 </div>
 <div *ngIf="user.role == 9">
   <ngx-admin-dashboard></ngx-admin-dashboard>

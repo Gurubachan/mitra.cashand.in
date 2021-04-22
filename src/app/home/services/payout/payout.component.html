@@ -1,53 +1,148 @@
 <div class="row">
+  <div class="col-12">
+    <nb-alert
+      *ngIf="showMessages.error && errors?.length && !submitted"
+      outline="danger"
+      role="alert"
+    >
+      <p class="alert-title"><b>Oh snap!</b></p>
+      <ul class="alert-message-list">
+        <li *ngFor="let error of errors" class="alert-message">{{ error }}</li>
+      </ul>
+    </nb-alert>
+
+    <nb-alert
+      *ngIf="showMessages.success && messages?.length && !submitted"
+      outline="success"
+      role="alert"
+    >
+      <p class="alert-title"><b>Hooray!</b></p>
+      <ul class="alert-message-list">
+        <li *ngFor="let message of messages" class="alert-message">
+          {{ message }}
+        </li>
+      </ul>
+    </nb-alert>
+  </div>
+
   <div class="col-sm-4">
     <nb-card size="tiny">
       <nb-card-header>Account Settlement Details</nb-card-header>
       <nb-card-body>
-        Bank Name : State Bank Of India<br />
-        Account Number : 20202689570<br />
-        IFSC Code : SBIN0006934<br />
-        Wallet Balance : ₹ 500.00<br />
-        Drawable Balance : ₹ 500.00
+        Bank Name : {{ user.bankname }}<br />
+        Account Number : {{ user.accountNo }}<br />
+        IFSC Code : {{ user.ifsc }}<br />
+        Wallet Balance : ₹ {{ myBalance }}<br />
+        Drawable Balance : ₹ {{ drawableBalance }}
+        <p *ngIf="!user.isBankAccountVerified" class="text-danger">
+          Bank account not verified.
+        </p>
       </nb-card-body>
     </nb-card>
   </div>
   <div class="col-sm-4">
-    <nb-card size="tiny">
+    <nb-card size="tiny" [nbSpinner]="loading">
       <nb-card-header>Setteled to own account</nb-card-header>
-      <nb-card-body>
-        <input
-          nbInput
-          fullWidth
-          type="number"
-          required
-          [ngModel]="wallet.amount"
-        />
-        <nb-select fullWidth [ngModel]="wallet.paymentMode">
-          <nb-option value="1" selected>NEFT</nb-option>
-          <nb-option value="2">IMPS</nb-option>
-        </nb-select>
-        <button
-          nbButton
-          class="btn btn-success"
-          type="submit"
-          (click)="initPayout()"
-          style="float: right"
-        >
-          Payout Initiate
+      <nb-card-body
+        *ngIf="user.isBankAccountVerified && drawableBalance > 5000"
+      >
+        <form (ngSubmit)="initPayout()" #form="ngForm" aria-labelledby="title">
+          <div class="form-control-group">
+            <nb-select
+              fullWidth
+              [(ngModel)]="wallet.txnMedium"
+              #txnMedium="ngModel"
+              name="txnMedium"
+              id="txnMedium"
+              [status]="
+                txnMedium.dirty
+                  ? txnMedium.invalid
+                    ? 'danger'
+                    : 'success'
+                  : 'basic'
+              "
+              [attr.aria-invalid]="
+                txnMedium.invalid && txnMedium.touched ? true : null
+              "
+              [required]="true"
+              placeholder="Select payment mode."
+            >
+              <nb-option value="2" selected>NEFT</nb-option>
+              <nb-option value="4">IMPS</nb-option>
+            </nb-select>
+          </div>
+          <div class="form-control-group">
+            <input
+              nbInput
+              fullWidth
+              type="number"
+              [required]="true"
+              [(ngModel)]="wallet.amount"
+              min="5000"
+              max="{{ drawableBalance }}"
+              [status]="
+                amount.dirty ? (amount.invalid ? 'danger' : 'success') : 'basic'
+              "
+              #amount="ngModel"
+              name="amount"
+              id="input-amount"
+              [attr.aria-invalid]="
+                amount.invalid && amount.touched ? true : null
+              "
+              placeholder="Enter amount between 5000 and {{ drawableBalance }}"
+            />
+
+            <ng-container *ngIf="amount.invalid && amount.touched">
+              <p class="caption status-danger" *ngIf="amount.errors?.required">
+                Amount must required for payout!
+              </p>
+              <p
+                class="caption status-danger"
+                *ngIf="amount.errors?.min || amount.errors?.max"
+              >
+                Amount should contains from 5000 to
+                {{ drawableBalance }}
+              </p>
+            </ng-container>
+          </div>
+
+          <button
+            nbButton
+            class="btn btn-success"
+            type="submit"
+            style="float: right"
+            [disabled]="submitted || form.invalid"
+            [class.btn-pulse]="submitted"
+          >
+            Payout Initiate
+          </button>
+        </form>
+      </nb-card-body>
+      <nb-card-body *ngIf="!user.isBankAccountVerified">
+        <button class="btn btn-success" (click)="verifyAccount()">
+          Verify your account
         </button>
       </nb-card-body>
     </nb-card>
   </div>
   <div class="col-sm-4">
     <nb-card size="tiny">
-      <nb-card-header>Settlement Status</nb-card-header>
       <nb-card-body>
-        Bank Name : State Bank Of India<br />
-        Account Number : 20202689570<br />
-        IFSC Code : SBIN0006934<br />
-        RRN No : 5216890<br />
-        Date : 09-03-2021<br />
-        Status : SUCCESS
+        Bank Name : {{ bankSettlement?.bankName }}<br />
+        Account Number : {{ bankSettlement?.bene_account }}<br />
+        IFSC Code : {{ bankSettlement?.ifsc }}<br />
+        Amount : {{ bankSettlement?.amount }}<br />
+        RRN No : {{ bankSettlement?.txnId }}<br />
+        Date : {{ bankSettlement?.txnTime }}<br />
+        Status : {{ bankSettlement?.status }} &nbsp;
+        <nb-icon
+          icon="refresh-outline"
+          (click)="checkStatus()"
+          *ngIf="
+            bankSettlement?.status == 'initiated' &&
+            bankSettlement?.txnType != 'BV'
+          "
+        ></nb-icon>
       </nb-card-body>
     </nb-card>
   </div>

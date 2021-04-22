@@ -1,16 +1,20 @@
 <div class="row" *ngIf="!showForm">
+   <div class="col-sm-12" *ngIf="!bank.isBankAccountVerified">
+    <p class="text-danger text-center">Account details Verification pending.</p>
+  </div>
   <div class="col-sm-3">Bank Name: {{ bank.bankname }}</div>
   <div class="col-sm-3">IFSC Code: {{ bank.ifsc }}</div>
   <div class="col-sm-3">Account No: {{ bank.accountNo }}</div>
   <div class="col-sm-3">
-    <img [src]="passbookImage" width="100%" />
+    <img [src]="passbookImage" width="50%" height="50%" />
   </div>
+ 
 </div>
 <button
   type="button"
   class="btn btn-primary fa-pull-right"
   (click)="edit()"
-  *ngIf="!showForm"
+  *ngIf="!showForm && !bank.isBankAccountVerified"
 >
   Edit
 </button>

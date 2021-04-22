@@ -56,12 +56,11 @@ export class LoginComponent extends NbLoginComponent {
     this.messages = [];
     this.submitted = true;
     this.loading = true;
-    this.service
-      .authenticate(this.strategy, this.user)
-      .subscribe((result: NbAuthResult) => {
+    this.service.authenticate(this.strategy, this.user).subscribe(
+      (result: NbAuthResult) => {
         this.submitted = false;
         this.loading = false;
-        console.log(result.getResponse());
+        //console.log(result.getResponse());
         if (result.isSuccess()) {
           // console.log(result.getToken().token);
           /* let encr = this.EncrDecr.set(
@@ -76,8 +75,9 @@ export class LoginComponent extends NbLoginComponent {
           /*console.log(this.EncrDecr.get(encr));*/
           this.messages = result.getMessages();
         } else {
+          // console.log(result.getErrors());
           //this.errors = result.getErrors();
-          this.errors = result.getResponse().error.errors;
+          this.errors = result.getErrors();
         }
 
         const redirect = result.getRedirect();
@@ -87,7 +87,12 @@ export class LoginComponent extends NbLoginComponent {
           }, this.redirectDelay);
         }
         this.cd.detectChanges();
-      });
+      },
+      (err) => {
+        alert(err.message);
+        console.log(err.message);
+      }
+    );
   }
 
   getConfigValue(key: string): any {

@@ -11,11 +11,13 @@ import {
   NbButtonModule,
   NbCardModule,
   NbCheckboxModule,
+  NbIconModule,
   NbInputModule,
   NbSelectModule,
+  NbSpinnerModule,
 } from "@nebular/theme";
 import { FormsModule } from "@angular/forms";
-import { PayoutComponent } from './payout/payout.component';
+import { PayoutComponent } from "./payout/payout.component";
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { PayoutComponent } from './payout/payout.component';
     NbButtonModule,
     NbAlertModule,
     NbCheckboxModule,
+    NbSpinnerModule,
+    NbIconModule,
   ],
 })
 export class ServicesModule {}

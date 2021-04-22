@@ -36,26 +36,28 @@ export class ServiceListComponent implements OnInit {
   }
 
   doOnBoarding(index) {
-    this.dialogService
-      .open(KycdialogComponent, {
-        autoFocus: false,
-        backdropClass: "",
-        closeOnBackdropClick: false,
-        closeOnEsc: false,
-        dialogClass: "",
-        hasScroll: false,
-        viewContainerRef: undefined,
-        hasBackdrop: false,
-        context: {
-          title: "Service On Boarding Form",
-          type: this.serviceList[index],
-          data: null,
-        },
-      })
-      .onClose.subscribe((response) => {
-        this.modalResponse = response;
-        this.cd.detectChanges();
-      });
+    if (this.serviceList[index].serviceId == 1) {
+      this.dialogService
+        .open(KycdialogComponent, {
+          autoFocus: false,
+          backdropClass: "",
+          closeOnBackdropClick: false,
+          closeOnEsc: false,
+          dialogClass: "",
+          hasScroll: false,
+          viewContainerRef: undefined,
+          hasBackdrop: false,
+          context: {
+            title: "Service On Boarding Form",
+            type: this.serviceList[index],
+            data: null,
+          },
+        })
+        .onClose.subscribe((response) => {
+          this.modalResponse = response;
+          this.cd.detectChanges();
+        });
+    }
   }
   checkICICIKyc() {
     this.http.post("services/checkKyc", {}).subscribe((response) => {

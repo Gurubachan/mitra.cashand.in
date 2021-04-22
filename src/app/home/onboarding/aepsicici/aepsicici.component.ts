@@ -37,12 +37,13 @@ export class AepsiciciComponent implements OnInit {
     console.log(this.aepsKyc);
     this.http.post("services/iciciKyc", this.aepsKyc).subscribe(
       (result: any) => {
+        this.submitted = false;
         this.kycOnBoardedStatus.emit(result);
       },
       (error) => {
         this.submitted = false;
         this.showMessages.error = true;
-        this.errors.push(error);
+        this.errors.push(error.error.message);
       }
     );
   }

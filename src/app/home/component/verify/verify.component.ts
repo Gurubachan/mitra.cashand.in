@@ -70,7 +70,7 @@ export class VerifyComponent implements OnInit {
   }
 
   getServices() {
-    this.http.get("services/service").subscribe((result) => {
+    this.http.get("services/service/" + this.office.id).subscribe((result) => {
       if (result.response) {
         this.services = result.data;
       }

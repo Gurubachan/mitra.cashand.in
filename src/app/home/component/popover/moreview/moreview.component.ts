@@ -14,4 +14,7 @@ export class MoreviewComponent implements OnInit {
   payout() {
     this.router.navigateByUrl("services/payout");
   }
+  viewStatement() {
+    this.router.navigateByUrl("reports/statement");
+  }
 }

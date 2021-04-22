@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Input,
   OnInit,
 } from "@angular/core";
 import { HttpService } from "../../../services/http.service";
@@ -18,6 +19,7 @@ export class RetailerDashboardComponent implements OnInit {
   loadingMessage: String = "Fetching account balance.";
   formComponent = MoreviewComponent;
   myBalance = 0;
+  @Input() user: any;
   ngOnInit() {
     this.loadWalletBalance();
   }

@@ -1,19 +1,29 @@
 <div class="row" *ngIf="!showForm">
   <div class="col-sm-6">
-    Pan Number : {{ kyc.panNo }}<br>
-    <img [src]="panimage" width="50%" >
+    Pan Number : {{ kyc.panNo }}<br />
+    <span *ngIf="!kyc.isPanVerified" class="text-danger"
+      >PAN Number Not Verified</span
+    ><br />
+    <img [src]="panimage" width="50%" height="50%" />
   </div>
   <div class="col-sm-6">
-    Aadhar Number : {{kyc.aadhaar}}<br>
-    <img [src]="aadhaarimage" width="50%" >
+    Aadhar Number : {{ kyc.aadhaar }}<br />
+    <span *ngIf="!kyc.isAadhaarnVerified" class="text-danger"
+      >Aadhar Document Not Verified</span
+    ><br />
+    <img [src]="aadhaarimage" width="50%" height="50%" />
+    <br />
   </div>
 </div>
 
-<button type="button"
-        class="btn btn-primary fa-pull-right"
-        (click)="edit()"
-        *ngIf="!showForm"
->Edit</button>
+<button
+  type="button"
+  class="btn btn-primary fa-pull-right"
+  (click)="edit()"
+  *ngIf="!showForm && !kyc.isPanVerified && !kyc.isAadhaarnVerified"
+>
+  Edit
+</button>
 <div class="container-fluid" *ngIf="showForm">
   <nb-alert
     *ngIf="showMessages.error && errors?.length && !submitted"
@@ -38,11 +48,13 @@
       </li>
     </ul>
   </nb-alert>
-  <form (ngSubmit)="onFormSubmit()"
-        #kycform="ngForm"
-        aria-labelledby="title"
-        class="form-horizontal row">
-    <div class="form-control-group  col-sm-4">
+  <form
+    (ngSubmit)="onFormSubmit()"
+    #kycform="ngForm"
+    aria-labelledby="title"
+    class="form-horizontal row"
+  >
+    <div class="form-control-group col-sm-4">
       <label class="label" for="input-pannumber">Pan Number:</label>
       <input
         nbInput
@@ -55,37 +67,41 @@
         placeholder="Enter Pan Number"
         autofocus
         [status]="
-        pannumber.dirty ? (pannumber.invalid ? 'danger' : 'success') : 'basic'
-      "
+          pannumber.dirty ? (pannumber.invalid ? 'danger' : 'success') : 'basic'
+        "
         [required]="true"
-        [attr.aria-invalid]="pannumber.invalid && pannumber.touched ? true : null"
+        [attr.aria-invalid]="
+          pannumber.invalid && pannumber.touched ? true : null
+        "
       />
       <ng-container *ngIf="pannumber.invalid && pannumber.touched">
         <p class="caption status-danger" *ngIf="pannumber.errors?.required">
-         Pan number required.
+          Pan number required.
         </p>
         <p class="caption status-danger" *ngIf="pannumber.errors?.pattern">
-          Pan Number must be start with 5 character followed by 4 number and at last 1 character.
+          Pan Number must be start with 5 character followed by 4 number and at
+          last 1 character.
         </p>
       </ng-container>
     </div>
     <div class="form-control-group col-sm-2">
-      <label class="label">Pan Image : </label><br>
+      <label class="label">Pan Image : </label><br />
       <img
         [src]="panimage"
         width="50%"
-        (click)="selectImageSource('panimage')">
+        (click)="selectImageSource('panimage')"
+      />
       <input
         type="file"
         nbInput
         #fileInputPan
-        (change)="uploadFile($event,'panimage')"
+        (change)="uploadFile($event, 'panimage')"
         hidden="true"
         [required]="true"
         accept="image/*"
       />
     </div>
-    <div class="form-control-group  col-sm-4">
+    <div class="form-control-group col-sm-4">
       <label class="label" for="input-aadhaarnumber">Aadhaar Number:</label>
       <input
         nbInput
@@ -98,10 +114,16 @@
         placeholder="Enter Aadhaar Number"
         autofocus
         [status]="
-        aadhaarnumber.dirty ? (aadhaarnumber.invalid ? 'danger' : 'success') : 'basic'
-      "
+          aadhaarnumber.dirty
+            ? aadhaarnumber.invalid
+              ? 'danger'
+              : 'success'
+            : 'basic'
+        "
         [required]="true"
-        [attr.aria-invalid]="aadhaarnumber.invalid && aadhaarnumber.touched ? true : null"
+        [attr.aria-invalid]="
+          aadhaarnumber.invalid && aadhaarnumber.touched ? true : null
+        "
       />
       <ng-container *ngIf="aadhaarnumber.invalid && aadhaarnumber.touched">
         <p class="caption status-danger" *ngIf="aadhaarnumber.errors?.required">
@@ -113,16 +135,17 @@
       </ng-container>
     </div>
     <div class="form-control-group col-sm-2">
-      <label class="label">Aadhaar Image: </label><br>
+      <label class="label">Aadhaar Image: </label><br />
       <img
         [src]="aadhaarimage"
         width="50%"
-        (click)="selectImageSource('aadhaarimage')">
+        (click)="selectImageSource('aadhaarimage')"
+      />
       <input
         nbInput
         type="file"
         #fileInputAadhaar
-        (change)="uploadFile($event,'aadhaarimage')"
+        (change)="uploadFile($event, 'aadhaarimage')"
         hidden="true"
         [required]="true"
         accept="image/*"
@@ -134,7 +157,9 @@
           type="button"
           class="btn btn-danger btn-block"
           (click)="reset()"
-        >Reset</button>
+        >
+          Reset
+        </button>
       </div>
       <div class="col-sm-4"></div>
       <div class="col-sm-4">
@@ -143,11 +168,11 @@
           fullWidth
           status="success"
           [disabled]="submitted || !kycform.valid"
-          [class.btn-pulse]="submitted">
+          [class.btn-pulse]="submitted"
+        >
           Save
         </button>
       </div>
     </div>
   </form>
-
 </div>

@@ -22,30 +22,21 @@
             nbPopoverPlacement="bottom"
           ></nb-icon>
         </h2>
+        <div style="background-color: #f5f6f8">
+          <div class="row" style="padding: 10px">
+            <div class="col-6">Bank : {{ user.bankname }}</div>
+            <div class="col-6">A/C No : {{ user.accountNo }}</div>
+            <div class="col-6">IFSC Code : {{ user.ifsc }}</div>
+            <div class="col-6"></div>
+          </div>
+        </div>
       </nb-card-body>
     </nb-card>
   </div>
   <div class="col-sm-4">
-    <nb-card style="text-align: center" status="success">
-      <nb-card-header>Transaction Summary</nb-card-header>
-      <nb-card-body>
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>Service</th>
-              <th>Count</th>
-              <th>Amount</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>AEPS</td>
-              <td>1</td>
-              <td>500</td>
-            </tr>
-          </tbody>
-        </table>
-      </nb-card-body>
+    <nb-card style="text-align: center" status="success" size="large">
+      <nb-card-header status="success">News and Updates</nb-card-header>
+      <nb-card-body> </nb-card-body>
     </nb-card>
   </div>
 </div>
