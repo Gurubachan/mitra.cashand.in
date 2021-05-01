@@ -168,6 +168,20 @@ menus[9] = [
       },
     ],
   },
+  {
+    title: "Reports",
+    icon: "person-add-outline",
+    children: [
+      {
+        title: "Wallet",
+        link: "/reports/statement",
+      },
+      {
+        title: "Users Service",
+        link: "/member/service",
+      },
+    ],
+  },
 ];
 export const MENU_ITEMS: NbMenuItem[] = menus;
 

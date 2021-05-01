@@ -40,4 +40,16 @@ export class WalletComponent implements OnInit {
       }
     );
   }
+
+  goToPage(url: string) {
+    this.loading = true;
+    let param = url.split("?");
+    console.log(param);
+    this.http.post("wallet/statement" + "?" + param[1],null).subscribe((res) => {
+      if (res.response) {
+        this.wallet = res.data;
+        this.loading = false;
+      }
+    });
+  }
 }

@@ -18,18 +18,43 @@ export class AepsComponent implements OnInit {
   sts: string = "success";
   iciciAEPS: any = "../../../../assets/images/ICICIAeps.png";
   rblAEPS: any = "../../../../assets/images/RBLAeps.png";
+
+  url: any = null;
+  message: string = "Checking system configuration.";
+
   constructor(private http: HttpService) {}
   ngOnInit(): void {}
   openICICI() {
-    this.getMyIp();
-  }
-  openRBL() {}
-  url: any = null;
-  message: string = "Fetching IP address.";
-  getMyIp() {
+    //this.getMyIp();
     this.closed = false;
     this.sts = "success";
-    fetch("https://api.ipify.org/?format=json")
+    this.message = "Authenticate with bank server.";
+    this.http.post("services/initTransaction", {}).subscribe(
+      (result) => {
+        console.log(result);
+        this.myIp = result.data;
+        this.url =
+          "https://icici.bankmitra.org/Location.aspx?text=" +
+          result.data[0].Result;
+        //$("#aeps").load(this.url);
+        // this.loadAEPSFrame(url);
+        this.message =
+          "You have been successfully authenticated and redirect to bank end.!";
+        window.open(this.url, "_blank");
+      },
+      (err) => {
+        this.sts = "danger";
+        this.message = err.error.message;
+        console.log(err.error.message);
+      }
+    );
+  }
+  openRBL() {}
+
+  /* getMyIp() {
+    this.closed = false;
+    this.sts = "success";
+    fetch("https://api64.ipify.org/?format=json")
       .then((result) => result.json())
       .then((data) => {
         this.message = "Authenticate with bank server.";
@@ -53,5 +78,5 @@ export class AepsComponent implements OnInit {
           }
         );
       });
-  }
+  } */
 }

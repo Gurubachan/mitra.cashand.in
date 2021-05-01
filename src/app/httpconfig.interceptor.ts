@@ -43,7 +43,7 @@ export class HttpconfigInterceptor implements HttpInterceptor {
           retry(0),
           catchError((error: HttpErrorResponse) => {
             let errors = "";
-            console.log(error);
+           // console.log(error);
             if (error.error instanceof ErrorEvent) {
               // client-side error
               errors = `Error: ${error.error.message}`;
@@ -51,12 +51,12 @@ export class HttpconfigInterceptor implements HttpInterceptor {
               // server-side error
               if (error.status > 0) {
                 // console.log(error.error.response);
-                errors = `Error Status: ${error.status}\nMessage: ${error.error.message}`;
+                errors = `${error.status}\n Message: ${error.error.message}`;
               } else {
-                errors = `Error Status: ${error.status}\nMessage: ${error.statusText}`;
+                errors = `${error.status}\n Message: ${error.statusText}`;
               }
             }
-            console.log(errors);
+           // console.log(errors);
             this.toast.showToast(errors, error.name, "danger");
             return throwError(errors);
           })

@@ -1,5 +1,76 @@
 <nb-card>
-  <nb-card-header>Trasaction Details</nb-card-header>
+  <nb-card-header>Filter Form</nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-sm-3">
+        <input
+          nbInput
+          placeholder="From Date"
+          [nbDatepicker]="formcontrol"
+          [formControl]="formControl"
+          required
+          readOnly
+        />
+        <nb-datepicker
+          #formcontrol
+          format="dd-MM-yyyy"
+          [min]="frommin"
+          [max]="frommax"
+          (dateChange)="setMaxdate($event)"
+        ></nb-datepicker>
+      </div>
+      <div class="col-sm-3">
+        <input
+          nbInput
+          placeholder="To Picker"
+          [nbDatepicker]="ngmodel"
+          [(ngModel)]="ngModelDate"
+          required
+          readOnly
+        />
+        <nb-datepicker
+          #ngmodel
+          format="dd-MM-yyyy"
+          [max]="tomax"
+          [min]="tomin"
+        ></nb-datepicker>
+      </div>
+      <div class="col-sm-3">
+        <nb-select
+          placeholder="Select Txn Type"
+          [(selected)]="selectedTxnType"
+          required
+        >
+          <nb-option value="all">All Transaction</nb-option>
+          <nb-option value="BE">Balance Enquery</nb-option>
+          <nb-option value="MS">Mini Statement</nb-option>
+          <nb-option value="CW">Cash Withdrawal</nb-option>
+          <nb-option value="AP">Aadhaar Pay</nb-option>
+        </nb-select>
+      </div>
+      <div class="col-sm-3">
+        <nb-select
+          placeholder="Select Txn Status"
+          [(selected)]="selectedTxnStatus"
+          required
+        >
+          <nb-option value="all">All Status</nb-option>
+          <nb-option value="SUCCESS">Successful</nb-option>
+          <nb-option value="FAILURE">Failure</nb-option>
+          <nb-option value="PENDING">Pending</nb-option>
+          <nb-option value="INITIATED">Initiated</nb-option>
+        </nb-select>
+      </div>
+      <div class="col-sm-12 text-center">
+        <button nbButton status="success" (click)="fetchTransaction()">
+          Search
+        </button>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
+<nb-card [nbSpinner]="loading">
+  <nb-card-header>AEPS Trasaction Details</nb-card-header>
   <nb-card-body>
     <table class="table table-hover">
       <thead>
@@ -16,8 +87,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let t of transactions">
-          <td>{{ t.id }}</td>
+        <tr *ngFor="let t of transactions?.data">
+          <td>
+            {{ t.id }}<br />
+            {{ t.checkAEPSTxnStatus_response.trnx_date }}
+          </td>
           <td>{{ t.bankName }}</td>
           <td>{{ t.amount }}</td>
           <td>{{ t.txnType }}</td>
@@ -29,5 +103,22 @@
         </tr>
       </tbody>
     </table>
+    <button
+      nbButton
+      status="success"
+      *ngIf="transactions?.prev_page_url != null"
+      (click)="goToPage(transactions?.prev_page_url)"
+    >
+      Previous
+    </button>
+    <button
+      nbButton
+      status="success"
+      class="float-right"
+      *ngIf="transactions?.next_page_url != null"
+      (click)="goToPage(transactions?.next_page_url)"
+    >
+      Next
+    </button>
   </nb-card-body>
 </nb-card>

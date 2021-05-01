@@ -9,11 +9,15 @@ import { ViewProfileComponent } from "./view-profile/view-profile.component";
 })
 export class UsersComponent implements OnInit {
   usersList: any;
+  loading: boolean = false;
+
   search: any = {
     userGroup: Number,
     userRole: Number,
   };
-  
+
+  searchData: any = {};
+  submitted: boolean = false;
   constructor(private http: HttpService, private dialog: NbDialogService) {}
 
   ngOnInit(): void {
@@ -37,7 +41,7 @@ export class UsersComponent implements OnInit {
     );
   }
   view(user) {
-     this.dialog.open(ViewProfileComponent, {
+    this.dialog.open(ViewProfileComponent, {
       autoFocus: false,
       backdropClass: "",
       closeOnBackdropClick: false,
@@ -50,7 +54,7 @@ export class UsersComponent implements OnInit {
         user: user,
         isModal: true,
       },
-    }); 
+    });
     console.log(user);
   }
   increment(value: number) {
@@ -61,5 +65,20 @@ export class UsersComponent implements OnInit {
     this.http
       .post("user/update", { id: user.id, loginAllowed: user.loginAllowed })
       .subscribe((result) => {});
+  }
+
+  goToPage(url: string) {
+    this.loading = true;
+    let param = url.split("?");
+    //console.log(param);
+    this.http.post("users" + "?" + param[1], {}).subscribe((res) => {
+      if (res.response) {
+        this.usersList = res.data;
+        this.loading = false;
+      }
+    });
+  }
+  onFormSubmit() {
+    this.loading = true;
   }
 }

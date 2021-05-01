@@ -25,5 +25,22 @@
         </tr>
       </tbody>
     </table>
+    <button
+      nbButton
+      status="success"
+      *ngIf="wallet.prev_page_url != null"
+      (click)="goToPage(wallet.prev_page_url)"
+    >
+      Previous
+    </button>
+    <button
+      nbButton
+      status="success"
+      class="float-right"
+      *ngIf="wallet.next_page_url != null"
+      (click)="goToPage(wallet.next_page_url)"
+    >
+      Next
+    </button>
   </nb-card-body>
 </nb-card>

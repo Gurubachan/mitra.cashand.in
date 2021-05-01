@@ -22,8 +22,9 @@ import { Router } from "@angular/router";
 })
 export class LoginComponent extends NbLoginComponent {
   redirectDelay: number = 0;
-  showMessages: any = {};
+
   strategy: string = "email";
+  showMessages: any = {};
   errors: string[] = [];
   messages: string[] = [];
 

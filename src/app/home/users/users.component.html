@@ -1,4 +1,55 @@
 <nb-card>
+  <nb-card-header>Search Users</nb-card-header>
+  <nb-card-body>
+    <form
+      (ngSubmit)="onFormSubmit()"
+      #searchForm="ngForm"
+      aria-labelledby="title"
+      class="form-horizontal row"
+    >
+      <div class="form-control-group col-sm-4">
+        <label class="label" for="input-contact">Register Number:</label>
+        <input
+          nbInput
+          fullWidth
+          [(ngModel)]="searchData.contact"
+          #contact="ngModel"
+          name="contact"
+          id="input-cobtact"
+          pattern="[6-9]{1}[0-9]{9}"
+          placeholder="Enter register number"
+          autofocus
+          [status]="
+            contact.dirty ? (contact.invalid ? 'danger' : 'success') : 'basic'
+          "
+          [required]="true"
+          [attr.aria-invalid]="contact.invalid && contact.touched ? true : null"
+        />
+        <ng-container *ngIf="contact.invalid && contact.touched">
+          <p class="caption status-danger" *ngIf="contact.errors?.required">
+            Register number required.
+          </p>
+          <p class="caption status-danger" *ngIf="contact.errors?.pattern">
+            Contact number must be valid contact number
+          </p>
+        </ng-container>
+      </div>
+      <button
+        nbButton
+        status="success"
+        [disabled]="submitted || !searchForm.valid"
+        [class.btn-pulse]="submitted"
+        [nbSpinner]="loading"
+        nbSpinnerStatus="danger"
+      >
+        Search
+      </button>
+    </form>
+  </nb-card-body>
+</nb-card>
+
+<nb-card>
+  <nb-card-header>User List</nb-card-header>
   <nb-card-body>
     <table class="table table-hover">
       <thead>
@@ -63,5 +114,23 @@
         </tr>
       </tbody>
     </table>
+
+    <button
+      nbButton
+      status="success"
+      *ngIf="usersList?.prev_page_url != null"
+      (click)="goToPage(usersList?.prev_page_url)"
+    >
+      Previous
+    </button>
+    <button
+      nbButton
+      status="success"
+      class="float-right"
+      *ngIf="usersList?.next_page_url != null"
+      (click)="goToPage(usersList?.next_page_url)"
+    >
+      Next
+    </button>
   </nb-card-body>
 </nb-card>
