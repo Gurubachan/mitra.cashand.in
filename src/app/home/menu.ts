@@ -177,8 +177,8 @@ menus[9] = [
         link: "/reports/statement",
       },
       {
-        title: "Users Service",
-        link: "/member/service",
+        title: "AEPS",
+        link: "/reports/aeps",
       },
     ],
   },

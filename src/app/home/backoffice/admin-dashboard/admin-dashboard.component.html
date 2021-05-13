@@ -1,1 +1,19 @@
-<p>admin-dashboard works!</p>
+<div class="row">
+  <div class="col-sm-4">
+    <nb-card status="success">
+      <nb-card-header>Total Balance</nb-card-header>
+      <nb-card-body>
+        <h2>
+          ₹ {{ myBalance }}
+          <nb-icon
+            icon="refresh-outline"
+            (click)="loadWalletBalance()"
+          ></nb-icon>
+        </h2>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4"></div>
+</div>
