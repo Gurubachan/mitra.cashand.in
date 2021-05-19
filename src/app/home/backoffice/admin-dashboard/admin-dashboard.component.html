@@ -1,6 +1,10 @@
 <div class="row">
   <div class="col-sm-4">
-    <nb-card status="success">
+    <nb-card
+      status="success"
+      [nbSpinner]="loading"
+      nbSpinnerMessage="{{ loadingMessage }}"
+    >
       <nb-card-header>Total Balance</nb-card-header>
       <nb-card-body>
         <h2>
@@ -13,7 +17,24 @@
       </nb-card-body>
     </nb-card>
   </div>
-  <div class="col-sm-4"></div>
+  <div class="col-sm-4">
+    <nb-card
+      status="success"
+      [nbSpinner]="toDayBusinessloading"
+      nbSpinnerMessage="{{ toDayBusinessloadingMessage }}"
+    >
+      <nb-card-header>Today Business</nb-card-header>
+      <nb-card-body>
+        <h2>
+          ₹ {{ toDayBusiness }}
+          <nb-icon
+            icon="refresh-outline"
+            (click)="loadTodayBusiness()"
+          ></nb-icon>
+        </h2>
+      </nb-card-body>
+    </nb-card>
+  </div>
   <div class="col-sm-4"></div>
   <div class="col-sm-4"></div>
 </div>

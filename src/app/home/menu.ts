@@ -180,6 +180,46 @@ menus[9] = [
         title: "AEPS",
         link: "/reports/aeps",
       },
+      {
+        title: "Onboarding",
+        link: "/reports/bconboarding",
+      },
+    ],
+  },
+];
+menus[11] = [
+  {
+    title: "Dashboard",
+    icon: "home-outline",
+    link: "/dashboard",
+    home: true,
+  },
+  {
+    title: "Members",
+    icon: "person-add-outline",
+    children: [
+      {
+        title: "Show Users",
+        link: "/members",
+      },
+    ],
+  },
+  {
+    title: "Reports",
+    icon: "person-add-outline",
+    children: [
+      {
+        title: "Wallet",
+        link: "/reports/statement",
+      },
+      {
+        title: "AEPS",
+        link: "/reports/aeps",
+      },
+      {
+        title: "Onboarding",
+        link: "/reports/bconboarding",
+      },
     ],
   },
 ];

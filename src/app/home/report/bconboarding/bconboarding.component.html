@@ -1,0 +1,27 @@
+<nb-card [nbSpinner]="loading">
+  <nb-card-header>BC Onboard List</nb-card-header>
+  <nb-card-body>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>sl#</th>
+            <th>User Id</th>
+            <th>BC ID</th>
+            <th>Onboard Response</th>
+            <th>Created</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let bc of onBordedData?.data">
+            <td>{{ bc.id }}</td>
+            <td>{{ bc.fname + " " + bc.lname }}<br />{{ bc.contact }}</td>
+            <td>{{ bc.bcId }}</td>
+            <td>{{ bc.response_data[0]?.Message }}</td>
+            <td>{{ bc.created_at | date: "d-M-yyyy h:mm:a" }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </nb-card-body>
+</nb-card>

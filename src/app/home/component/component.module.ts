@@ -13,6 +13,7 @@ import {
   NbIconModule,
   NbInputModule,
   NbSelectModule,
+  NbSpinnerModule,
   NbToggleModule,
   NbUserModule,
 } from "@nebular/theme";
@@ -22,6 +23,7 @@ import { OnboardingModule } from "../onboarding/onboarding.module";
 import { VerifyComponent } from "./verify/verify.component";
 import { ServiceListComponent } from "../services/service-list/service-list.component";
 import { MoreviewComponent } from "./popover/moreview/moreview.component";
+import { ReferralComponent } from "./referral/referral.component";
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import { MoreviewComponent } from "./popover/moreview/moreview.component";
     VerifyComponent,
     ServiceListComponent,
     MoreviewComponent,
+    ReferralComponent,
   ],
   imports: [
     CommonModule,
@@ -48,6 +51,7 @@ import { MoreviewComponent } from "./popover/moreview/moreview.component";
     NbCheckboxModule,
     OnboardingModule,
     NbUserModule,
+    NbSpinnerModule,
   ],
   exports: [
     AboutComponent,
@@ -55,6 +59,7 @@ import { MoreviewComponent } from "./popover/moreview/moreview.component";
     BankComponent,
     VerifyComponent,
     ServiceListComponent,
+    ReferralComponent,
   ],
 })
 export class ComponentModule {}

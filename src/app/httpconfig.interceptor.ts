@@ -14,6 +14,7 @@ import {
 } from "@nebular/auth";
 import { catchError, retry, switchMap } from "rxjs/operators";
 import { ToastrService } from "./services/toastr.service";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class HttpconfigInterceptor implements HttpInterceptor {
@@ -22,7 +23,8 @@ export class HttpconfigInterceptor implements HttpInterceptor {
     private injector: Injector,
     @Inject(NB_AUTH_INTERCEPTOR_HEADER)
     protected headerName: string = "Authorization",
-    private toast: ToastrService
+    private toast: ToastrService,
+    private router: Router
   ) {}
 
   intercept(
@@ -43,12 +45,13 @@ export class HttpconfigInterceptor implements HttpInterceptor {
           retry(0),
           catchError((error: HttpErrorResponse) => {
             let errors = "";
-           // console.log(error);
+            // console.log(error);
             if (error.error instanceof ErrorEvent) {
               // client-side error
               errors = `Error: ${error.error.message}`;
             } else {
               // server-side error
+              //console.log(error.status);
               if (error.status > 0) {
                 // console.log(error.error.response);
                 errors = `${error.status}\n Message: ${error.error.message}`;
@@ -56,9 +59,13 @@ export class HttpconfigInterceptor implements HttpInterceptor {
                 errors = `${error.status}\n Message: ${error.statusText}`;
               }
             }
-           // console.log(errors);
+            // console.log(errors);
             this.toast.showToast(errors, error.name, "danger");
-            return throwError(errors);
+            if (error.status == 401) {
+              this.router.navigateByUrl("auth/logout");
+            } else {
+              return throwError(error);
+            }
           })
         );
       })

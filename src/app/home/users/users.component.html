@@ -23,6 +23,8 @@
             contact.dirty ? (contact.invalid ? 'danger' : 'success') : 'basic'
           "
           [required]="true"
+          [minlength]="10"
+          [maxlength]="10"
           [attr.aria-invalid]="contact.invalid && contact.touched ? true : null"
         />
         <ng-container *ngIf="contact.invalid && contact.touched">
@@ -30,10 +32,11 @@
             Register number required.
           </p>
           <p class="caption status-danger" *ngIf="contact.errors?.pattern">
-            Contact number must be valid contact number
+            Contact number must be valid contact number.
           </p>
         </ng-container>
       </div>
+
       <button
         nbButton
         status="success"

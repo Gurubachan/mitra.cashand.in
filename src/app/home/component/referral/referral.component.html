@@ -1,0 +1,68 @@
+<h3>Invite friends, grow your community, earn rewards</h3>
+<p>
+  Share your code <strong>{{ user.contact }}</strong>
+</p>
+<div *ngIf="user.parentId == 0 && user.isIllegibleForReferral">
+  <nb-alert
+    *ngIf="showMessages.error && errors?.length && !submitted"
+    outline="danger"
+    role="alert"
+  >
+    <p class="alert-title"><b>Oh snap!</b></p>
+    <ul class="alert-message-list">
+      <li *ngFor="let error of errors" class="alert-message">{{ error }}</li>
+    </ul>
+  </nb-alert>
+
+  <nb-alert
+    *ngIf="showMessages.success && messages?.length && !submitted"
+    outline="success"
+    role="alert"
+  >
+    <p class="alert-title"><b>Hooray!</b></p>
+    <ul class="alert-message-list">
+      <li *ngFor="let message of messages" class="alert-message">
+        {{ message }}
+      </li>
+    </ul>
+  </nb-alert>
+  <form (ngSubmit)="myReferral()" #form="ngForm" aria-labelledby="title">
+    <div class="form-control-group">
+      <label class="label" for="input-userid">Referral Code:</label>
+      <input
+        nbInput
+        [(ngModel)]="user.referral"
+        #referral="ngModel"
+        name="referral"
+        id="input-userid"
+        pattern="[6-9]{1}[0-9]{9}"
+        placeholder="Referral Code"
+        autofocus
+        [status]="
+          referral.dirty ? (referral.invalid ? 'danger' : 'success') : 'basic'
+        "
+        [required]="true"
+        [attr.aria-invalid]="referral.invalid && referral.touched ? true : null"
+      />
+      <ng-container *ngIf="referral.invalid && referral.touched">
+        <p class="caption status-danger" *ngIf="referral.errors?.required">
+          Referal Number is required!
+        </p>
+        <p class="caption status-danger" *ngIf="referral.errors?.pattern">
+          Referal Number should be 10 digit number (Mobile Number)!
+        </p>
+      </ng-container>
+    </div>
+
+    <button
+      nbButton
+      status="success"
+      [disabled]="submitted || !form.valid"
+      [class.btn-pulse]="submitted"
+      [nbSpinner]="loading"
+      nbSpinnerStatus="danger"
+    >
+      Submit
+    </button>
+  </form>
+</div>

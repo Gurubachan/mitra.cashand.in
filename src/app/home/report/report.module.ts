@@ -14,8 +14,9 @@ import {
 } from "@nebular/theme";
 import { WalletComponent } from "./wallet/wallet.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { BconboardingComponent } from './bconboarding/bconboarding.component';
 @NgModule({
-  declarations: [AepsComponent, ReportComponent, WalletComponent],
+  declarations: [AepsComponent, ReportComponent, WalletComponent, BconboardingComponent],
   imports: [
     CommonModule,
     ReportRoutingModule,

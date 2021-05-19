@@ -17,6 +17,11 @@
             <ngx-bank [bank]="user"></ngx-bank>
           </div>
         </nb-tab>
+        <nb-tab tabTitle="Referral" [lazyLoad]="true" *ngIf="user.role==4">
+          <div class="chart-container">
+            <ngx-referral [referral]="user"></ngx-referral>
+          </div>
+        </nb-tab>
       </nb-tabset>
       <button class="btn btn-success" (click)="close()" *ngIf="isModal">
         Close

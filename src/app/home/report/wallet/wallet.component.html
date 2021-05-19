@@ -4,6 +4,7 @@
       <thead>
         <tr>
           <th>Date</th>
+          <th>Name</th>
           <th>Description</th>
           <th>Amount</th>
           <th>Balance</th>
@@ -16,6 +17,7 @@
             {{ w.created_at | date: "dd-MM-yyyy" }} <br />
             Ref No: {{ w.transaction_reference }}
           </td>
+          <td>{{ w.fname + " " + w.lname }}</td>
           <td>
             {{ w.transaction_type }} <br /><small>{{ w.description }}</small>
           </td>
