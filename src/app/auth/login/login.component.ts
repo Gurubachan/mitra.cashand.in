@@ -13,6 +13,7 @@ import {
 } from "@nebular/auth";
 import { NbAuthSocialLink } from "@nebular/auth/auth.options";
 import { Router } from "@angular/router";
+import { LocationService } from "../../services/location.service";
 
 @Component({
   selector: "ngx-login",
@@ -35,11 +36,13 @@ export class LoginComponent extends NbLoginComponent {
   submitted: boolean = false;
   socialLinks: NbAuthSocialLink[];
   rememberMe: boolean = false;
+
   constructor(
     service: NbAuthService,
     @Inject(NB_AUTH_OPTIONS) options: {},
     cd: ChangeDetectorRef,
-    router: Router
+    router: Router,
+    private locationService: LocationService
   ) {
     super(service, options, cd, router);
 
@@ -51,6 +54,7 @@ export class LoginComponent extends NbLoginComponent {
     if (this.service.getToken()) {
       this.router.navigateByUrl("/dashboard");
     }
+    this.location();
   }
   login(): void {
     this.errors = [];
@@ -98,5 +102,11 @@ export class LoginComponent extends NbLoginComponent {
 
   getConfigValue(key: string): any {
     return getDeepFromObject(this.options, key, null);
+  }
+
+  location() {
+    this.locationService.getPosition().then((pos) => {
+      console.log(`Positon: ${pos.lng} ${pos.lat}`);
+    });
   }
 }
