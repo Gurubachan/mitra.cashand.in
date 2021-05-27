@@ -110,7 +110,11 @@
     "stylelint": "^13.11.0",
     "ts-node": "3.2.2",
     "tslint": "~6.1.0",
+<<<<<<< HEAD
     "tslint-language-service": "^0.9.9",
+=======
+    "tslint-language-service": "4.2.4",
+>>>>>>> parent of d306d00 (test)
     "typescript": "4.0.5"
   }
 }
