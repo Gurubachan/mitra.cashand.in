@@ -46,7 +46,7 @@ export class PayoutComponent implements OnInit {
     this.loading = true;
     this.submitted = true;
     this.cd.detectChanges();
-    if (this.wallet.txnMedium == 0) {
+    if (this.wallet.txnMedium === 0) {
       this.errors.push('Invalid Transaction medium');
     }
     if (
@@ -96,14 +96,16 @@ export class PayoutComponent implements OnInit {
     this.toast.showToast(this.loadingMessage, 'Wallet Loading', 'success');
     this.cd.detectChanges();
     this.http.post('wallet/myBalance', null).subscribe(
-      (result) => {
+      (result: any) => {
         const balance = result.data.balance;
         this.loadingMessage = 'Checking with bank server completed.';
         this.toast.showToast(this.loadingMessage, 'Wallet Loading', 'success');
         this.loading = false;
         /*console.log(this.loading);*/
+        // tslint:disable-next-line:radix
         this.myBalance = parseInt(balance);
         if (this.myBalance > 10) {
+          // tslint:disable-next-line:radix
           this.drawableBalance = this.myBalance - parseInt('10');
         }
 

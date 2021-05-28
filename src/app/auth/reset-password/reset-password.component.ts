@@ -3,7 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   Inject,
-  OnInit,
+
 } from '@angular/core';
 import { Router } from '@angular/router';
 import {
@@ -23,9 +23,8 @@ import { HttpService } from '../../services/http.service';
 })
 export class ResetPasswordComponent extends NbResetPasswordComponent {
   /* constructor() { }
-
   ngOnInit(): void {
-  } */
+  }*/
   redirectDelay: number = 0;
   showMessages: any = {};
   strategy: string = '';
@@ -67,9 +66,10 @@ export class ResetPasswordComponent extends NbResetPasswordComponent {
       } else {
         this.user.otp = '';
         if (typeof message === 'object') {
+          // tslint:disable-next-line:forin
           for (const k in message) {
             this.showMessages.error = true;
-            if (message[k][0] !=='') {
+            if (message[k][0] !== '') {
               this.errors.push(message[k][0]);
             }
           }
