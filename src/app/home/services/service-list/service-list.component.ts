@@ -3,15 +3,15 @@ import {
   ChangeDetectorRef,
   Component,
   OnInit,
-} from "@angular/core";
-import { HttpService } from "../../../services/http.service";
-import { NbDialogService } from "@nebular/theme";
-import { KycdialogComponent } from "../../component/kycdialog/kycdialog.component";
+} from '@angular/core';
+import { HttpService } from '../../../services/http.service';
+import { NbDialogService } from '@nebular/theme';
+import { KycdialogComponent } from '../../component/kycdialog/kycdialog.component';
 
 @Component({
-  selector: "ngx-service-list",
-  templateUrl: "./service-list.component.html",
-  styleUrls: ["./service-list.component.scss"],
+  selector: 'ngx-service-list',
+  templateUrl: './service-list.component.html',
+  styleUrls: ['./service-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ServiceListComponent implements OnInit {
@@ -20,14 +20,14 @@ export class ServiceListComponent implements OnInit {
   constructor(
     private http: HttpService,
     private dialogService: NbDialogService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
     this.getServices();
   }
   getServices() {
-    this.http.get("services/myService").subscribe((res) => {
+    this.http.get('services/myService').subscribe((res) => {
       if (res.response) {
         this.serviceList = res.data;
         this.cd.detectChanges();
@@ -36,19 +36,19 @@ export class ServiceListComponent implements OnInit {
   }
 
   doOnBoarding(index) {
-    if (this.serviceList[index].serviceId == 1) {
+    if (this.serviceList[index].serviceId === 1) {
       this.dialogService
         .open(KycdialogComponent, {
           autoFocus: false,
-          backdropClass: "",
+          backdropClass: '',
           closeOnBackdropClick: false,
           closeOnEsc: false,
-          dialogClass: "",
+          dialogClass: '',
           hasScroll: false,
           viewContainerRef: undefined,
           hasBackdrop: false,
           context: {
-            title: "Service On Boarding Form",
+            title: 'Service On Boarding Form',
             type: this.serviceList[index],
             data: null,
           },
@@ -60,7 +60,7 @@ export class ServiceListComponent implements OnInit {
     }
   }
   checkICICIKyc() {
-    this.http.post("services/checkKyc", {}).subscribe((response) => {
+    this.http.post('services/checkKyc', {}).subscribe((response) => {
       this.getServices();
     });
   }

@@ -8,7 +8,7 @@ describe('RequestPasswordComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RequestPasswordComponent ]
+      declarations: [ RequestPasswordComponent ],
     })
     .compileComponents();
   });

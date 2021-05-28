@@ -3,7 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   Inject,
-} from "@angular/core";
+} from '@angular/core';
 import {
   getDeepFromObject,
   NB_AUTH_OPTIONS,
@@ -11,22 +11,22 @@ import {
   NbAuthService,
   NbAuthSocialLink,
   NbRegisterComponent,
-} from "@nebular/auth";
+} from '@nebular/auth';
 // import { NbDialogService } from '@nebular/theme';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 // import {DialogComponent} from '../../additional/dialog/dialog.component';
 
 @Component({
-  selector: "ngx-register",
-  templateUrl: "./register.component.html",
-  styleUrls: ["./register.component.scss"],
+  selector: 'ngx-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterComponent extends NbRegisterComponent {
   // over ride paramaters in NbRegisterComponent
   redirectDelay: number = 0;
   showMessages: any = {};
-  strategy: string = "";
+  strategy: string = '';
 
   submitted = false;
   errors: string[] = [];
@@ -37,14 +37,14 @@ export class RegisterComponent extends NbRegisterComponent {
     service: NbAuthService,
     @Inject(NB_AUTH_OPTIONS) options: {},
     cd: ChangeDetectorRef,
-    router: Router
+    router: Router,
   ) {
     super(service, options, cd, router);
 
-    this.redirectDelay = this.getConfigValue("forms.register.redirectDelay");
-    this.showMessages = this.getConfigValue("forms.register.showMessages");
-    this.strategy = this.getConfigValue("forms.register.strategy");
-    this.socialLinks = this.getConfigValue("forms.login.socialLinks");
+    this.redirectDelay = this.getConfigValue('forms.register.redirectDelay');
+    this.showMessages = this.getConfigValue('forms.register.showMessages');
+    this.strategy = this.getConfigValue('forms.register.strategy');
+    this.socialLinks = this.getConfigValue('forms.login.socialLinks');
   }
 
   /*ngOnInit(): void {
@@ -58,7 +58,7 @@ export class RegisterComponent extends NbRegisterComponent {
       .register(this.strategy, this.user)
       .subscribe((result: NbAuthResult) => {
         this.submitted = false;
-        console.log(result);
+        /*console.log(result);*/
         if (result.isSuccess()) {
           this.messages = result.getMessages();
         } else {

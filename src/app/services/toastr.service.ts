@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
-import { NbToastrService } from "@nebular/theme";
+import { Injectable } from '@angular/core';
+import { NbToastrService } from '@nebular/theme';
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class ToastrService {
   private index: number = 0;

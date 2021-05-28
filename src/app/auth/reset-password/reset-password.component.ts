@@ -49,29 +49,30 @@ export class ResetPasswordComponent extends NbResetPasswordComponent {
     this.showMessages = this.getConfigValue('forms.resetPassword.showMessages');
     this.strategy = this.getConfigValue('forms.resetPassword.strategy');
     this.user = JSON.parse(localStorage.getItem('otp'));
-    console.log(this.user);
+    /*console.log(this.user);*/
   }
   checkOtp() {
      this.errors = this.messages = [];
-    console.log(this.user);
+    /*console.log(this.user);*/
     this.submitted = true;
     this.http.post('auth/verify', this.user).subscribe((res) => {
-      console.log(res);
+     /* console.log(res);*/
+      const message = res.message;
       if (res.response) {
         this.showMessages.success = true;
         this.showMessages.error = false;
         this.user.otp = '';
         this.showForm = true;
-        this.messages.push(res.message);
+        this.messages.push(message);
       } else {
         this.user.otp = '';
-        if (typeof res.message === 'object') {
-          for (const k in res.message) {
+        if (typeof message === 'object') {
+          for (const k in message) {
             this.showMessages.error = true;
-            this.errors.push(res.message[k][0]);
+            this.errors.push(message[k][0]);
           }
         } else {
-           this.messages = res.message;
+           this.messages = message;
         }
       }
       this.submitted = false;

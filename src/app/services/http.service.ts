@@ -23,7 +23,7 @@ export class HttpService {
     private http: HttpClient,
     private authService: NbAuthService,
     private router: Router,
-    @Inject(NB_AUTH_OPTIONS) protected options = {}
+    @Inject(NB_AUTH_OPTIONS) protected options = {},
   ) {
     this.authService.onTokenChange().subscribe((token: NbAuthToken) => {
       if (token && token.isValid()) {
