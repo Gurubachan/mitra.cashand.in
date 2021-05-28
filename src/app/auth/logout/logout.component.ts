@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { Component, Inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   getDeepFromObject,
   NB_AUTH_OPTIONS,
@@ -49,7 +49,7 @@ export class LogoutComponent extends NbLogoutComponent {
       if (redirect) {
         setTimeout(() => {
           localStorage.clear();
-          //return this.router.navigateByUrl("/auth/login");
+          // return this.router.navigateByUrl("/auth/login");
           return this.router.navigate(['/auth/login']);
         }, this.redirectDelay);
       }
