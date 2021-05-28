@@ -95,7 +95,7 @@ menus[4] = [
         link: '/services/aeps',
       },
       {
-        title: 'AEPSNEW',
+        title: 'AEPS NEW',
         link: '/services/aepsNew',
       },
       {
