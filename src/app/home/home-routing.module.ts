@@ -6,7 +6,7 @@ import { ServicesModule } from './services/services.module';
 import { AuthGuard } from '../auth.guard';
 import { AuthModule } from '../auth/auth.module';
 import { ProfileComponent } from './profile/profile.component';
-import {UsersComponent} from "./users/users.component";
+import {UsersComponent} from './users/users.component';
 import { ReportModule } from './report/report.module';
 
 
@@ -44,7 +44,7 @@ const routes: Routes = [
         path: 'reports',
         loadChildren: () => ReportModule,
         canActivate: [AuthGuard],
-      }
+      },
     ],
   },
   { path: 'auth', loadChildren: () => AuthModule},
