@@ -69,7 +69,7 @@ export class ResetPasswordComponent extends NbResetPasswordComponent {
         if (typeof message === 'object') {
           for (const k in message) {
             this.showMessages.error = true;
-            if (message[k][0] !='') {
+            if (message[k][0] !=='') {
               this.errors.push(message[k][0]);
             }
           }
