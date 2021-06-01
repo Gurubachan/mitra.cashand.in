@@ -4,7 +4,7 @@
       <div class="col-sm-4">Name : </div>
       <div class="col-sm-8"> {{ about?.fname + ' ' + about?.lname}}</div>
       <div class="col-sm-4">DOB : </div>
-      <div class="col-sm-8"> {{ dateOfBirth | date: "dd-mm-yyyy"}}</div>
+      <div class="col-sm-8"> {{ dateOfBirth | date: "dd-MM-yyyy"}}</div>
       <div class="col-sm-4">Gender : </div>
       <div class="col-sm-8"> {{ about?.gender }}</div>
       <div class="col-sm-4">Email : </div>
@@ -96,7 +96,7 @@
         aria-labelledby="title"
         class="form-horizontal row">
     <div class="form-control-group  col-sm-4">
-      <label class="label" for="input-fname">First Name:</label>
+      <label class="label" for="input-fname">First Name*:</label>
       <input
         nbInput
         fullWidth
@@ -151,7 +151,7 @@
     </div>
 
     <div class="form-control-group  col-sm-4">
-      <label class="label" for="input-lname">Last Name:</label>
+      <label class="label" for="input-lname">Last Name*:</label>
       <input
         nbInput
         fullWidth
@@ -179,7 +179,7 @@
     </div>
 
     <div class="form-control-group  col-sm-4">
-      <label class="label" for="input-email">Email:</label>
+      <label class="label" for="input-email">Email*:</label>
       <input
         nbInput
         fullWidth
@@ -207,7 +207,7 @@
     </div>
 
     <div class="form-control-group  col-sm-4">
-      <label class="label" for="input-contact">Contact  Number:</label>
+      <label class="label" for="input-contact">Contact  Number*:</label>
       <input
         nbInput
         fullWidth
@@ -234,7 +234,7 @@
       </ng-container>
     </div>
     <div class="form-control-group  col-sm-4">
-      <label class="label" for="input-whatsapp">Whatsapp :</label>
+      <label class="label" for="input-whatsapp">Whatsapp* :</label>
       <input
         nbInput
         fullWidth
@@ -262,7 +262,7 @@
     </div>
 
     <div class="form-control-group  col-sm-4">
-      <label class="label" for="input-pin">PIN Code :</label>
+      <label class="label" for="input-pin">PIN Code *:</label>
       <input
         nbInput
         fullWidth
@@ -291,7 +291,7 @@
     </div>
 
     <div class="form-control-group  col-sm-4">
-      <label class="label" >PIN Code wise area :</label><br>
+      <label class="label" >PIN Code wise area* :</label><br>
       <nb-select
         [(ngModel)]="user.pinCode"
         #pinCode="ngModel"
@@ -324,7 +324,7 @@
       </ng-container>
     </div>
     <div class="form-control-group  col-sm-4">
-      <label class="label" for="input-address">Address :</label>
+      <label class="label" for="input-address">Address* :</label>
       <textarea
         nbInput
         fullWidth
@@ -354,7 +354,9 @@
     </div>
 
     <div class="form-control-group  col-sm-4">
-      <label class="label" for="input-address">DOB :</label><br>
+      <label class="label" for="input-address">DOB* : </label>
+      <small> as per pan card</small>
+      <br>
       <input
         nbInput
         placeholder="Pick Date"
@@ -382,7 +384,7 @@
       </ng-container>
     </div>
     <div class="form-control-group col-sm-4">
-      <label class="label" for="input-gender">Gender</label><br>
+      <label class="label" for="input-gender">Gender*</label><br>
       <nb-select
         [(ngModel)]="user.gender"
         #gender="ngModel"
@@ -444,5 +446,6 @@
         </button>
       </div>
     </div>
+    <small><strong>Note:</strong> * - Required field</small>
   </form>
 </div>

@@ -4,14 +4,18 @@
     <span *ngIf="!kyc.isPanVerified" class="text-danger"
       >PAN Number Not Verified</span
     ><br />
+    <a [href]="panimage" target="_blank">
     <img [src]="panimage" width="50%" height="50%" />
+    </a>
   </div>
   <div class="col-sm-6">
     Aadhar Number : {{ kyc.aadhaar }}<br />
-    <span *ngIf="!kyc.isAadhaarnVerified" class="text-danger"
+    <span *ngIf="!kyc.isAadhaarVerified" class="text-danger"
       >Aadhar Document Not Verified</span
     ><br />
+    <a [href]="aadhaarimage" target="_blank">
     <img [src]="aadhaarimage" width="50%" height="50%" />
+    </a>
     <br />
   </div>
 </div>

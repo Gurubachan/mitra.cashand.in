@@ -1,1 +1,53 @@
-<p>aepsnew works!</p>
+<nb-card>
+  <nb-card-header>Aadhaar ATM</nb-card-header>
+  <nb-card-body>
+    <form (ngSubmit)="aadhaarAtm()" #form="ngForm" aria-labelledby="title">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-control-group">
+            <label class="label" for="input-contact">Aadhaar Number:</label>
+            <input
+              nbInput
+              [(ngModel)]="aadhaarService.aadhaarNumber"
+              #aadhaarNumber="ngModel"
+              id="input-contact"
+              name="aadhaarNumber"
+              pattern="[2-9]{1}[0-9]{11}"
+              placeholder="Aadhar Number"
+              fullWidth
+              fieldSize="large"
+              [status]="
+                aadhaarNumber.dirty
+                  ? aadhaarNumber.invalid
+                    ? 'danger'
+                    : 'success'
+                  : 'basic'
+              "
+              [required]="true"
+              [attr.aria-invalid]="
+                aadhaarNumber.invalid && aadhaarNumber.touched ? true : null
+              "
+            />
+            <ng-container
+              *ngIf="aadhaarNumber.invalid && aadhaarNumber.touched"
+            >
+              <p
+                class="caption status-danger"
+                *ngIf="aadhaarNumber.errors?.required"
+              >
+                Aadhaar Number is required!
+              </p>
+              <p
+                class="caption status-danger"
+                *ngIf="aadhaarNumber.errors?.pattern"
+              >
+                Aadhaar Number should be the real one!
+              </p>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-sm-6"></div>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

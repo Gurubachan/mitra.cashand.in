@@ -50,6 +50,7 @@
     "@ng-idle/keepalive": "^10.0.0-beta.1",
     "@swimlane/ngx-charts": "^14.0.0",
     "@tinymce/tinymce-angular": "^4.0.0",
+    "aadhaar-validator": "^1.1.0",
     "angular2-chartjs": "0.4.1",
     "bootstrap": "4.3.1",
     "chart.js": "^2.9.4",

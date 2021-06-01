@@ -6,9 +6,12 @@
   <div class="col-sm-3">IFSC Code: {{ bank.ifsc }}</div>
   <div class="col-sm-3">Account No: {{ bank.accountNo }}</div>
   <div class="col-sm-3">
-    <img [src]="passbookImage" width="50%" height="50%" />
+    <a [href]="passbookImage" target="_blank">
+      <img [src]="passbookImage" width="50%" height="50%" />
+    </a>
+
   </div>
- 
+
 </div>
 <button
   type="button"
