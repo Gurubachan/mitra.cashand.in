@@ -1,22 +1,22 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import {
   NbMediaBreakpointsService,
   NbMenuService,
   NbSidebarService,
   NbThemeService,
-} from '@nebular/theme';
+} from "@nebular/theme";
 
 /* import { UserData } from "../../../@core/data/users"; */
-import { LayoutService } from '../../../@core/utils';
-import { map, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { LayoutService } from "../../../@core/utils";
+import { map, takeUntil } from "rxjs/operators";
+import { Subject } from "rxjs";
 
-import { HttpService } from '../../../services/http.service';
-import { Router } from '@angular/router';
+import { HttpService } from "../../../services/http.service";
+import { Router } from "@angular/router";
 @Component({
-  selector: 'ngx-header',
-  styleUrls: ['./header.component.scss'],
-  templateUrl: './header.component.html',
+  selector: "ngx-header",
+  styleUrls: ["./header.component.scss"],
+  templateUrl: "./header.component.html",
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
@@ -25,31 +25,31 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   themes = [
     {
-      value: 'default',
-      name: 'Light',
+      value: "default",
+      name: "Light",
     },
     {
-      value: 'dark',
-      name: 'Dark',
+      value: "dark",
+      name: "Dark",
     },
     {
-      value: 'cosmic',
-      name: 'Cosmic',
+      value: "cosmic",
+      name: "Cosmic",
     },
     {
-      value: 'corporate',
-      name: 'Corporate',
+      value: "corporate",
+      name: "Corporate",
     },
   ];
 
-  currentTheme = 'corporate';
+  currentTheme = "corporate";
 
   /*userMenu = [
     { title: 'Profile', link: '/profile' },
     { title: 'Service', link: '/services/myservice'},
     { title: 'Log out', link: '/auth/logout' },
     ];*/
-  userMenu = [{ title: 'Profile', link: '/profile' }];
+  userMenu = [{ title: "Profile", link: "/profile" }];
   /*token: NbAuthToken;*/
   constructor(
     private sidebarService: NbSidebarService,
@@ -59,17 +59,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private layoutService: LayoutService,
     private breakpointService: NbMediaBreakpointsService,
     private authService: HttpService,
-    private router: Router,
+    private router: Router
   ) {}
   private fetchUser() {
-    if (localStorage.getItem('user')) {
-      this.user = JSON.parse(localStorage.getItem('user'));
+    if (localStorage.getItem("user")) {
+      this.user = JSON.parse(window.atob(localStorage.getItem("user")));
       this.user.picture = this.user.myPic;
     } else {
-      this.authService.get('user').subscribe((res: any) => {
+      this.authService.get("user").subscribe((res: any) => {
         this.user = res.data[0];
         this.user.picture = this.user.myPic;
-        localStorage.setItem('user', JSON.stringify(this.user));
+        localStorage.setItem("user", btoa(JSON.stringify(this.user)));
       });
     }
 
@@ -80,16 +80,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.user.panNo == null &&
       this.user.accountNo == null
     ) {
-      localStorage.setItem('isProfileComplete', '0');
-      this.router.navigateByUrl('profile');
+      localStorage.setItem("isProfileComplete", "0");
+      this.router.navigateByUrl("profile");
     } else {
-      localStorage.setItem('isProfileComplete', '1');
+      localStorage.setItem("isProfileComplete", "1");
     }
     if (this.user.userGroup === 1) {
     } else {
-      this.userMenu.push({ title: 'Service', link: '/services/myservice' });
+      this.userMenu.push({ title: "Service", link: "/services/myservice" });
     }
-    this.userMenu.push({ title: 'Log out', link: '/auth/logout' });
+    this.userMenu.push({ title: "Log out", link: "/auth/logout" });
   }
   ngOnInit() {
     this.fetchUser();
@@ -99,17 +99,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .onMediaQueryChange()
       .pipe(
         map(([, currentBreakpoint]) => currentBreakpoint.width < xl),
-        takeUntil(this.destroy$),
+        takeUntil(this.destroy$)
       )
       .subscribe(
-        (isLessThanXl: boolean) => (this.userPictureOnly = isLessThanXl),
+        (isLessThanXl: boolean) => (this.userPictureOnly = isLessThanXl)
       );
 
     this.themeService
       .onThemeChange()
       .pipe(
         map(({ name }) => name),
-        takeUntil(this.destroy$),
+        takeUntil(this.destroy$)
       )
       .subscribe((themeName) => (this.currentTheme = themeName));
   }
@@ -124,7 +124,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   toggleSidebar(): boolean {
-    this.sidebarService.toggle(true, 'menu-sidebar');
+    this.sidebarService.toggle(true, "menu-sidebar");
     this.layoutService.changeLayoutSize();
 
     return false;

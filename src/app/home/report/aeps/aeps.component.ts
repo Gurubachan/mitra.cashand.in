@@ -56,6 +56,7 @@ export class AepsComponent implements OnInit {
 
       this.tomin = this.dateService.addDay(e, 0);
     }
+    console.warn(eDate);
   }
   fetchTransaction() {
     this.loading = true;

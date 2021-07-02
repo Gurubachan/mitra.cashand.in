@@ -1,45 +1,331 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { FormBuilder, FormGroup, NgForm, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { NbDialogService } from "@nebular/theme";
+import { HttpService } from "../../../services/http.service";
 import { LocationService } from "../../../services/location.service";
+import { ToastrService } from "../../../services/toastr.service";
+import { RbpTransactionDialogComponent } from "../../component/rbp-transaction-dialog/rbp-transaction-dialog.component";
 const validator = require("aadhaar-validator");
+var convert = require("xml-js");
+declare function CaptureAvdm();
+declare function CaptureMorpho();
 @Component({
   selector: "ngx-aepsnew",
   templateUrl: "./aepsnew.component.html",
   styleUrls: ["./aepsnew.component.scss"],
 })
 export class AepsnewComponent implements OnInit {
-  aadhaarService = {
-    aadhaarNumber: (String = null),
-    isAadhaarNumberValid: Boolean(false),
-    bankIIN: (Number = null),
-    txnType: (String = null),
-    txnAmount: (Number = null),
-    customerContact: (Number = null),
-    customerName: (String = null),
-    customerPin: (Number = null),
-    customerFingurePrint: (String = null),
-    longitude: (Number = null),
-    latitude: (Number = null),
-  };
-  constructor(private locationService: LocationService) {
+  loading: boolean = false;
+  fingureScanning: boolean = false;
+  options: Object[];
+  transactionAeps: Object[];
+  submitted: boolean = false;
+
+  aepsForm: FormGroup;
+  hideTxnAmount: boolean = false;
+  deviceList: object[];
+  scanMessage: String = "Click on fingure print.";
+  fingureScanStrength: Number = 0;
+  fingureOpacity: any = 0.1;
+
+  dialogRef;
+  constructor(
+    private locationService: LocationService,
+    private http: HttpService,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private toast: ToastrService,
+    private dialogService: NbDialogService
+  ) {
     this.location();
-    this.aadhaarService.aadhaarNumber = "505386856827";
-    console.log(this.aadhaarService);
-    this.checkAadhar();
+
+    this.transactionAeps = [
+      { key: "BE", value: "Balance Enquery" },
+      { key: "MS", value: "Mini Statement" },
+      { key: "CW", value: "Cash Withdrawal" },
+    ];
+
+    this.deviceList = [
+      { key: "morpho", value: "Morpho" },
+      { key: "mantra", value: "Mantra" },
+      { key: "startek", value: "Startek" },
+    ];
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.checkUserOnboard();
 
-  aadhaarAtm() {}
+    this.aepsForm = this.formBuilder.group({
+      aadhaarNumber: [
+        null,
+        [Validators.required, Validators.pattern("[2-9]{1}[0-9]{11}")],
+      ],
+      bankList: [null, Validators.required],
+      deviceList: [null, Validators.required],
+      txnType: [null, Validators.required],
+      txnAmount: [null, Validators.required],
+      customerContact: [null, Validators.required],
+      customerName: [null, Validators.required],
+      customerPin: [null, Validators.required],
+      customerFingerPrint: [null, Validators.required],
+      longitude: [null, Validators.required],
+      latitude: [null, Validators.required],
+      customerId: null,
+      txnMedium: ["web", Validators.required],
+    });
+  }
+
+  aadhaarAtm(form: NgForm) {
+    this.location();
+    this.submitted = true;
+    this.http.post("rbp/aepsTransaction", form).subscribe(
+      (res) => {
+        if (res.response) {
+          this.aepsForm.reset();
+          this.toast.showToast(res.message, "Transaction Success", "success");
+          this.fingureScanStrength = 0;
+          this.dialogRef = this.dialogService.open(
+            RbpTransactionDialogComponent,
+            {
+              context: {
+                title: "Transaction Report",
+                data: res.data,
+              },
+            }
+          );
+        } else {
+          this.aepsForm.reset();
+          this.fingureScanStrength = 0;
+          this.toast.showToast(res.message, "Transaction Failed", "danger");
+        }
+        this.submitted = false;
+        this.newCustomer = false;
+        console.log(this.aepsForm.value);
+      },
+      (err) => {
+        //window.location.reload();
+        this.aepsForm.reset();
+        this.fingureScanStrength = 0;
+        this.toast.showToast(err.error.message, "Server Issue", "danger");
+        this.submitted = false;
+        this.newCustomer = false;
+      }
+    );
+  }
 
   location() {
     this.locationService.getPosition().then((pos) => {
-      this.aadhaarService.latitude = pos.lat;
-      this.aadhaarService.longitude = pos.lng;
+      this.aepsForm.get("latitude").setValue(pos.lat);
+      this.aepsForm.get("longitude").setValue(pos.lng);
+      /* this.aadhaarService.latitude = pos.lat;
+      this.aadhaarService.longitude = pos.lng; */
     });
   }
-  checkAadhar() {
-    this.aadhaarService.isAadhaarNumberValid = validator.isValidNumber(
-      this.aadhaarService.aadhaarNumber
+  checkAadhar(e) {
+    if (e != null && e.length == 12 && !validator.isValidNumber(e)) {
+      this.aepsForm.controls.aadhaarNumber.setErrors({ invalidNumber: true });
+    }
+  }
+  validateAmount(e) {
+    if (e > 10000) {
+      this.aepsForm.get("txnAmount").setValue(10000);
+    }
+  }
+  getBankIIN() {
+    this.loading = true;
+    this.http.get("rbp/bank").subscribe(
+      (result: any) => {
+        if (result.response) {
+          this.options = result.data;
+          console.log(this.options);
+          this.loading = false;
+        } else {
+          console.log("Else part execute");
+          this.loading = false;
+        }
+      },
+      (err) => {
+        console.log(err.error.message);
+        this.loading = false;
+      }
     );
   }
+  txnTypeChange(e) {
+    //console.log(e);
+    if (e == "CW") {
+      this.aepsForm.get("txnAmount").setValidators([Validators.required]);
+      this.aepsForm.get("txnAmount").updateValueAndValidity();
+      this.hideTxnAmount = true;
+    } else {
+      this.aepsForm.get("txnAmount").setValue(0);
+      this.aepsForm.get("txnAmount").clearValidators();
+      this.aepsForm.get("txnAmount").updateValueAndValidity();
+      this.hideTxnAmount = false;
+    }
+  }
+  data: any = null;
+  async capture() {
+    this.fingureScanning = true;
+    this.fingureOpacity = "0.1";
+    this.location();
+    this.aepsForm.get("txnMedium").setValue("web");
+    this.data = "";
+
+    let deviceName = this.aepsForm.get("deviceList").value;
+    this.fingureScanStrength = 0;
+    this.scanMessage = "Place customer fingure in biometric device";
+    //console.log(deviceName);
+
+    if (deviceName == "morpho") {
+      await CaptureMorpho()
+        .then((result) => {
+          //console.log(result);
+          this.data = result;
+          this.checkAndClose();
+        })
+        .catch((err) => {
+          console.log(err);
+          this.fingureScanStrength = 0;
+          this.scanMessage = "Device Not Connected";
+          this.aepsForm.controls.deviceList.setErrors({ invalidNumber: true });
+          this.fingureScanning = false;
+        });
+    } else if (deviceName == "mantra") {
+      CaptureAvdm()
+        .then((result) => {
+          //console.log(result);
+          if (result.httpStaus) {
+            this.data = result.data.replace('<?xml version="1.0"?>', "").trim();
+            this.checkAndClose();
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          this.fingureScanStrength = 0;
+          this.scanMessage = "Device Not Connected";
+          this.aepsForm.controls.deviceList.setErrors({ invalidNumber: true });
+          this.fingureScanning = false;
+        });
+    } else {
+      this.scanMessage = "No biometric device selected";
+      this.aepsForm.controls.deviceList.setErrors({ invalidNumber: true });
+      this.fingureScanning = false;
+    }
+
+    //console.log(this.aepsForm.value);
+  }
+
+  checkAndClose() {
+    this.fingureScanning = true;
+    let options = {
+      compact: true,
+      spaces: 4,
+    };
+    //console.log(this.data);
+    if (this.data != "undefined" && this.data != null && this.data.length > 0) {
+      let Result = convert.xml2json(this.data, options);
+      var obj = JSON.parse(Result);
+      //console.log(obj);
+      const response = obj.PidData.Resp._attributes;
+      if (response.errCode == 0) {
+        this.fingureScanStrength = parseInt(
+          response.qScore.replace(/\\n/g, "")
+        );
+        //console.log(this.fingureScanStrength);
+        this.aepsForm.get("customerFingerPrint").setValue(btoa(this.data));
+        this.scanMessage = "Scaning Completed";
+        this.fingureScanning = false;
+
+        let op = this.fingureScanStrength.valueOf() / 100;
+        this.fingureOpacity = op;
+      } else {
+        this.scanMessage = response.errInfo;
+        this.fingureScanStrength = 0;
+        this.fingureScanning = false;
+        this.fingureOpacity = "0.1";
+      }
+    }
+  }
+  // convenience getter for easy access to form fields
+  get f() {
+    return this.aepsForm.controls;
+  }
+  displayAepsForm: boolean = false;
+  checkUserOnboard() {
+    this.http.get("services/myService").subscribe(
+      (res) => {
+        if (res.response) {
+          /* console.log(res.data); */
+          let rbpAespService;
+          for (let i = 0; i < res.data.length; i++) {
+            if (res.data[i].serviceId == 16) {
+              rbpAespService = res.data[i];
+            }
+          }
+
+          if (
+            rbpAespService.onboarded == true &&
+            rbpAespService.onBoardReferance != "" &&
+            rbpAespService.onboardStatus == "active"
+          ) {
+            this.getBankIIN();
+            this.displayAepsForm = true;
+          } else {
+            this.displayAepsForm = false;
+            this.router.navigateByUrl("/onboarding/aepsnew");
+          }
+        }
+      },
+      (err: any) => {}
+    );
+  }
+  newCustomer: boolean = false;
+  checkingNewCustomer: boolean = false;
+  checkCustomer(e) {
+    //console.log(e.length);
+    if (e != null && e.length == 10) {
+      const contact = this.aepsForm.controls["customerContact"];
+      if (!contact.errors?.pattern) {
+        this.checkingNewCustomer = true;
+        this.http.post("rbp/customer", { contact: e }).subscribe(
+          (res) => {
+            if (res.response) {
+              let data = res.data[0];
+              this.aepsForm.get("customerId").setValue(data.rbpCustomerId);
+              this.aepsForm
+                .get("customerId")
+                .setValidators([Validators.required]);
+              this.newCustomer = false;
+              this.checkingNewCustomer = false;
+              this.aepsForm.get("customerName").clearValidators();
+              this.aepsForm.get("customerPin").clearValidators();
+            } else {
+              this.newCustomer = true;
+              this.checkingNewCustomer = false;
+              this.aepsForm.get("customerId").clearValidators();
+              this.aepsForm
+                .get("customerName")
+                .setValidators([Validators.required]);
+              this.aepsForm
+                .get("customerPin")
+                .setValidators([Validators.required]);
+            }
+            this.aepsForm.get("customerName").updateValueAndValidity();
+            this.aepsForm.get("customerPin").updateValueAndValidity();
+            this.aepsForm.get("customerId").updateValueAndValidity();
+          },
+          (err) => {
+            console.log(err);
+            this.checkingNewCustomer = false;
+          }
+        );
+      } else {
+        this.newCustomer = false;
+      }
+    } else {
+      this.newCustomer = false;
+    }
+  }
+
 }

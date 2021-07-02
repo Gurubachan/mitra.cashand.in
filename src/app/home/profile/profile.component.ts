@@ -26,6 +26,6 @@ export class ProfileComponent implements OnInit {
   }
 
   getUserData() {
-    this.user = JSON.parse(localStorage.getItem("user"));
+    this.user = JSON.parse(window.atob(localStorage.getItem("user")));
   }
 }

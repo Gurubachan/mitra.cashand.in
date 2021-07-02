@@ -8,48 +8,54 @@ import { AuthModule } from '../auth/auth.module';
 import { ProfileComponent } from './profile/profile.component';
 import {UsersComponent} from './users/users.component';
 import { ReportModule } from './report/report.module';
+import { OnboardingModule } from './onboarding/onboarding.module';
 
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: HomeComponent,
     children: [
       {
-        path: '',
+        path: "",
         component: DashboardComponent,
         canActivate: [AuthGuard],
       },
       {
-        path: 'dashboard',
+        path: "dashboard",
         component: DashboardComponent,
         canActivate: [AuthGuard],
       },
       {
-        path: 'profile',
+        path: "profile",
         component: ProfileComponent,
         canActivate: [AuthGuard],
       },
       {
-        path: 'members',
+        path: "members",
         component: UsersComponent,
         canActivate: [AuthGuard],
       },
       {
-        path: 'services',
+        path: "services",
         loadChildren: () => ServicesModule,
         canActivate: [AuthGuard],
       },
       {
-        path: 'reports',
+        path: "reports",
         loadChildren: () => ReportModule,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "onboarding",
+        loadChildren: () => OnboardingModule,
         canActivate: [AuthGuard],
       },
     ],
   },
-  { path: 'auth', loadChildren: () => AuthModule},
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  { path: '**', redirectTo: 'dashboard' },
+  { path: "auth", loadChildren: () => AuthModule },
+  { path: "", redirectTo: "dashboard", pathMatch: "full" },
+  { path: "**", redirectTo: "dashboard" },
 ];
 
 @NgModule({

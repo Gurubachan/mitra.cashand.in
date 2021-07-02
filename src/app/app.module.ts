@@ -25,6 +25,7 @@ import { NbTokenLocalStorage, NbTokenStorage } from "@nebular/auth";
 import { AuthGuard } from "./auth.guard";
 import { NgIdleKeepaliveModule } from "@ng-idle/keepalive";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -46,6 +47,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     NgIdleKeepaliveModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
+    
   ],
   bootstrap: [AppComponent],
   providers: [

@@ -1,15 +1,17 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
   ElementRef,
   Input,
   OnChanges,
   OnInit,
   SimpleChanges,
   ViewChild,
-} from '@angular/core';
-import {HttpService} from '../../../services/http.service';
-import { NbDialogService } from '@nebular/theme';
-import { DialogComponent} from '../dialog/dialog.component';
+} from "@angular/core";
+import { HttpService } from "../../../services/http.service";
+import { NbDialogService } from "@nebular/theme";
+import { DialogComponent } from "../dialog/dialog.component";
 
 @Component({
   selector: "ngx-about",

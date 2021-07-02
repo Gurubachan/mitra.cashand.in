@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit {
 
     this.reset();
   }
-  user = JSON.parse(localStorage.getItem("user"));
+  user = JSON.parse(window.atob(localStorage.getItem("user")));
 
   menu = MENU_ITEMS[parseInt(this.user.role)];
   ngOnInit(): void {

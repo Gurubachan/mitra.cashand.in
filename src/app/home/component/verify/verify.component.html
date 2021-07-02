@@ -35,7 +35,7 @@
     </nb-card>
   </div>
   <div class="col-sm-9">
-    <nb-card status="success" size="medium">
+    <nb-card status="success" size="medium" [nbSpinner]="loading">
       <nb-card-header>Service Assign </nb-card-header>
       <nb-card-body>
         <table class="table table-hover">
@@ -63,7 +63,7 @@
                   [checked]="s.isActive == '1' ? 'true' : 'false'"
                   >{{ s.service }}</nb-toggle
                 > -->
-                <nb-checkbox status="success" [(ngModel)]="s.isActive">{{
+                <nb-checkbox status="success" [(ngModel)]="s.assigned">{{
                   s.service
                 }}</nb-checkbox>
               </td>

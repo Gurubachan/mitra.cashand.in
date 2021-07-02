@@ -59,7 +59,7 @@ export class HttpconfigInterceptor implements HttpInterceptor {
                 errors = `${error.status}\n Message: ${error.statusText}`;
               }
             }
-            // console.log(errors);
+            //console.log(error.status);
             this.toast.showToast(errors, error.name, "danger");
             if (error.status == 401) {
               this.router.navigateByUrl("auth/logout");

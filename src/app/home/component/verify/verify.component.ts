@@ -15,7 +15,8 @@ export class VerifyComponent implements OnInit {
     userRole: Number,
   };
   services: any;
-
+  submitted: boolean = false;
+  loading: boolean = false;
   ngOnInit(): void {
     this.getGroup();
     this.getServices();
@@ -48,7 +49,7 @@ export class VerifyComponent implements OnInit {
         }
       );
   }
-  submitted: boolean = false;
+
   assignRole() {
     if (this.roleAssign.userRole.length > 0) {
       console.log(this.office);
@@ -72,26 +73,29 @@ export class VerifyComponent implements OnInit {
   getServices() {
     this.http.get("services/service/" + this.office.id).subscribe((result) => {
       if (result.response) {
-        this.services = result.data;
+        this.services = JSON.parse(atob(result.data));
       }
     });
   }
-  checkedService: Array<string> = [];
+  
   assignServices() {
-    /*  this.checkedService = [];
-    for (let s of this.services) {
-      if (s.isActive) {
-        this.checkedService.push();
-      }
-    }
-    console.log({ ...this.checkedService }); */
+    this.loading = true;
+    //console.log(this.services);
     this.http
       .post("services/service", {
         userId: this.office.id,
         services: this.services,
       })
-      .subscribe((result) => {
-        console.log(result);
-      });
+      .subscribe(
+        (result) => {
+          if (result.response) {
+            this.services = JSON.parse(atob(result.data));
+          }
+          this.loading = false;
+        },
+        (err) => {
+          this.loading = false;
+        }
+      );
   }
 }

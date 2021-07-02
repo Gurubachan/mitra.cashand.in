@@ -3,28 +3,28 @@ import {
   ChangeDetectorRef,
   Component,
   Inject,
-} from '@angular/core';
+} from "@angular/core";
 import {
   NB_AUTH_OPTIONS,
   NbAuthService,
   NbLoginComponent,
   getDeepFromObject,
   NbAuthResult,
-} from '@nebular/auth';
-import { NbAuthSocialLink } from '@nebular/auth/auth.options';
-import { Router } from '@angular/router';
-import { LocationService } from '../../services/location.service';
+} from "@nebular/auth";
+import { NbAuthSocialLink } from "@nebular/auth/auth.options";
+import { Router } from "@angular/router";
+import { LocationService } from "../../services/location.service";
 
 @Component({
-  selector: 'ngx-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: "ngx-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent extends NbLoginComponent {
   redirectDelay: number = 0;
 
-  strategy: string = 'email';
+  strategy: string = "email";
   showMessages: any = {};
   errors: string[] = [];
   messages: string[] = [];
@@ -42,17 +42,17 @@ export class LoginComponent extends NbLoginComponent {
     @Inject(NB_AUTH_OPTIONS) options: {},
     cd: ChangeDetectorRef,
     router: Router,
-    private locationService: LocationService,
+    private locationService: LocationService
   ) {
     super(service, options, cd, router);
 
-    this.redirectDelay = this.getConfigValue('forms.login.redirectDelay');
-    this.showMessages = this.getConfigValue('forms.login.showMessages');
-    this.strategy = this.getConfigValue('forms.login.strategy');
-    this.socialLinks = this.getConfigValue('forms.login.socialLinks');
-    this.rememberMe = this.getConfigValue('forms.login.rememberMe');
+    this.redirectDelay = this.getConfigValue("forms.login.redirectDelay");
+    this.showMessages = this.getConfigValue("forms.login.showMessages");
+    this.strategy = this.getConfigValue("forms.login.strategy");
+    this.socialLinks = this.getConfigValue("forms.login.socialLinks");
+    this.rememberMe = this.getConfigValue("forms.login.rememberMe");
     if (this.service.getToken()) {
-      this.router.navigateByUrl('/dashboard');
+      this.router.navigateByUrl("/dashboard");
     }
     this.location();
   }
@@ -73,8 +73,8 @@ export class LoginComponent extends NbLoginComponent {
           );
           console.log(encr);*/
           localStorage.setItem(
-            'user',
-            JSON.stringify(result.getResponse().body.data.user),
+            "user",
+            btoa(JSON.stringify(result.getResponse().body.data.user))
           );
 
           /*console.log(this.EncrDecr.get(encr));*/
@@ -96,7 +96,7 @@ export class LoginComponent extends NbLoginComponent {
       (err) => {
         alert(err.message);
         /*console.log(err.message);*/
-      },
+      }
     );
   }
 

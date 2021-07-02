@@ -24,7 +24,7 @@ import { VerifyComponent } from "./verify/verify.component";
 import { ServiceListComponent } from "../services/service-list/service-list.component";
 import { MoreviewComponent } from "./popover/moreview/moreview.component";
 import { ReferralComponent } from "./referral/referral.component";
-
+import { RbpTransactionDialogComponent } from "./rbp-transaction-dialog/rbp-transaction-dialog.component";
 @NgModule({
   declarations: [
     AboutComponent,
@@ -36,6 +36,7 @@ import { ReferralComponent } from "./referral/referral.component";
     ServiceListComponent,
     MoreviewComponent,
     ReferralComponent,
+    RbpTransactionDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -52,6 +53,7 @@ import { ReferralComponent } from "./referral/referral.component";
     OnboardingModule,
     NbUserModule,
     NbSpinnerModule,
+
   ],
   exports: [
     AboutComponent,

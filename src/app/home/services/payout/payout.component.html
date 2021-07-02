@@ -127,7 +127,7 @@
   </div>
   <div class="col-sm-4">
     <nb-card size="tiny">
-      <nb-card-body>
+      <nb-card-body [nbSpinner]="loading">
         Bank Name : {{ bankSettlement?.bankName }}<br />
         Account Number : {{ bankSettlement?.bene_account }}<br />
         IFSC Code : {{ bankSettlement?.ifsc }}<br />
@@ -139,7 +139,7 @@
           icon="refresh-outline"
           (click)="checkStatus()"
           *ngIf="
-            bankSettlement?.status == 'initiated' &&
+            bankSettlement?.status != 'success' &&
             bankSettlement?.txnType != 'BV'
           "
         ></nb-icon>

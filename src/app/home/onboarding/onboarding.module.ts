@@ -1,16 +1,24 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { AepsiciciComponent } from './aepsicici/aepsicici.component';
-import {NbAlertModule, NbButtonModule, NbInputModule, NbOptionModule, NbSelectModule} from '@nebular/theme';
-import { FormsModule } from '@angular/forms';
-
-
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { AepsiciciComponent } from "./aepsicici/aepsicici.component";
+import {
+  NbAlertModule,
+  NbButtonModule,
+  NbCardModule,
+  NbInputModule,
+  NbOptionModule,
+  NbProgressBarModule,
+  NbSelectModule,
+  NbSpinnerModule,
+} from "@nebular/theme";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { IcicinewComponent } from "./icicinew/icicinew.component";
+import { OnboardingComponent } from "./onboarding.component";
+import { OnboardingRoutingModule } from "./onboarding-routing.module";
 
 @NgModule({
-  declarations: [AepsiciciComponent],
-  exports: [
-    AepsiciciComponent
-  ],
+  declarations: [AepsiciciComponent, IcicinewComponent, OnboardingComponent],
+  exports: [AepsiciciComponent],
   imports: [
     CommonModule,
     NbOptionModule,
@@ -19,6 +27,11 @@ import { FormsModule } from '@angular/forms';
     NbInputModule,
     NbAlertModule,
     NbButtonModule,
-  ]
+    OnboardingRoutingModule,
+    NbCardModule,
+    ReactiveFormsModule,
+    NbSpinnerModule,
+    NbProgressBarModule,
+  ],
 })
-export class OnboardingModule { }
+export class OnboardingModule {}
