@@ -7,8 +7,10 @@
           <tr>
             <th>sl#</th>
             <th>User Id</th>
+            <th>Service Name</th>
             <th>BC ID</th>
             <th>Onboard Response</th>
+            <th>Status</th>
             <th>Created</th>
           </tr>
         </thead>
@@ -16,12 +18,31 @@
           <tr *ngFor="let bc of onBordedData?.data">
             <td>{{ bc.id }}</td>
             <td>{{ bc.fname + " " + bc.lname }}<br />{{ bc.contact }}</td>
+            <td>{{ bc.service }}</td>
             <td>{{ bc.bcId }}</td>
-            <td>{{ bc.response_data[0]?.Message }}</td>
+            <td>{{ bc.response_data | json }}</td>
+            <td>{{ bc.status }}</td>
             <td>{{ bc.created_at | date: "d-M-yyyy h:mm:a" }}</td>
           </tr>
         </tbody>
       </table>
     </div>
   </nb-card-body>
+  <button
+    nbButton
+    status="success"
+    *ngIf="onBordedData?.prev_page_url != null"
+    (click)="goToPage(onBordedData?.prev_page_url)"
+  >
+    Previous
+  </button>
+  <button
+    nbButton
+    status="success"
+    class="float-right"
+    *ngIf="onBordedData?.next_page_url != null"
+    (click)="goToPage(onBordedData?.next_page_url)"
+  >
+    Next
+  </button>
 </nb-card>

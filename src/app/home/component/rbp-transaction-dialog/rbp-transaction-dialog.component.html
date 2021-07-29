@@ -1,136 +1,138 @@
-<nb-card [size]="'large'">
-  <nb-card-header
-    ><div *ngIf="data.data.txnCode == 'BE'" style="text-align: center">
-      <h3>Balance Enquiry</h3>
-    </div>
-    <div *ngIf="data.data.txnCode == 'MS'" style="text-align: center">
-      <h3>Mini Statement</h3>
-    </div>
-    <div *ngIf="data.data.txnCode == 'CW'" style="text-align: center">
-      <h3>Cash Withdrawal</h3>
-    </div>
-    <h6 style="text-align: center">
-      Transaction {{ data.data.bankResponseMsg }}
-    </h6></nb-card-header
-  >
-
-  <nb-card-body>
-    <table style="width: 100%">
-      <tr>
-        <td>Transaction Date:</td>
-        <td>{{ data.data.txnDate | date: "medium" }}</td>
-      </tr>
-      <tr>
-        <td>Transaction Ref Id:</td>
-        <td>{{ data.data.partnerRefId }}</td>
-      </tr>
-      <tr>
-        <td>Bank Name:</td>
-        <td>{{ data.data.bankName }}</td>
-      </tr>
-      <tr>
-        <td>Customer Name:</td>
-        <td>{{ data.data.customerName }}</td>
-      </tr>
-      <tr>
-        <td>Customer Mobile:</td>
-        <td>{{ data.data.customerMobileNo }}</td>
-      </tr>
-      <tr>
-        <td>Aadhaar No.:</td>
-        <td>{{ data.data.aadhaarNo }}</td>
-      </tr>
-      <tr>
-        <td>RRN:</td>
-        <td>{{ data.data.rrn }}</td>
-      </tr>
-      <tr>
-        <td>Stan No:</td>
-        <td>{{ data.data.stan }}</td>
-      </tr>
-      <tr>
-        <td>Status:</td>
-        <td>{{ data.data.bankResponseMsg }}</td>
-      </tr>
-      <tr>
-        <td>Transaction Amount:</td>
-        <td>{{ data.data.amount }}</td>
-      </tr>
-      <tr>
-        <td>Remaining Balance:</td>
-        <td>{{ data.data.remainingBalance }}</td>
-      </tr>
-    </table>
-    <table style="width: 100%" *ngIf="data.data.txnCode == 'MS'" border="1">
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Narration</th>
-          <th>TxnType</th>
-          <th>amount</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let p of data.data.passbook">
-          <td>{{ p.date }}</td>
-          <td>{{ p.narration }}</td>
-          <td>{{ p.txnType }}</td>
-          <td>{{ p.amount }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <table style="width: 100%">
-      <thead style="text-align: center">
-        <tr>
-          <th colspan="2"><strong>Agent Details</strong></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Terminal Id :</td>
-          <td>{{ data.data.terminalId }}</td>
-        </tr>
-        <tr>
-          <td>Merchant Id :</td>
-          <td>{{ data.data.merchant_Id }}</td>
-        </tr>
-        <tr>
-          <td>Name :</td>
-          <td>{{ data.data.merchantName }}</td>
-        </tr>
-        <tr>
-          <td>Mobile :</td>
-          <td>{{ data.data.merchantMobileNo }}</td>
-        </tr>
-        <tr>
-          <td>Email Id :</td>
-          <td>{{ data.data.merchantEmailId }}</td>
-        </tr>
-        <tr>
-          <td>Location :</td>
-          <td>{{ data.data.merchantLocation }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </nb-card-body>
-
-  <nb-card-footer>
-    <button
-      nbButton
-      class="btn btn-danger"
-      type="reset"
-      style="float: left"
-      (click)="cancel()"
+<div id="printArea">
+  <nb-card size="large" [status]="returnStatus(data.data.bankResponseMsg)">
+    <nb-card-header
+      ><div *ngIf="data.data.txnCode == 'BE'" style="text-align: center">
+        <h3>Balance Enquiry</h3>
+      </div>
+      <div *ngIf="data.data.txnCode == 'MS'" style="text-align: center">
+        <h3>Mini Statement</h3>
+      </div>
+      <div *ngIf="data.data.txnCode == 'CW'" style="text-align: center">
+        <h3>Cash Withdrawal</h3>
+      </div>
+      <h6 style="text-align: center">
+        Transaction {{ data.data.bankResponseMsg }}
+      </h6></nb-card-header
     >
-      Close
-    </button>
-    <button
-      class="btn btn-success"
-      type="button"
-      style="float: right"
-      (click)="printPage()"
-    >
-      Print
-    </button>
-  </nb-card-footer>
-</nb-card>
+
+    <nb-card-body>
+      <table style="width: 100%">
+        <tr>
+          <td>Transaction Date:</td>
+          <td>{{ data.data.txnDate | date: "medium" }}</td>
+        </tr>
+        <tr>
+          <td>Transaction Ref Id:</td>
+          <td>{{ data.data.partnerRefId }}</td>
+        </tr>
+        <tr>
+          <td>Bank Name:</td>
+          <td>{{ data.data.bankName }}</td>
+        </tr>
+        <tr>
+          <td>Customer Name:</td>
+          <td>{{ data.data.customerName }}</td>
+        </tr>
+        <tr>
+          <td>Customer Mobile:</td>
+          <td>{{ data.data.customerMobileNo }}</td>
+        </tr>
+        <tr>
+          <td>Aadhaar No.:</td>
+          <td>{{ data.data.aadhaarNo }}</td>
+        </tr>
+        <tr>
+          <td>RRN:</td>
+          <td>{{ data.data.rrn }}</td>
+        </tr>
+        <tr>
+          <td>Stan No:</td>
+          <td>{{ data.data.stan }}</td>
+        </tr>
+        <tr>
+          <td>Status:</td>
+          <td>{{ data.data.bankResponseMsg }}</td>
+        </tr>
+        <tr>
+          <td>Transaction Amount:</td>
+          <td>{{ data.data.amount }}</td>
+        </tr>
+        <tr>
+          <td>Remaining Balance:</td>
+          <td>{{ data.data.remainingBalance }}</td>
+        </tr>
+      </table>
+      <table style="width: 100%" *ngIf="data.data.txnCode == 'MS'">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Narration</th>
+            <th>TxnType</th>
+            <th>amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of data.data.passbook">
+            <td>{{ p.date }}</td>
+            <td>{{ p.narration }}</td>
+            <td>{{ p.txnType }}</td>
+            <td>{{ p.amount }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <table style="width: 100%">
+        <thead style="text-align: center">
+          <tr>
+            <th colspan="2"><strong>Agent Details</strong></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Terminal Id :</td>
+            <td>{{ data.data.terminalId }}</td>
+          </tr>
+          <tr>
+            <td>Merchant Id :</td>
+            <td>{{ data.data.merchant_Id }}</td>
+          </tr>
+          <tr>
+            <td>Name :</td>
+            <td>{{ data.data.merchantName }}</td>
+          </tr>
+          <tr>
+            <td>Mobile :</td>
+            <td>{{ data.data.merchantMobileNo }}</td>
+          </tr>
+          <tr>
+            <td>Email Id :</td>
+            <td>{{ data.data.merchantEmailId }}</td>
+          </tr>
+          <tr>
+            <td>Location :</td>
+            <td>{{ data.data.merchantLocation }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </nb-card-body>
+
+    <nb-card-footer>
+      <button
+        nbButton
+        class="btn btn-danger"
+        type="reset"
+        style="float: left"
+        (click)="cancel()"
+      >
+        Close
+      </button>
+      <button
+        class="btn btn-success"
+        type="button"
+        style="float: right"
+        (click)="printPage()"
+      >
+        Print
+      </button>
+    </nb-card-footer>
+  </nb-card>
+</div>

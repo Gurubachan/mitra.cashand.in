@@ -83,22 +83,24 @@
           <th>Aadhar</th>
           <th>Status</th>
           <th>Transaction Date</th>
+          <th>Update Date</th>
           <th>BC Name</th>
           <th>Remark</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let t of transactions?.data">
-          <td>{{ t.id }}</td>
-          <td>{{ t.bankName }}</td>
-          <td>{{ t.amount }}</td>
-          <td>{{ t.txnType }}</td>
-          <td>{{ t.rrn }}</td>
-          <td>{{ t.aadhar }}</td>
-          <td>{{ t.status }}</td>
-          <td>{{ t.checkAEPSTxnStatus_response.trnx_date }}</td>
-          <td>{{ t.fname + " " + t.lname | titlecase }}</td>
-          <td>{{ t.bank_response_message }}</td>
+          <td>{{ t?.id }}</td>
+          <td>{{ t?.bankName }}</td>
+          <td>{{ t?.amount }}</td>
+          <td>{{ t?.txnType }}</td>
+          <td>{{ t?.rrn }}</td>
+          <td>{{ t?.aadhar }}</td>
+          <td>{{ t?.status }}</td>
+          <td>{{ t?.checkAEPSTxnStatus_response?.trnx_date }}</td>
+          <td>{{ t?.checkAEPSTxnStatus_response_at }}</td>
+          <td>{{ t?.fname + " " + t.lname | titlecase }}</td>
+          <td>{{ t?.bank_response_message }}</td>
         </tr>
       </tbody>
     </table>

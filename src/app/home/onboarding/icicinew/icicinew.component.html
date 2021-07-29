@@ -170,6 +170,9 @@
                 Only number allowed.
               </p>
             </ng-container>
+            <span (click)="resendOTP(ekycOnboardingForm.value)" *ngIf="resend"
+              >Click To Resend OTP </span
+            ><label *ngIf="!resend">Resend after : {{ timer }}</label>
           </div>
 
           <div class="form-control-group">
@@ -196,7 +199,9 @@
                 dl.value
               }}</nb-option>
             </nb-select>
-            <ng-container *ngIf="ekyc.deviceList.invalid && ekyc.deviceList.touched">
+            <ng-container
+              *ngIf="ekyc.deviceList.invalid && ekyc.deviceList.touched"
+            >
               <p
                 class="caption status-danger"
                 *ngIf="ekyc.deviceList.errors?.required"
@@ -217,6 +222,7 @@
                   <img
                     src="../../../../assets/images/fingerprint.png"
                     width="40%"
+                    [style.opacity]="fingureOpacity"
                   />
                   <p>{{ scanMessage }}</p>
                 </div>

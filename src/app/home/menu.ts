@@ -73,81 +73,85 @@ menus[2] = [
 
 menus[4] = [
   {
-    title: 'Dashboard',
-    icon: 'home-outline',
-    link: '/dashboard',
+    title: "Dashboard",
+    icon: "home-outline",
+    link: "/dashboard",
     home: true,
   },
   {
-    title: 'SERVICES',
+    title: "SERVICES",
     group: true,
   },
   {
-    title: 'Services',
-    icon: 'layout-outline',
+    title: "Services",
+    icon: "layout-outline",
     children: [
       {
-        title: 'Money Trasfer',
-        link: '/services/dmt',
+        title: "Money Trasfer",
+        link: "/services/dmt",
       },
       {
-        title: 'AEPS',
-        link: '/services/aeps',
+        title: "AEPS",
+        link: "/services/aeps",
       },
       {
-        title: 'AEPS NEW',
-        link: '/services/aepsNew',
+        title: "AEPS NEW",
+        link: "/services/aepsNew",
       },
       {
-        title: 'MATM',
-        link: '/services/matm',
+        title: "MATM",
+        link: "/services/matm",
       },
       {
-        title: 'Recharge',
-        link: '/services/recharge',
+        title: "Recharge",
+        link: "/services/recharge",
       },
       {
-        title: 'CMS',
-        link: '/services/cms',
+        title: "CMS",
+        link: "/services/cms",
       },
       {
-        title: 'Insurance',
-        pathMatch: 'prefix',
-        link: '/pages/layout/tabs',
+        title: "PAN Card",
+        link: "/services/pan",
+      },
+      {
+        title: "Insurance",
+        pathMatch: "prefix",
+        link: "/pages/layout/tabs",
       },
     ],
   },
   {
-    title: 'REPORTS',
+    title: "REPORTS",
     group: true,
   },
   {
-    title: 'Reports',
-    icon: 'layout-outline',
+    title: "Reports",
+    icon: "layout-outline",
     children: [
       {
-        title: 'Money Transfer',
-        link: '/reports/dmt',
+        title: "Money Transfer",
+        link: "/reports/dmt",
       },
       {
-        title: 'AEPS',
-        link: '/reports/aeps',
+        title: "AEPS",
+        link: "/reports/aeps",
       },
       {
-        title: 'MATM',
-        link: '/reports/matm',
+        title: "MATM",
+        link: "/reports/matm",
       },
       {
-        title: 'Recharge',
-        link: '/reports/recharge',
+        title: "Recharge",
+        link: "/reports/recharge",
       },
       {
-        title: 'CMS',
-        link: '/reports/cms',
+        title: "CMS",
+        link: "/reports/cms",
       },
       {
-        title: 'Insurance',
-        link: '/reports/insurance',
+        title: "Insurance",
+        link: "/reports/insurance",
       },
     ],
   },

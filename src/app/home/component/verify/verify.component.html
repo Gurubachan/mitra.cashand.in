@@ -1,7 +1,7 @@
 <div class="row">
-  <div class="col-sm-3">
+  <div class="col-sm-4 col-md-4 col-lg-4">
     <nb-card status="success">
-      <nb-card-header>Role Assign</nb-card-header>
+      <nb-card-header>Role_Assign</nb-card-header>
       <nb-card-body *ngIf="office.role == 0">
         <nb-select
           placeholder="Select Group"
@@ -34,8 +34,8 @@
       >
     </nb-card>
   </div>
-  <div class="col-sm-9">
-    <nb-card status="success" size="medium" [nbSpinner]="loading">
+  <div class="col-sm-8 col-md-8 col-lg-8" *ngIf="office.role == 4">
+    <nb-card status="success" [nbSpinner]="loading" size="medium">
       <nb-card-header>Service Assign </nb-card-header>
       <nb-card-body>
         <table class="table table-hover">

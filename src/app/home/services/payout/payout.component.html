@@ -126,8 +126,8 @@
     </nb-card>
   </div>
   <div class="col-sm-4">
-    <nb-card size="tiny">
-      <nb-card-body [nbSpinner]="loading">
+    <nb-card size="tiny" [nbSpinner]="loading">
+      <nb-card-body>
         Bank Name : {{ bankSettlement?.bankName }}<br />
         Account Number : {{ bankSettlement?.bene_account }}<br />
         IFSC Code : {{ bankSettlement?.ifsc }}<br />

@@ -5,7 +5,8 @@ var GetPIString = "";
 var GetPAString = "";
 var GetPFAString = "";
 var DemoFinalString = "";
-
+var finalUrl = "";
+let OldPort = false;
 function discoverAvdm() {
   // New
 
@@ -17,7 +18,9 @@ function discoverAvdm() {
     if (protocol.indexOf("https") >= 0) {
       primaryUrl = "https://127.0.0.1:";
     }
-  } catch (e) {}
+  } catch (e) {
+    //console.error(e);
+  }
 
   url = "";
   ddlAVDM = "";
@@ -53,6 +56,7 @@ function discoverAvdm() {
         res = { httpStaus: httpStaus, data: data };
         //alert(data);
         finalUrl = primaryUrl + i.toString();
+       // console.log(finalUrl);
         var $doc = $.parseXML(data);
         var CmbData1 = $($doc).find("RDService").attr("status");
         var CmbData2 = $($doc).find("RDService").attr("info");
@@ -87,6 +91,7 @@ function discoverAvdm() {
           SuccessFlag = 1;
           //alert("RDSERVICE Discover Successfully");
 
+          console.log(res);
           return;
         }
 
@@ -101,7 +106,7 @@ function discoverAvdm() {
         /* $("#txtDeviceInfo").val(""); */
         //alert(thrownError);
 
-        //res = { httpStaus: httpStaus, err: getHttpError(jqXHR) };
+        // res = { httpStaus: httpStaus, err: getHttpError(jqXHR) };
       },
     });
 
@@ -160,6 +165,7 @@ function CaptureAvdm() {
     $.support.cors = true;
     var httpStaus = false;
     var jsonstr = "";
+    //console.log(finalUrl + MethodCapture);
     $.ajax({
       type: "CAPTURE",
       async: false,

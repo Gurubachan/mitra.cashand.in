@@ -6,5 +6,5 @@
 export const environment = {
   production: true,
   uri: "https://api.cashand.in/api/",
-  //uri: "http://sandbox.cashand.in/api/",
+  //uri: "https://sandbox.cashand.in/api/",
 };

@@ -4,6 +4,9 @@
       <th>Services</th>
       <th>Onboard</th>
       <th>Onboard Status</th>
+
+      <th>Created At</th>
+      <th>Updated At</th>
       <th>Check Status</th>
     </tr>
   </thead>
@@ -29,6 +32,12 @@
             ? sl.onboardStatus
             : sl.remark
         }}
+      </td>
+      <td>
+        {{ sl.created_at | date: "dd-MM-yyyy h:mm:ss a" }}
+      </td>
+      <td>
+        {{ sl.updated_at | date: "dd-MM-yyyy h:mm:ss a" }}
       </td>
       <td>
         <button

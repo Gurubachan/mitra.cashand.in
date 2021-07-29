@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../../services/http.service';
-import { NbDialogService } from '@nebular/theme';
-import { ViewProfileComponent } from './view-profile/view-profile.component';
-import {ToastrService} from '../../services/toastr.service';
+import { Component, OnInit } from "@angular/core";
+import { HttpService } from "../../services/http.service";
+import { NbDialogService } from "@nebular/theme";
+import { ViewProfileComponent } from "./view-profile/view-profile.component";
+import { ToastrService } from "../../services/toastr.service";
+import { admin } from "../../constants/admin";
+import { Router } from "@angular/router";
+
 @Component({
-  selector: 'ngx-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss'],
+  selector: "ngx-users",
+  templateUrl: "./users.component.html",
+  styleUrls: ["./users.component.scss"],
 })
 export class UsersComponent implements OnInit {
   usersList: any;
@@ -19,35 +22,50 @@ export class UsersComponent implements OnInit {
 
   searchData: any = {};
   submitted: boolean = false;
-  constructor(private http: HttpService, private dialog: NbDialogService, private toast: ToastrService) {}
+  constructor(
+    private http: HttpService,
+    private dialog: NbDialogService,
+    private toast: ToastrService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.getUserList();
+    let user = JSON.parse(window.atob(localStorage.getItem("user")));
+    if (admin.adminGroup.indexOf(user.role) > -1) {
+      this.getUserList();
+    } else {
+      this.toast.showToast(
+        "You are not authorised to access this url 😒 !",
+        "Wrong Route",
+        "warning"
+      );
+      this.router.navigateByUrl("/dashboard");
+    }
   }
   getUserGroup() {
-    this.http.get('group').subscribe((result) => {
-     /* console.log(result);*/
+    this.http.get("group").subscribe((result) => {
+      /* console.log(result);*/
     });
   }
   getUserList() {
-    this.http.post('users', {}).subscribe(
+    this.http.post("users", {}).subscribe(
       (result) => {
         if (result.response) {
           this.usersList = result.data;
         }
       },
       (err) => {
-        this.toast.showToast(err.error.message, 'User List', 'danger');
-      },
+        this.toast.showToast(err.error.message, "User List", "danger");
+      }
     );
   }
   view(user) {
     this.dialog.open(ViewProfileComponent, {
       autoFocus: false,
-      backdropClass: '',
+      backdropClass: "",
       closeOnBackdropClick: false,
       closeOnEsc: false,
-      dialogClass: '',
+      dialogClass: "",
       hasScroll: true,
       viewContainerRef: undefined,
       hasBackdrop: false,
@@ -64,15 +82,15 @@ export class UsersComponent implements OnInit {
 
   loginUpdate(user) {
     this.http
-      .post('user/update', { id: user.id, loginAllowed: user.loginAllowed })
+      .post("user/update", { id: user.id, loginAllowed: user.loginAllowed })
       .subscribe((result) => {});
   }
 
   goToPage(url: string) {
     this.loading = true;
-    const param = url.split('?');
+    const param = url.split("?");
     // console.log(param);
-    this.http.post('users' + '?' + param[1], {}).subscribe((res) => {
+    this.http.post("users" + "?" + param[1], {}).subscribe((res) => {
       if (res.response) {
         this.usersList = res.data;
         this.loading = false;
@@ -81,5 +99,19 @@ export class UsersComponent implements OnInit {
   }
   onFormSubmit() {
     this.loading = true;
+    this.http
+      .post("users", { key: "contact", value: this.searchData })
+      .subscribe(
+        (res) => {
+          if (res.response) {
+            this.usersList = res.data;
+            this.loading = false;
+          }
+        },
+        (err) => {
+          console.log(err);
+          this.loading = false;
+        }
+      );
   }
 }

@@ -24,4 +24,18 @@ export class BconboardingComponent implements OnInit {
       }
     });
   }
+
+  goToPage(url: string) {
+    this.loading = true;
+    let param = url.split("?");
+    console.log(param);
+    this.http
+      .post("services/onboarded" + "?" + param[1], null)
+      .subscribe((res) => {
+        if (res.response) {
+          this.onBordedData = res.data;
+          this.loading = false;
+        }
+      });
+  }
 }

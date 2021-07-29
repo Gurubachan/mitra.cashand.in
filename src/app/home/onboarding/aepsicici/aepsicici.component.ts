@@ -34,7 +34,7 @@ export class AepsiciciComponent implements OnInit {
 
   onFormSubmit() {
     this.submitted = true;
-    console.log(this.aepsKyc);
+    //console.log(this.aepsKyc);
     this.http.post("services/iciciKyc", this.aepsKyc).subscribe(
       (result: any) => {
         this.submitted = false;

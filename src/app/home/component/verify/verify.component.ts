@@ -1,12 +1,13 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { HttpService } from "../../../services/http.service";
+import { ToastrService } from "../../../services/toastr.service";
 @Component({
   selector: "ngx-verify",
   templateUrl: "./verify.component.html",
   styleUrls: ["./verify.component.scss"],
 })
 export class VerifyComponent implements OnInit {
-  constructor(private http: HttpService) {}
+  constructor(private http: HttpService, private toast: ToastrService) {}
   @Input() office: any;
   userGroup: any;
   userType: any;
@@ -77,7 +78,7 @@ export class VerifyComponent implements OnInit {
       }
     });
   }
-  
+
   assignServices() {
     this.loading = true;
     //console.log(this.services);
@@ -88,13 +89,20 @@ export class VerifyComponent implements OnInit {
       })
       .subscribe(
         (result) => {
+          console.log(result);
           if (result.response) {
+            this.loading = false;
+            console.log(this.loading);
             this.services = JSON.parse(atob(result.data));
+            this.toast.showToast(result.message, "Service Assigned", "success");
+          } else {
+            this.loading = false;
+            this.toast.showToast(result.message, "Service Assigned", "danger");
           }
-          this.loading = false;
         },
         (err) => {
           this.loading = false;
+          this.toast.showToast(err.error.message, "Service Assigned", "danger");
         }
       );
   }

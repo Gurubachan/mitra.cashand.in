@@ -28,7 +28,6 @@ export class AepsnewComponent implements OnInit {
   scanMessage: String = "Click on fingure print.";
   fingureScanStrength: Number = 0;
   fingureOpacity: any = 0.1;
-
   dialogRef;
   constructor(
     private locationService: LocationService,
@@ -82,7 +81,6 @@ export class AepsnewComponent implements OnInit {
     this.http.post("rbp/aepsTransaction", form).subscribe(
       (res) => {
         if (res.response) {
-          this.aepsForm.reset();
           this.toast.showToast(res.message, "Transaction Success", "success");
           this.fingureScanStrength = 0;
           this.dialogRef = this.dialogService.open(
@@ -94,14 +92,17 @@ export class AepsnewComponent implements OnInit {
               },
             }
           );
+          this.aepsForm.reset();
+          this.fingureOpacity = "0.1";
         } else {
           this.aepsForm.reset();
           this.fingureScanStrength = 0;
           this.toast.showToast(res.message, "Transaction Failed", "danger");
+          this.fingureOpacity = "0.1";
         }
         this.submitted = false;
         this.newCustomer = false;
-        console.log(this.aepsForm.value);
+        //console.log(this.aepsForm.value);
       },
       (err) => {
         //window.location.reload();
@@ -110,6 +111,7 @@ export class AepsnewComponent implements OnInit {
         this.toast.showToast(err.error.message, "Server Issue", "danger");
         this.submitted = false;
         this.newCustomer = false;
+        this.fingureOpacity = "0.1";
       }
     );
   }
@@ -185,7 +187,7 @@ export class AepsnewComponent implements OnInit {
           this.checkAndClose();
         })
         .catch((err) => {
-          console.log(err);
+          //console.log(err);
           this.fingureScanStrength = 0;
           this.scanMessage = "Device Not Connected";
           this.aepsForm.controls.deviceList.setErrors({ invalidNumber: true });
@@ -201,11 +203,11 @@ export class AepsnewComponent implements OnInit {
           }
         })
         .catch((err) => {
-          console.log(err);
+          //console.log(err);
+          this.fingureScanning = false;
           this.fingureScanStrength = 0;
           this.scanMessage = "Device Not Connected";
           this.aepsForm.controls.deviceList.setErrors({ invalidNumber: true });
-          this.fingureScanning = false;
         });
     } else {
       this.scanMessage = "No biometric device selected";
@@ -245,6 +247,8 @@ export class AepsnewComponent implements OnInit {
         this.fingureScanning = false;
         this.fingureOpacity = "0.1";
       }
+    } else {
+      this.fingureScanning = false;
     }
   }
   // convenience getter for easy access to form fields
@@ -253,19 +257,14 @@ export class AepsnewComponent implements OnInit {
   }
   displayAepsForm: boolean = false;
   checkUserOnboard() {
-    this.http.get("services/myService").subscribe(
+    this.http.post("services/checkMyService", { serviceId: 16 }).subscribe(
       (res) => {
         if (res.response) {
-          /* console.log(res.data); */
           let rbpAespService;
-          for (let i = 0; i < res.data.length; i++) {
-            if (res.data[i].serviceId == 16) {
-              rbpAespService = res.data[i];
-            }
-          }
-
+          rbpAespService = res.data[0];
+          // console.log(rbpAespService);
           if (
-            rbpAespService.onboarded == true &&
+            rbpAespService.status_code == "A" &&
             rbpAespService.onBoardReferance != "" &&
             rbpAespService.onboardStatus == "active"
           ) {
@@ -273,11 +272,17 @@ export class AepsnewComponent implements OnInit {
             this.displayAepsForm = true;
           } else {
             this.displayAepsForm = false;
+            this.toast.showToast(res.message, "Service", "warning");
             this.router.navigateByUrl("/onboarding/aepsnew");
           }
+        } else {
+          this.toast.showToast(res.message, "Service", "warning");
+          this.router.navigateByUrl("/dashboard");
         }
       },
-      (err: any) => {}
+      (err: any) => {
+        this.toast.showToast(err.error.message, "Service", "danger");
+      }
     );
   }
   newCustomer: boolean = false;
@@ -327,5 +332,4 @@ export class AepsnewComponent implements OnInit {
       this.newCustomer = false;
     }
   }
-
 }
