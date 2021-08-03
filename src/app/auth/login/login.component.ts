@@ -76,6 +76,10 @@ export class LoginComponent extends NbLoginComponent {
             "user",
             btoa(JSON.stringify(result.getResponse().body.data.user))
           );
+          localStorage.setItem(
+            "services",
+            result.getResponse().body.data.service
+          );
 
           /*console.log(this.EncrDecr.get(encr));*/
           this.messages = result.getMessages();

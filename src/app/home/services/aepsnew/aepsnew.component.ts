@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, NgForm, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { NbDialogService } from "@nebular/theme";
+import { CheckfeaturesService } from "../../../services/checkfeatures.service";
 import { HttpService } from "../../../services/http.service";
 import { LocationService } from "../../../services/location.service";
 import { ToastrService } from "../../../services/toastr.service";
@@ -35,7 +36,8 @@ export class AepsnewComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private toast: ToastrService,
-    private dialogService: NbDialogService
+    private dialogService: NbDialogService,
+    private features: CheckfeaturesService
   ) {
     this.location();
 
@@ -53,7 +55,12 @@ export class AepsnewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.checkUserOnboard();
+    if (this.features.isGiven(16)) {
+      this.checkUserOnboard();
+    } else {
+      this.toast.showToast("Feature not allowed", "Feature", "warning");
+      this.router.navigateByUrl("/dashboard");
+    }
 
     this.aepsForm = this.formBuilder.group({
       aadhaarNumber: [

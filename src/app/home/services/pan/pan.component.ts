@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, NgForm, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { CheckfeaturesService } from "../../../services/checkfeatures.service";
+
 import { HttpService } from "../../../services/http.service";
 import { ToastrService } from "../../../services/toastr.service";
 
@@ -26,7 +28,8 @@ export class PanComponent implements OnInit {
     private http: HttpService,
     private router: Router,
     private toast: ToastrService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private features: CheckfeaturesService
   ) {}
 
   ngOnInit(): void {
@@ -34,11 +37,15 @@ export class PanComponent implements OnInit {
       stateId: ["", Validators.required],
       districtId: ["", Validators.required],
     });
-    //this.checkStatus();
   }
 
   openPan() {
-    this.checkStatus();
+    if (this.features.isGiven(17)) {
+      this.checkStatus();
+    } else {
+      this.toast.showToast("Feature not allowed", "Feature", "warning");
+      this.router.navigateByUrl("/dashboard");
+    }
   }
 
   getState() {
@@ -77,7 +84,8 @@ export class PanComponent implements OnInit {
         }
       },
       (err) => {
-        console.log(err);
+        this.message = err.error.message;
+        this.sts = "danger";
       }
     );
   }
@@ -110,7 +118,7 @@ export class PanComponent implements OnInit {
             let data = res.data.Data[0];
             console.log(data);
             let url =
-              //"https://www.myutiitsl.com/panonlineservices/loginCheckin";
+              // "https://www.myutiitsl.com/panonlineservices/loginCheckin";
               "http://203.153.46.10:8080/panonlineservices/loginCheckin";
             url =
               url +

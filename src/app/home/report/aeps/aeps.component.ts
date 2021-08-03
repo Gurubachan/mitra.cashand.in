@@ -14,6 +14,7 @@ export class AepsComponent implements OnInit {
   ngModelDate = new Date();
   selectedTxnType;
   selectedTxnStatus;
+  selectedTxnPipe;
   frommin: Date;
   frommax: Date;
   tomin: Date;
@@ -67,7 +68,13 @@ export class AepsComponent implements OnInit {
       status: this.selectedTxnStatus,
     };
     // console.log(data);
-    this.http.post("services/transaction", data).subscribe(
+    let url;
+    if (this.selectedTxnPipe == 0) {
+      url = "services/transaction";
+    } else {
+      url = "rbp/transaction";
+    }
+    this.http.post(url, data).subscribe(
       (resulte) => {
         if (resulte.response) {
           this.transactions = resulte.data;
@@ -91,13 +98,17 @@ export class AepsComponent implements OnInit {
       type: this.selectedTxnType,
       status: this.selectedTxnStatus,
     };
-    this.http
-      .post("services/transaction" + "?" + param[1], data)
-      .subscribe((res) => {
-        if (res.response) {
-          this.transactions = res.data;
-          this.loading = false;
-        }
-      });
+    let endpoint;
+    if (this.selectedTxnPipe == 0) {
+      endpoint = "services/transaction";
+    } else {
+      endpoint = "rbp/transaction";
+    }
+    this.http.post(endpoint + "?" + param[1], data).subscribe((res) => {
+      if (res.response) {
+        this.transactions = res.data;
+        this.loading = false;
+      }
+    });
   }
 }

@@ -2,7 +2,7 @@
   <nb-card-header>Filter Form</nb-card-header>
   <nb-card-body>
     <div class="row">
-      <div class="col-sm-3">
+      <div class="col-sm-2">
         <input
           nbInput
           placeholder="From Date"
@@ -19,7 +19,7 @@
           (dateChange)="setMaxdate($event)"
         ></nb-datepicker>
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-2">
         <input
           nbInput
           placeholder="To Picker"
@@ -34,6 +34,16 @@
           [max]="tomax"
           [min]="tomin"
         ></nb-datepicker>
+      </div>
+      <div class="col-sm-2">
+        <nb-select
+          placeholder="Select AEPS Transaction"
+          [(selected)]="selectedTxnPipe"
+          required
+        >
+          <nb-option value="0">AEPS</nb-option>
+          <nb-option value="1">AEPS New</nb-option>
+        </nb-select>
       </div>
       <div class="col-sm-3">
         <nb-select
@@ -95,10 +105,10 @@
           <td>{{ t?.amount }}</td>
           <td>{{ t?.txnType }}</td>
           <td>{{ t?.rrn }}</td>
-          <td>{{ t?.aadhar }}</td>
+          <td>{{ t?.aadhar ? t?.aadhar : t?.aadhaarNo }}</td>
           <td>{{ t?.status }}</td>
-          <td>{{ t?.checkAEPSTxnStatus_response?.trnx_date }}</td>
-          <td>{{ t?.checkAEPSTxnStatus_response_at }}</td>
+          <td>{{ t?.created_at | date: "dd-MM-yyyy h:mm:ss a" }}</td>
+          <td>{{ t?.updated_at | date: "dd-MM-yyyy h:mm:ss a" }}</td>
           <td>{{ t?.fname + " " + t.lname | titlecase }}</td>
           <td>{{ t?.bank_response_message }}</td>
         </tr>
