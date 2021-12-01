@@ -118,8 +118,8 @@ export class PanComponent implements OnInit {
             let data = res.data.Data[0];
             console.log(data);
             let url =
-              // "https://www.myutiitsl.com/panonlineservices/loginCheckin";
-              "http://203.153.46.10:8080/panonlineservices/loginCheckin";
+               "https://www.myutiitsl.com/panonlineservices/loginCheckin";
+              //"http://203.153.46.10:8080/panonlineservices/loginCheckin";
             url =
               url +
               "?userHandle=" +

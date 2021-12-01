@@ -4,8 +4,9 @@ import { Router } from "@angular/router";
 import { HttpService } from "../../../services/http.service";
 import { ToastrService } from "../../../services/toastr.service";
 var convert = require("xml-js");
-declare function CaptureAvdm();
-declare function CaptureMorpho();
+/* declare function CaptureAvdm(isKyc: boolean);
+declare function CaptureMorpho(isKyc: boolean); */
+declare function CaptureAvdmNew(isKyc: boolean);
 @Component({
   selector: "ngx-icicinew",
   templateUrl: "./icicinew.component.html",
@@ -28,13 +29,7 @@ export class IcicinewComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private toast: ToastrService
-  ) {
-    this.deviceList = [
-      { key: "morpho", value: "Morpho" },
-      { key: "mantra", value: "Mantra" },
-      { key: "startek", value: "Startek" },
-    ];
-  }
+  ) {}
 
   ngOnInit(): void {
     this.checkOnboarding();
@@ -49,7 +44,7 @@ export class IcicinewComponent implements OnInit {
       ekycPrimaryKeyId: ["", Validators.required],
       ekycTxnId: ["", Validators.required],
       fingerprintData: ["", Validators.required],
-      deviceList: "",
+
       /* customerFingurePrint: [null, Validators.required], */
     });
   }
@@ -94,15 +89,22 @@ export class IcicinewComponent implements OnInit {
       (res) => {
         if (res.response) {
           this.toast.showToast(res.message, "Onboarding", "success");
-          if (res.data[0].status_code == "PK" || res.data[0].status_code=="P") {
+          if (
+            res.data[0].status_code == "PK" ||
+            res.data[0].status_code == "P"
+          ) {
             this.initKYC();
             this.showOTPForm = true;
-          }else{
-            if(res.data[0].status_code == "A"){
-               this.router.navigateByUrl("services/aepsNew");
-            }else{
-              this.toast.showToast("Please contact admin. Your KYC is Deactive or Reject", "EKYC Status", "warning");
-               this.router.navigateByUrl("dashboard");
+          } else {
+            if (res.data[0].status_code == "A") {
+              this.router.navigateByUrl("services/aepsNew");
+            } else {
+              this.toast.showToast(
+                "Please contact admin. Your KYC is Deactive or Reject",
+                "EKYC Status",
+                "warning"
+              );
+              this.router.navigateByUrl("dashboard");
             }
           }
         } else {
@@ -141,10 +143,10 @@ export class IcicinewComponent implements OnInit {
           this.toast.showToast(response.message, "Onboarding", "success");
           this.ekycOnboardingForm
             .get("ekycPrimaryKeyId")
-            .setValue(response.data.EkycPrimaryKeyId);
+            .setValue(response.data.ekycPrimaryKeyId);
           this.ekycOnboardingForm
             .get("ekycTxnId")
-            .setValue(response.data.EkycTxnId);
+            .setValue(response.data.ekycTxnId);
           this.checkTimer();
         } else {
           this.toast.showToast(response.message, "Onboarding", "danger");
@@ -166,8 +168,8 @@ export class IcicinewComponent implements OnInit {
         if (res.response) {
           this.ekycOnboardingForm
             .get("ekycPrimaryKeyId")
-            .setValue(res.data.EkycPrimaryKeyId);
-          this.ekycOnboardingForm.get("ekycTxnId").setValue(res.data.EkycTxnId);
+            .setValue(res.data.ekycPrimaryKeyId);
+          this.ekycOnboardingForm.get("ekycTxnId").setValue(res.data.ekycTxnId);
           this.toast.showToast(res.message, "OTP successfully sent", "success");
           this.checkTimer();
         } else {
@@ -222,63 +224,85 @@ export class IcicinewComponent implements OnInit {
   data: any = null;
 
   fingureOpacity: any = 0.1;
-  async capture() {
-    this.fingureScanning = true;
-    this.fingureOpacity = "0.1";
-    /* this.location(); */
-    /* this.ekycOnboardingForm.get("txnMedium").setValue("web"); */
-    this.data = "";
+  // async capture() {
+  //   this.fingureScanning = true;
+  //   this.fingureOpacity = "0.1";
+  //   /* this.location(); */
+  //   /* this.ekycOnboardingForm.get("txnMedium").setValue("web"); */
+  //   this.data = "";
 
-    let deviceName = this.ekycOnboardingForm.get("deviceList").value;
-    this.fingureScanStrength = 0;
-    this.scanMessage = "Place customer fingure in biometric device";
-    //console.log(deviceName);
+  //   let deviceName = this.ekycOnboardingForm.get("deviceList").value;
+  //   this.fingureScanStrength = 0;
+  //   this.scanMessage = "Place customer fingure in biometric device";
+  //   //console.log(deviceName);
 
-    if (deviceName == "morpho") {
-      await CaptureMorpho()
-        .then((result) => {
-          //console.log(result);
-          this.data = result;
-          this.checkAndClose();
-        })
-        .catch((err) => {
-          //console.log(err);
-          this.fingureScanStrength = 0;
-          this.scanMessage = "Device Not Connected";
-          this.ekycOnboardingForm.controls.deviceList.setErrors({
-            invalidNumber: true,
-          });
-          this.fingureScanning = false;
-        });
-    } else if (deviceName == "mantra") {
-      CaptureAvdm()
-        .then((result) => {
-          //console.log(result);
-          if (result.httpStaus) {
+  //   if (deviceName == "morpho") {
+  //     await CaptureMorpho(true)
+  //       .then((result) => {
+  //         //console.log(result);
+  //         this.data = result;
+  //         this.checkAndClose();
+  //       })
+  //       .catch((err) => {
+  //         //console.log(err);
+  //         this.fingureScanStrength = 0;
+  //         this.scanMessage = "Device Not Connected";
+  //         this.ekycOnboardingForm.controls.deviceList.setErrors({
+  //           invalidNumber: true,
+  //         });
+  //         this.fingureScanning = false;
+  //       });
+  //   } else if (deviceName == "mantra") {
+  //     CaptureAvdm(true)
+  //       .then((result) => {
+  //         //console.log(result);
+  //         if (result.httpStaus) {
+  //           this.data = result.data.replace('<?xml version="1.0"?>', "").trim();
+  //           this.checkAndClose();
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         //console.log(err);
+  //         this.fingureScanning = false;
+  //         this.fingureScanStrength = 0;
+  //         this.scanMessage = "Device Not Connected";
+  //         this.ekycOnboardingForm.controls.deviceList.setErrors({
+  //           invalidNumber: true,
+  //         });
+  //       });
+  //   } else {
+  //     this.scanMessage = "No biometric device selected";
+  //     this.ekycOnboardingForm.controls.deviceList.setErrors({
+  //       invalidNumber: true,
+  //     });
+  //     this.fingureScanning = false;
+  //   }
+
+  //   //console.log(this.aepsForm.value);
+  // }
+  async CaptureNew() {
+    await CaptureAvdmNew(true)
+      .then((result) => {
+        if (result.response) {
+          if (typeof result.data === "string") {
             this.data = result.data.replace('<?xml version="1.0"?>', "").trim();
             this.checkAndClose();
+          } else {
+            this.data = result.data;
+            this.checkAndClose();
           }
-        })
-        .catch((err) => {
-          //console.log(err);
+        } else {
+          this.scanMessage = result.message;
+
           this.fingureScanning = false;
-          this.fingureScanStrength = 0;
-          this.scanMessage = "Device Not Connected";
-          this.ekycOnboardingForm.controls.deviceList.setErrors({
-            invalidNumber: true,
-          });
-        });
-    } else {
-      this.scanMessage = "No biometric device selected";
-      this.ekycOnboardingForm.controls.deviceList.setErrors({
-        invalidNumber: true,
+        }
+      })
+      .catch((err) => {
+        this.fingureScanning = false;
+        this.fingureScanStrength = 0;
+        this.scanMessage = err.message;
       });
-      this.fingureScanning = false;
-    }
-
-    //console.log(this.aepsForm.value);
   }
-
   checkAndClose() {
     this.fingureScanning = true;
     let options = {
@@ -289,7 +313,7 @@ export class IcicinewComponent implements OnInit {
     if (this.data != "undefined" && this.data != null && this.data.length > 0) {
       let Result = convert.xml2json(this.data, options);
       var obj = JSON.parse(Result);
-      //console.log(obj);
+      console.log(obj);
       const response = obj.PidData.Resp._attributes;
       if (response.errCode == 0) {
         this.fingureScanStrength = parseInt(

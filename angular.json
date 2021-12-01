@@ -51,7 +51,8 @@
               "node_modules/echarts/dist/extension/bmap.min.js",
               "node_modules/chart.js/dist/Chart.min.js",
               "node_modules/jquery/dist/jquery.min.js",
-              "src/assets/js/mantra.js"
+              "src/assets/js/mantra.js",
+              "src/assets/js/matm.js"
             ],
             "allowedCommonJsDependencies": [
               "angular2-chartjs",

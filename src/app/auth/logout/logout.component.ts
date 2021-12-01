@@ -44,17 +44,26 @@ export class LogoutComponent extends NbLogoutComponent {
         //console.log(result);
         this.router.navigate(["/auth/login"]);
       }); */
-    this.service.logout(this.strategy).subscribe((result: NbAuthResult) => {
-      console.log(result);
-      const redirect = result.getRedirect();
-      if (redirect) {
+    this.service.logout(this.strategy).subscribe(
+      (result: NbAuthResult) => {
+        console.log(result);
+        const redirect = result.getRedirect();
+        if (redirect) {
+          setTimeout(() => {
+            localStorage.clear();
+            // return this.router.navigateByUrl("/auth/login");
+            return this.router.navigate(["/auth/login"]);
+          }, this.redirectDelay);
+        }
+      },
+      (error) => {
         setTimeout(() => {
           localStorage.clear();
           // return this.router.navigateByUrl("/auth/login");
           return this.router.navigate(["/auth/login"]);
         }, this.redirectDelay);
       }
-    });
+    );
   }
 
   getConfigValue(key: string): any {

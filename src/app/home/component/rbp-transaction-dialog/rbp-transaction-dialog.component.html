@@ -1,5 +1,5 @@
 <div id="printArea">
-  <nb-card size="large" [status]="returnStatus(data.data.bankResponseMsg)">
+  <nb-card size="large" [status]="returnStatus(data.isSuccess)">
     <nb-card-header
       ><div *ngIf="data.data.txnCode == 'BE'" style="text-align: center">
         <h3>Balance Enquiry</h3>
@@ -11,11 +11,11 @@
         <h3>Cash Withdrawal</h3>
       </div>
       <h6 style="text-align: center">
-        Transaction {{ data.data.bankResponseMsg }}
+        Transaction {{ data.message }}
       </h6></nb-card-header
     >
 
-    <nb-card-body>
+    <nb-card-body >
       <table style="width: 100%">
         <tr>
           <td>Transaction Date:</td>
@@ -59,7 +59,9 @@
         </tr>
         <tr>
           <td>Remaining Balance:</td>
-          <td>{{ data.data.remainingBalance }}</td>
+          <td>
+            <strong>{{ data.data.remainingBalance }}</strong>
+          </td>
         </tr>
       </table>
       <table style="width: 100%" *ngIf="data.data.txnCode == 'MS'">

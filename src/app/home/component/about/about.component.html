@@ -1,72 +1,76 @@
-<div class = "row" *ngIf="!showForm">
-  <div class = " col-sm-6" >
+<div class="row" *ngIf="!showForm">
+  <div class="col-sm-6">
     <div class="row">
-      <div class="col-sm-4">Name : </div>
-      <div class="col-sm-8"> {{ about?.fname + ' ' + about?.lname}}</div>
-      <div class="col-sm-4">DOB : </div>
-      <div class="col-sm-8"> {{ dateOfBirth | date: "dd-MM-yyyy"}}</div>
-      <div class="col-sm-4">Gender : </div>
-      <div class="col-sm-8"> {{ about?.gender }}</div>
-      <div class="col-sm-4">Email : </div>
-      <div class="col-sm-8"> {{ about?.email }}
-        <small *ngIf="!isEmailVerified"
-               style="color: red"
-               (click)="verify('email')"
+      <div class="col-sm-4">Name :</div>
+      <div class="col-sm-8">{{ about?.fname + " " + about?.lname }}</div>
+      <div class="col-sm-4">DOB :</div>
+      <div class="col-sm-8">{{ dateOfBirth | date: "dd-MM-yyyy" }}</div>
+      <div class="col-sm-4">Gender :</div>
+      <div class="col-sm-8">{{ about?.gender }}</div>
+      <div class="col-sm-4">Email :</div>
+      <div class="col-sm-8">
+        {{ about?.email }}
+        <small
+          *ngIf="!isEmailVerified"
+          style="color: red"
+          (click)="verify('email')"
         >
           Email Not Verified, Click to verify.
         </small>
         <nb-icon
           icon="checkmark-outline"
           status="success"
-          *ngIf="isEmailVerified">
+          *ngIf="isEmailVerified"
+        >
         </nb-icon>
       </div>
-      <div class="col-sm-4">Contact : </div>
-      <div class="col-sm-8"> {{ about?.contact}}
-        <small *ngIf="!isContactVerified"
-               style="color: red"
-               (click)="verify('contact')"
+      <div class="col-sm-4">Contact :</div>
+      <div class="col-sm-8">
+        {{ about?.contact }}
+        <small
+          *ngIf="!isContactVerified"
+          style="color: red"
+          (click)="verify('contact')"
         >
           Contact Not Verified, Click to verify.
         </small>
         <nb-icon
           icon="checkmark-outline"
           status="success"
-          *ngIf="isContactVerified">
+          *ngIf="isContactVerified"
+        >
         </nb-icon>
       </div>
-      <div class="col-sm-4">Whatsapp : </div>
-      <div class="col-sm-8"> {{ about?.whatsapp}}</div>
-      <div class="col-sm-4">Address : </div>
-      <div class="col-sm-8"> {{ about?.address}}</div>
-      <div class="col-sm-4">District : </div>
-      <div class="col-sm-8"> {{ about?.district}}</div>
-      <div class="col-sm-4">State : </div>
-      <div class="col-sm-8"> {{ about?.state}}</div>
-      <div class="col-sm-4">Pin code : </div>
-      <div class="col-sm-8"> {{ about?.PinCode}}</div>
+      <div class="col-sm-4">Whatsapp :</div>
+      <div class="col-sm-8">{{ about?.whatsapp }}</div>
+      <div class="col-sm-4">Address :</div>
+      <div class="col-sm-8">{{ about?.address }}</div>
+      <div class="col-sm-4">District :</div>
+      <div class="col-sm-8">{{ about?.district }}</div>
+      <div class="col-sm-4">State :</div>
+      <div class="col-sm-8">{{ about?.state }}</div>
+      <div class="col-sm-4">Pin code :</div>
+      <div class="col-sm-8">{{ about?.PinCode }}</div>
     </div>
   </div>
-  <div class = " col-sm-6" >
+  <div class="col-sm-6">
     <div class="row">
-      <div class="col-sm-4">Picture : </div>
-      <div class=" col-sm-8">
-        <img [src]="about.myPic" width="100px">
+      <div class="col-sm-4">Picture :</div>
+      <div class="col-sm-8">
+        <img [src]="about.myPic" width="100px" />
       </div>
     </div>
   </div>
-
 </div>
 <button
-
   (click)="edit()"
   *ngIf="!showForm"
-  class="btn btn-success fa-pull-right">
+  class="btn btn-success fa-pull-right"
+>
   Edit
 </button>
 
 <div class="container-fluid" *ngIf="showForm">
-
   <nb-alert
     *ngIf="showMessages.error && errors?.length && !submitted"
     outline="danger"
@@ -91,11 +95,14 @@
     </ul>
   </nb-alert>
 
-  <form (ngSubmit)="onFormSubmit()"
-        #form="ngForm"
-        aria-labelledby="title"
-        class="form-horizontal row">
-    <div class="form-control-group  col-sm-4">
+  <form
+    (ngSubmit)="onFormSubmit()"
+    #form="ngForm"
+    aria-labelledby="title"
+    class="form-horizontal row"
+    [nbSpinner]="submitted"
+  >
+    <div class="form-control-group col-sm-4">
       <label class="label" for="input-fname">First Name*:</label>
       <input
         nbInput
@@ -108,8 +115,8 @@
         placeholder="User First Name"
         autofocus
         [status]="
-        fname.dirty ? (fname.invalid ? 'danger' : 'success') : 'basic'
-      "
+          fname.dirty ? (fname.invalid ? 'danger' : 'success') : 'basic'
+        "
         [required]="true"
         [attr.aria-invalid]="fname.invalid && fname.touched ? true : null"
       />
@@ -122,7 +129,7 @@
         </p>
       </ng-container>
     </div>
-    <div class="form-control-group  col-sm-4">
+    <div class="form-control-group col-sm-4">
       <label class="label" for="input-mname">Middle Name:</label>
       <input
         nbInput
@@ -135,8 +142,8 @@
         placeholder="User Middle Name"
         autofocus
         [status]="
-        mname.dirty ? (mname.invalid ? 'danger' : 'success') : 'basic'
-      "
+          mname.dirty ? (mname.invalid ? 'danger' : 'success') : 'basic'
+        "
         [required]="false"
         [attr.aria-invalid]="mname.invalid && mname.touched ? true : null"
       />
@@ -150,7 +157,7 @@
       </ng-container>
     </div>
 
-    <div class="form-control-group  col-sm-4">
+    <div class="form-control-group col-sm-4">
       <label class="label" for="input-lname">Last Name*:</label>
       <input
         nbInput
@@ -163,8 +170,8 @@
         placeholder="User Last Name"
         autofocus
         [status]="
-        lname.dirty ? (lname.invalid ? 'danger' : 'success') : 'basic'
-      "
+          lname.dirty ? (lname.invalid ? 'danger' : 'success') : 'basic'
+        "
         [required]="true"
         [attr.aria-invalid]="lname.invalid && lname.touched ? true : null"
       />
@@ -178,7 +185,7 @@
       </ng-container>
     </div>
 
-    <div class="form-control-group  col-sm-4">
+    <div class="form-control-group col-sm-4">
       <label class="label" for="input-email">Email*:</label>
       <input
         nbInput
@@ -191,8 +198,8 @@
         placeholder="Email Address"
         autofocus
         [status]="
-        email.dirty ? (email.invalid ? 'danger' : 'success') : 'basic'
-      "
+          email.dirty ? (email.invalid ? 'danger' : 'success') : 'basic'
+        "
         [required]="true"
         [attr.aria-invalid]="email.invalid && email.touched ? true : null"
       />
@@ -206,8 +213,8 @@
       </ng-container>
     </div>
 
-    <div class="form-control-group  col-sm-4">
-      <label class="label" for="input-contact">Contact  Number*:</label>
+    <div class="form-control-group col-sm-4">
+      <label class="label" for="input-contact">Contact Number*:</label>
       <input
         nbInput
         fullWidth
@@ -219,8 +226,8 @@
         placeholder="Contact Number"
         autofocus
         [status]="
-        contact.dirty ? (contact.invalid ? 'danger' : 'success') : 'basic'
-      "
+          contact.dirty ? (contact.invalid ? 'danger' : 'success') : 'basic'
+        "
         [required]="true"
         [attr.aria-invalid]="contact.invalid && contact.touched ? true : null"
       />
@@ -233,7 +240,7 @@
         </p>
       </ng-container>
     </div>
-    <div class="form-control-group  col-sm-4">
+    <div class="form-control-group col-sm-4">
       <label class="label" for="input-whatsapp">Whatsapp* :</label>
       <input
         nbInput
@@ -246,8 +253,8 @@
         placeholder="Whatsapp number"
         autofocus
         [status]="
-        whatsapp.dirty ? (whatsapp.invalid ? 'danger' : 'success') : 'basic'
-      "
+          whatsapp.dirty ? (whatsapp.invalid ? 'danger' : 'success') : 'basic'
+        "
         [required]="true"
         [attr.aria-invalid]="whatsapp.invalid && whatsapp.touched ? true : null"
       />
@@ -261,7 +268,7 @@
       </ng-container>
     </div>
 
-    <div class="form-control-group  col-sm-4">
+    <div class="form-control-group col-sm-4">
       <label class="label" for="input-pin">PIN Code *:</label>
       <input
         nbInput
@@ -273,9 +280,7 @@
         pattern="[0-9]{6}"
         placeholder="Pin code"
         autofocus
-        [status]="
-        pin.dirty ? (pin.invalid ? 'danger' : 'success') : 'basic'
-      "
+        [status]="pin.dirty ? (pin.invalid ? 'danger' : 'success') : 'basic'"
         [required]="true"
         [attr.aria-invalid]="pin.invalid && pin.touched ? true : null"
         (change)="getPinCodeDetails()"
@@ -290,28 +295,26 @@
       </ng-container>
     </div>
 
-    <div class="form-control-group  col-sm-4">
-      <label class="label" >PIN Code wise area* :</label><br>
+    <div class="form-control-group col-sm-4">
+      <label class="label">PIN Code wise area* :</label><br />
       <nb-select
         [(ngModel)]="user.pinCode"
         #pinCode="ngModel"
         name="pinCode"
         id="pinCode"
         [status]="
-        pinCode.dirty ? (pinCode.invalid ? 'danger' : 'success') : 'basic'
+          pinCode.dirty ? (pinCode.invalid ? 'danger' : 'success') : 'basic'
         "
         [attr.aria-invalid]="pinCode.invalid && pinCode.touched ? true : null"
         [required]="true"
         placeholder="Select Address"
-        [(selected)]='selectedPinCodeId'
+        [(selected)]="selectedPinCodeId"
       >
-
         <nb-option *ngFor="let p of pinCodes" [value]="p?.id">
           <small>
-            {{p.village+"-"+p.poName+"-"+p.district+"-"+p.state}}
+            {{ p.village + "-" + p.poName + "-" + p.district + "-" + p.state }}
           </small>
         </nb-option>
-
       </nb-select>
 
       <ng-container *ngIf="pinCode.invalid && pinCode.touched">
@@ -323,7 +326,7 @@
         </p>
       </ng-container>
     </div>
-    <div class="form-control-group  col-sm-4">
+    <div class="form-control-group col-sm-4">
       <label class="label" for="input-address">Address* :</label>
       <textarea
         nbInput
@@ -336,11 +339,10 @@
         placeholder="Address"
         autofocus
         [status]="
-        address.dirty ? (address.invalid ? 'danger' : 'success') : 'basic'
-      "
+          address.dirty ? (address.invalid ? 'danger' : 'success') : 'basic'
+        "
         [required]="true"
         [attr.aria-invalid]="address.invalid && address.touched ? true : null"
-
       >
       </textarea>
       <ng-container *ngIf="address.invalid && address.touched">
@@ -353,10 +355,10 @@
       </ng-container>
     </div>
 
-    <div class="form-control-group  col-sm-4">
+    <div class="form-control-group col-sm-4">
       <label class="label" for="input-address">DOB* : </label>
       <small> as per pan card</small>
-      <br>
+      <br />
       <input
         nbInput
         placeholder="Pick Date"
@@ -365,14 +367,12 @@
         #dob="ngModel"
         name="dob"
         autofocus
-        [status]="
-        dob.dirty ? (dob.invalid ? 'danger' : 'success') : 'basic'
-      "
+        [status]="dob.dirty ? (dob.invalid ? 'danger' : 'success') : 'basic'"
         [required]="true"
         [attr.aria-invalid]="dob.invalid && dob.touched ? true : null"
         [readOnly]="true"
         type="date"
-      >
+      />
       <nb-datepicker #dateTimePicker format="yyyy-MM-dd"></nb-datepicker>
       <ng-container *ngIf="dob.invalid && dob.touched">
         <p class="caption status-danger" *ngIf="dob.errors?.required">
@@ -384,19 +384,19 @@
       </ng-container>
     </div>
     <div class="form-control-group col-sm-4">
-      <label class="label" for="input-gender">Gender*</label><br>
+      <label class="label" for="input-gender">Gender*</label><br />
       <nb-select
         [(ngModel)]="user.gender"
         #gender="ngModel"
         name="gender"
         id="input-gender"
         [status]="
-        gender.dirty ? (gender.invalid ? 'danger' : 'success') : 'basic'
+          gender.dirty ? (gender.invalid ? 'danger' : 'success') : 'basic'
         "
         [attr.aria-invalid]="gender.invalid && gender.touched ? true : null"
         [required]="true"
         placeholder="Select Gender"
-        [(selected)]='genderSelected'
+        [(selected)]="genderSelected"
       >
         <nb-option value="m">Male</nb-option>
         <nb-option value="f">Female</nb-option>
@@ -412,12 +412,13 @@
       </ng-container>
     </div>
     <div class="form-control-group col-sm-4">
-      <label class="label">Image : </label><br>
+      <label class="label">Image : </label><br />
       <img
         [src]="image"
         width="160px"
         height="160px"
-        (click)="selectImageSource()">
+        (click)="selectImageSource()"
+      />
       <input
         type="file"
         #fileInput
@@ -432,7 +433,9 @@
           type="button"
           class="btn btn-danger btn-block"
           (click)="reset()"
-        >Reset</button>
+        >
+          Reset
+        </button>
       </div>
       <div class="col-sm-4"></div>
       <div class="col-sm-4">
@@ -441,7 +444,8 @@
           fullWidth
           status="success"
           [disabled]="submitted || !form.valid"
-          [class.btn-pulse]="submitted">
+          [class.btn-pulse]="submitted"
+        >
           Save
         </button>
       </div>

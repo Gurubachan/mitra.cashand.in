@@ -1,1 +1,234 @@
-<p>recharge works!</p>
+<nb-card>
+  <nb-card-header>Recharge</nb-card-header>
+  <nb-card-body>
+    <form
+      (ngSubmit)="initRecharge(rechargeForm.value)"
+      #form="ngForm"
+      aria-labelledby="title"
+      [formGroup]="rechargeForm"
+    >
+      <div class="row">
+        <div class="col-sm-4 col-md-4 col-lg-2">
+          <div class="form-control-group">
+            <label class="label" for="stateId">Recharge Type:</label>
+            <nb-select
+              fullWidth
+              placeholder="Select Recharge Type"
+              (selectedChange)="rechargeTypeChange($event)"
+              name="type"
+              id="type"
+              formControlName="type"
+              [status]="
+                f.type.dirty ? (f.type.invalid ? 'danger' : 'success') : 'basic'
+              "
+              [attr.aria-invalid]="
+                f.type.invalid && f.type.touched ? true : null
+              "
+              [required]="true"
+            >
+              <nb-option value="Mobile">Mobile Recharge</nb-option>
+              <nb-option value="DTH">DTH Recharge</nb-option>
+            </nb-select>
+            <ng-container *ngIf="f.type.invalid && f.type.touched">
+              <p class="caption status-danger" *ngIf="f.type.errors?.required">
+                Please select recharge type.
+              </p>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-2">
+          <div class="form-control-group">
+            <label class="label" for="operator">Operator:</label>
+            <nb-select
+              fullWidth
+              placeholder="Select Operator"
+              name="operator"
+              id="operator"
+              formControlName="operator"
+              [status]="
+                f.operator.dirty
+                  ? f.operator.invalid
+                    ? 'danger'
+                    : 'success'
+                  : 'basic'
+              "
+              [attr.aria-invalid]="
+                f.operator.invalid && f.operator.touched ? true : null
+              "
+              [required]="true"
+              (selectedChange)="operatorChange($event)"
+            >
+              <nb-option value="{{ d.id }}" *ngFor="let d of data">{{
+                d.operator_name
+              }}</nb-option>
+            </nb-select>
+            <ng-container *ngIf="f.operator.invalid && f.operator.touched">
+              <p
+                class="caption status-danger"
+                *ngIf="f.operator.errors?.required"
+              >
+                Please select recharge operator.
+              </p>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-2">
+          <div class="form-control-group">
+            <label class="label" for="isStv">Recharge Mode</label>
+            <nb-select
+              placeholder="Select recharge mode"
+              fullWidth
+              name="isStv"
+              id="isStv"
+              formControlName="isStv"
+              [status]="
+                f.isStv.dirty
+                  ? f.isStv.invalid
+                    ? 'danger'
+                    : 'success'
+                  : 'basic'
+              "
+              [attr.aria-invalid]="
+                f.isStv.invalid && f.isStv.touched ? true : null
+              "
+              [required]="true"
+            >
+              <nb-option value="0">Top Up</nb-option>
+              <nb-option value="1">Special</nb-option>
+            </nb-select>
+            <ng-container *ngIf="f.isStv.invalid && f.isStv.touched">
+              <p class="caption status-danger" *ngIf="f.isStv.errors?.required">
+                Please select Top Up or Special Recharge.
+              </p>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-2">
+          <div class="form-control-group">
+            <label class="label" for="customerNumber"
+              >{{ subscription }}:</label
+            >
+            <input
+              nbInput
+              placeholder="Enter Number"
+              fullWidth
+              name="customerNumber"
+              id="customerNumber"
+              formControlName="customerNumber"
+              [status]="
+                f.customerNumber.dirty
+                  ? f.customerNumber.invalid
+                    ? 'danger'
+                    : 'success'
+                  : 'basic'
+              "
+              [attr.aria-invalid]="
+                f.customerNumber.invalid && f.customerNumber.touched
+                  ? true
+                  : null
+              "
+              [required]="true"
+            />
+            <ng-container
+              *ngIf="f.customerNumber.invalid && f.customerNumber.touched"
+            >
+              <p
+                class="caption status-danger"
+                *ngIf="f.customerNumber.errors?.required"
+              >
+                Please enter valid number for recharge
+              </p>
+            </ng-container>
+          </div>
+        </div>
+        <!--  <div class="col-sm-4 col-md-4 col-lg-2">
+          <div class="form-control-group">
+            <label for="refMobileNo" class="label">Contact</label>
+            <input
+              nbInput
+              placeholder="Enter Number"
+              fullWidth
+              name="refMobileNo"
+              id="refMobileNo"
+              formControlName="refMobileNo"
+              [status]="
+                f.refMobileNo.dirty
+                  ? f.refMobileNo.invalid
+                    ? 'danger'
+                    : 'success'
+                  : 'basic'
+              "
+              [attr.aria-invalid]="
+                f.refMobileNo.invalid && f.refMobileNo.touched ? true : null
+              "
+              [required]="true"
+            />
+            <ng-container
+              *ngIf="f.refMobileNo.invalid && f.refMobileNo.touched"
+            >
+              <p
+                class="caption status-danger"
+                *ngIf="f.refMobileNo.errors?.required"
+              >
+                Please enter valid number where you get notification.
+              </p>
+            </ng-container>
+          </div>
+        </div>
+ -->
+        <div class="col-sm-4 col-md-4 col-lg-2">
+          <div class="form-control-group">
+            <label for="amount" class="label">Amount</label>
+            <input
+              nbInput
+              placeholder="Enter Amount"
+              fullWidth
+              name="amount"
+              id="amount"
+              formControlName="amount"
+              [status]="
+                f.amount.dirty
+                  ? f.amount.invalid
+                    ? 'danger'
+                    : 'success'
+                  : 'basic'
+              "
+              [attr.aria-invalid]="
+                f.amount.invalid && f.amount.touched ? true : null
+              "
+              [required]="true"
+            />
+            <ng-container *ngIf="f.amount.invalid && f.amount.touched">
+              <p
+                class="caption status-danger"
+                *ngIf="f.amount.errors?.required"
+              >
+                Please enter recharge amount.
+              </p>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <button
+            nbButton
+            class="btn btn-danger"
+            type="reset"
+            style="float: left"
+          >
+            Reset
+          </button>
+          <button
+            nbButton
+            status="success"
+            type="submit"
+            style="float: right"
+            [disabled]="submitted || rechargeForm.invalid"
+            [class.btn-pulse]="submitted"
+          >
+            Recharge
+          </button>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

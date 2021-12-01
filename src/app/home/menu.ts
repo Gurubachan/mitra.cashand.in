@@ -1,72 +1,76 @@
-import { NbMenuItem } from '@nebular/theme';
+import { NbMenuItem } from "@nebular/theme";
 
 let menus: Array<any>;
 menus = [];
 menus[1] = [
   {
-    title: 'Dashboard',
-    icon: 'home-outline',
-    link: '/dashboard',
+    title: "Dashboard",
+    icon: "home-outline",
+    link: "/dashboard",
     home: true,
   },
   {
-    title: 'OPERATIONS',
+    title: "OPERATIONS",
     group: true,
   },
   {
-    title: 'Operations',
-    icon: 'layout-outline',
+    title: "Operations",
+    icon: "layout-outline",
     children: [
       {
-        title: 'User Onboard',
-        link: '/operation/newUser',
+        title: "User Onboard",
+        link: "/operation/newUser",
       },
     ],
   },
   {
-    title: 'Reports',
+    title: "Reports",
     group: true,
   },
   {
-    title: 'Reports',
-    icon: 'layout-outline',
+    title: "Reports",
+    icon: "layout-outline",
     children: [
       {
-        title: 'Money Transfer',
-        link: '/reports/dmt',
+        title: "Money Transfer",
+        link: "/reports/dmt",
       },
       {
-        title: 'AEPS',
-        link: '/reports/aeps',
+        title: "AEPS",
+        link: "/reports/aeps",
       },
       {
-        title: 'MATM',
-        link: '/reports/matm',
+        title: "MATM",
+        link: "/reports/matm",
       },
       {
-        title: 'Recharge',
-        link: '/reports/recharge',
+        title: "Recharge",
+        link: "/reports/recharge",
       },
       {
-        title: 'CMS',
-        link: '/reports/cms',
+        title: "Pan",
+        link: "/reports/pan",
       },
       {
-        title: 'Insurance',
-        link: '/reports/insurance',
+        title: "CMS",
+        link: "/reports/cms",
+      },
+      {
+        title: "Insurance",
+        link: "/reports/insurance",
       },
     ],
   },
 ];
 menus[2] = [
   {
-    title: 'Dashboard',
-    icon: 'home-outline',
-    link: '/dashboard',
+    title: "Dashboard",
+    icon: "home-outline",
+    link: "/dashboard",
     home: true,
   },
   {
-    title: 'Onboard',
+    title: "Onboard",
     group: true,
   },
 ];
@@ -146,6 +150,10 @@ menus[4] = [
         link: "/reports/recharge",
       },
       {
+        title: "Pan",
+        link: "/reports/pan",
+      },
+      {
         title: "CMS",
         link: "/reports/cms",
       },
@@ -158,76 +166,98 @@ menus[4] = [
 ];
 menus[9] = [
   {
-    title: 'Dashboard',
-    icon: 'home-outline',
-    link: '/dashboard',
+    title: "Dashboard",
+    icon: "home-outline",
+    link: "/dashboard",
     home: true,
   },
   {
-    title: 'Members',
-    icon: 'person-add-outline',
+    title: "Members",
+    icon: "person-add-outline",
     children: [
       {
-        title: 'Show Users',
-        link: '/members',
+        title: "Show Users",
+        link: "/members",
       },
       {
-        title: 'Users Service',
-        link: '/member/service',
+        title: "Onboarding",
+        link: "/reports/bconboarding",
+      },
+      {
+        title: "Users Service",
+        link: "/member/service",
       },
     ],
   },
   {
-    title: 'Reports',
-    icon: 'person-add-outline',
+    title: "Reports",
+    icon: "person-add-outline",
     children: [
       {
-        title: 'Wallet',
-        link: '/reports/statement',
+        title: "Wallet",
+        link: "/reports/statement",
       },
       {
-        title: 'AEPS',
-        link: '/reports/aeps',
+        title: "Settlement",
+        link: "/reports/cashout",
       },
       {
-        title: 'Onboarding',
-        link: '/reports/bconboarding',
+        title: "AEPS",
+        link: "/reports/aeps",
+      },
+
+      {
+        title: "Recharge",
+        link: "/reports/recharge",
+      },
+      {
+        title: "Pan",
+        link: "/reports/pan",
       },
     ],
   },
 ];
 menus[11] = [
   {
-    title: 'Dashboard',
-    icon: 'home-outline',
-    link: '/dashboard',
+    title: "Dashboard",
+    icon: "home-outline",
+    link: "/dashboard",
     home: true,
   },
   {
-    title: 'Members',
-    icon: 'person-add-outline',
+    title: "Members",
+    icon: "person-add-outline",
     children: [
       {
-        title: 'Show Users',
-        link: '/members',
+        title: "Show Users",
+        link: "/members",
+      },
+      {
+        title: "Onboarding",
+        link: "/reports/bconboarding",
       },
     ],
   },
   {
-    title: 'Reports',
-    icon: 'person-add-outline',
+    title: "Reports",
+    icon: "person-add-outline",
     children: [
       {
-        title: 'Wallet',
-        link: '/reports/statement',
+        title: "Wallet",
+        link: "/reports/statement",
       },
       {
-        title: 'AEPS',
-        link: '/reports/aeps',
+        title: "AEPS",
+        link: "/reports/aeps",
+      },
+
+      {
+        title: "Recharge",
+        link: "/reports/recharge",
       },
       {
-        title: 'Onboarding',
-        link: '/reports/bconboarding',
+        title: "Pan",
+        link: "/reports/pan",
       },
     ],
   },

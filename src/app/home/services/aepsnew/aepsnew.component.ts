@@ -9,8 +9,9 @@ import { ToastrService } from "../../../services/toastr.service";
 import { RbpTransactionDialogComponent } from "../../component/rbp-transaction-dialog/rbp-transaction-dialog.component";
 const validator = require("aadhaar-validator");
 var convert = require("xml-js");
-declare function CaptureAvdm();
-declare function CaptureMorpho();
+/* declare function CaptureAvdm();
+declare function CaptureMorpho(); */
+declare function CaptureAvdmNew();
 @Component({
   selector: "ngx-aepsnew",
   templateUrl: "./aepsnew.component.html",
@@ -46,12 +47,6 @@ export class AepsnewComponent implements OnInit {
       { key: "MS", value: "Mini Statement" },
       { key: "CW", value: "Cash Withdrawal" },
     ];
-
-    this.deviceList = [
-      { key: "morpho", value: "Morpho" },
-      { key: "mantra", value: "Mantra" },
-      { key: "startek", value: "Startek" },
-    ];
   }
 
   ngOnInit(): void {
@@ -68,7 +63,6 @@ export class AepsnewComponent implements OnInit {
         [Validators.required, Validators.pattern("[2-9]{1}[0-9]{11}")],
       ],
       bankList: [null, Validators.required],
-      deviceList: [null, Validators.required],
       txnType: [null, Validators.required],
       txnAmount: [null, Validators.required],
       customerContact: [null, Validators.required],
@@ -90,15 +84,7 @@ export class AepsnewComponent implements OnInit {
         if (res.response) {
           this.toast.showToast(res.message, "Transaction Success", "success");
           this.fingureScanStrength = 0;
-          this.dialogRef = this.dialogService.open(
-            RbpTransactionDialogComponent,
-            {
-              context: {
-                title: "Transaction Report",
-                data: res.data,
-              },
-            }
-          );
+
           this.aepsForm.reset();
           this.fingureOpacity = "0.1";
         } else {
@@ -107,6 +93,15 @@ export class AepsnewComponent implements OnInit {
           this.toast.showToast(res.message, "Transaction Failed", "danger");
           this.fingureOpacity = "0.1";
         }
+        this.dialogRef = this.dialogService.open(
+          RbpTransactionDialogComponent,
+          {
+            context: {
+              title: "Transaction Report",
+              data: res.data,
+            },
+          }
+        );
         this.submitted = false;
         this.newCustomer = false;
         //console.log(this.aepsForm.value);
@@ -147,7 +142,7 @@ export class AepsnewComponent implements OnInit {
       (result: any) => {
         if (result.response) {
           this.options = result.data;
-          console.log(this.options);
+          // console.log(this.options);
           this.loading = false;
         } else {
           console.log("Else part execute");
@@ -174,68 +169,124 @@ export class AepsnewComponent implements OnInit {
     }
   }
   data: any = null;
-  async capture() {
-    this.fingureScanning = true;
-    this.fingureOpacity = "0.1";
-    this.location();
-    this.aepsForm.get("txnMedium").setValue("web");
-    this.data = "";
+  // capture() {
+  //   this.fingureScanning = true;
+  //   this.fingureOpacity = "0.1";
+  //   this.location();
+  //   this.aepsForm.get("txnMedium").setValue("web");
+  //   this.data = "";
 
-    let deviceName = this.aepsForm.get("deviceList").value;
-    this.fingureScanStrength = 0;
-    this.scanMessage = "Place customer fingure in biometric device";
-    //console.log(deviceName);
+  //   let deviceName = this.aepsForm.get("deviceList").value;
+  //   this.fingureScanStrength = 0;
+  //   this.scanMessage = "Place customer fingure in biometric device";
+  //   //console.log(deviceName);
 
-    if (deviceName == "morpho") {
-      await CaptureMorpho()
+  //   if (deviceName == "morpho") {
+  //     CaptureMorpho()
+  //       .then((result: any) => {
+  //         //console.log(result);
+
+  //         this.data = result;
+  //         this.checkAndClose();
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //         this.fingureScanStrength = 0;
+  //         this.scanMessage = "Device Not Connected";
+  //         this.aepsForm.controls.deviceList.setErrors({
+  //           invalidNumber: true,
+  //         });
+  //         this.fingureScanning = false;
+  //       });
+  //     /*  CaptureMorphoNew()
+  //       .then((result) => {
+  //         console.log(result);
+  //         this.data = result;
+  //         this.checkAndClose();
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //         this.fingureScanStrength = 0;
+  //         this.scanMessage = "Device Not Connected";
+  //         this.aepsForm.controls.deviceList.setErrors({
+  //           invalidNumber: true,
+  //         });
+  //         this.fingureScanning = false;
+  //       }); */
+  //   } else if (deviceName == "mantra") {
+  //     CaptureAvdm()
+  //       .then((result) => {
+  //         //console.log(result);
+  //         if (result.httpStaus) {
+  //           this.data = result.data.replace('<?xml version="1.0"?>', "").trim();
+  //           this.checkAndClose();
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         this.fingureScanning = false;
+  //         this.fingureScanStrength = 0;
+  //         this.scanMessage = "Device Not Connected";
+  //         this.aepsForm.controls.deviceList.setErrors({ invalidNumber: true });
+  //       });
+  //   } else {
+  //     this.scanMessage = "No biometric device selected";
+  //     this.aepsForm.controls.deviceList.setErrors({ invalidNumber: true });
+  //     this.fingureScanning = false;
+  //   }
+
+  //   //console.log(this.aepsForm.value);
+  // }
+  CaptureNew() {
+    if (this.fingureScanning != true) {
+      this.fingureScanning = true;
+      this.fingureOpacity = "0.1";
+
+      this.aepsForm.get("txnMedium").setValue("web");
+      this.data = "";
+      this.fingureScanStrength = 0;
+      this.scanMessage = "Place customer fingure in biometric device";
+      this.location();
+      CaptureAvdmNew()
         .then((result) => {
-          //console.log(result);
-          this.data = result;
-          this.checkAndClose();
-        })
-        .catch((err) => {
-          //console.log(err);
-          this.fingureScanStrength = 0;
-          this.scanMessage = "Device Not Connected";
-          this.aepsForm.controls.deviceList.setErrors({ invalidNumber: true });
-          this.fingureScanning = false;
-        });
-    } else if (deviceName == "mantra") {
-      CaptureAvdm()
-        .then((result) => {
-          //console.log(result);
-          if (result.httpStaus) {
-            this.data = result.data.replace('<?xml version="1.0"?>', "").trim();
-            this.checkAndClose();
+          if (result.response) {
+            if (typeof result.data == "string") {
+              this.data = result.data
+                .replace('<?xml version="1.0"?>', "")
+                .trim();
+              this.checkAndClose();
+            } else {
+              this.data = result.data;
+              this.checkAndClose();
+            }
+          } else {
+            this.scanMessage = result.message;
+            /*  this.aepsForm.controls.deviceList.setErrors({
+            invalidNumber: true,
+          }); */
+            this.fingureScanning = false;
           }
         })
         .catch((err) => {
-          //console.log(err);
-          this.fingureScanning = false;
           this.fingureScanStrength = 0;
-          this.scanMessage = "Device Not Connected";
-          this.aepsForm.controls.deviceList.setErrors({ invalidNumber: true });
+          this.scanMessage = err.message;
+          /* this.aepsForm.controls.deviceList.setErrors({
+          invalidNumber: true,
+        }); */
         });
-    } else {
-      this.scanMessage = "No biometric device selected";
-      this.aepsForm.controls.deviceList.setErrors({ invalidNumber: true });
       this.fingureScanning = false;
     }
-
-    //console.log(this.aepsForm.value);
   }
-
   checkAndClose() {
     this.fingureScanning = true;
     let options = {
       compact: true,
       spaces: 4,
     };
-    //console.log(this.data);
+    console.log(this.data.length);
     if (this.data != "undefined" && this.data != null && this.data.length > 0) {
       let Result = convert.xml2json(this.data, options);
       var obj = JSON.parse(Result);
-      //console.log(obj);
+
       const response = obj.PidData.Resp._attributes;
       if (response.errCode == 0) {
         this.fingureScanStrength = parseInt(
@@ -244,10 +295,10 @@ export class AepsnewComponent implements OnInit {
         //console.log(this.fingureScanStrength);
         this.aepsForm.get("customerFingerPrint").setValue(btoa(this.data));
         this.scanMessage = "Scaning Completed";
-        this.fingureScanning = false;
 
         let op = this.fingureScanStrength.valueOf() / 100;
         this.fingureOpacity = op;
+        this.fingureScanning = false;
       } else {
         this.scanMessage = response.errInfo;
         this.fingureScanStrength = 0;
@@ -257,6 +308,7 @@ export class AepsnewComponent implements OnInit {
     } else {
       this.fingureScanning = false;
     }
+    this.fingureScanning = false;
   }
   // convenience getter for easy access to form fields
   get f() {

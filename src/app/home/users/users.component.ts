@@ -13,6 +13,9 @@ import { Router } from "@angular/router";
 })
 export class UsersComponent implements OnInit {
   usersList: any;
+  guestList: any;
+  retailerList: any;
+  gustaffList: any;
   loading: boolean = false;
 
   search: any = {
@@ -32,7 +35,7 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
     let user = JSON.parse(window.atob(localStorage.getItem("user")));
     if (admin.adminGroup.indexOf(user.role) > -1) {
-      this.getUserList();
+      this.getUserList({ key: "role", value: 0 });
     } else {
       this.toast.showToast(
         "You are not authorised to access this url 😒 !",
@@ -47,8 +50,8 @@ export class UsersComponent implements OnInit {
       /* console.log(result);*/
     });
   }
-  getUserList() {
-    this.http.post("users", {}).subscribe(
+  getUserList(data: {}) {
+    this.http.post("users", data).subscribe(
       (result) => {
         if (result.response) {
           this.usersList = result.data;
@@ -86,11 +89,11 @@ export class UsersComponent implements OnInit {
       .subscribe((result) => {});
   }
 
-  goToPage(url: string) {
+  goToPage(url: string, data: {}) {
     this.loading = true;
     const param = url.split("?");
     // console.log(param);
-    this.http.post("users" + "?" + param[1], {}).subscribe((res) => {
+    this.http.post("users" + "?" + param[1], data).subscribe((res) => {
       if (res.response) {
         this.usersList = res.data;
         this.loading = false;
@@ -113,5 +116,15 @@ export class UsersComponent implements OnInit {
           this.loading = false;
         }
       );
+  }
+
+  changeTab(selectedTab) {
+    console.log(selectedTab.tabTitle);
+    if (selectedTab.tabTitle == "Guest") {
+      
+    }
+    if (selectedTab.tabTitle == "Retailers") {
+      console.log(document.getElementById("bank").offsetWidth);
+    }
   }
 }

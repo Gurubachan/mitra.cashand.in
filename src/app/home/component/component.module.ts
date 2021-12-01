@@ -25,6 +25,7 @@ import { ServiceListComponent } from "../services/service-list/service-list.comp
 import { MoreviewComponent } from "./popover/moreview/moreview.component";
 import { ReferralComponent } from "./referral/referral.component";
 import { RbpTransactionDialogComponent } from "./rbp-transaction-dialog/rbp-transaction-dialog.component";
+import { UpiComponent } from './popover/upi/upi.component';
 @NgModule({
   declarations: [
     AboutComponent,
@@ -37,6 +38,7 @@ import { RbpTransactionDialogComponent } from "./rbp-transaction-dialog/rbp-tran
     MoreviewComponent,
     ReferralComponent,
     RbpTransactionDialogComponent,
+    UpiComponent,
   ],
   imports: [
     CommonModule,

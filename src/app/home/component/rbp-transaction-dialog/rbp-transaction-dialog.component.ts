@@ -39,8 +39,8 @@ export class RbpTransactionDialogComponent implements OnInit {
   cancel() {
     this.ref.close();
   }
-  returnStatus(status: String): String {
-    if (status.toLowerCase() == "successful") {
+  returnStatus(status: Boolean): String {
+    if (status) {
       return "success";
     }
     return "danger";

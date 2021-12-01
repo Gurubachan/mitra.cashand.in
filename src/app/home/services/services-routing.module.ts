@@ -8,6 +8,7 @@ import { ServiceListComponent } from "./service-list/service-list.component";
 import { PayoutComponent } from "./payout/payout.component";
 import { AepsnewComponent } from "./aepsnew/aepsnew.component";
 import { PanComponent } from "./pan/pan.component";
+import { AtmComponent } from "./atm/atm.component";
 
 const routes: Routes = [
   {
@@ -42,6 +43,10 @@ const routes: Routes = [
         path: "pan",
         component: PanComponent,
       },
+      {
+        path:"matm",
+        component:AtmComponent
+      }
     ],
   },
 ];

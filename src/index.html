@@ -9,10 +9,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <script
+    <!--  <script
       defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpVhQiwAllg1RAFaxMWSpQruuGARy0Y1k&libraries=places"
+    ></script> -->
+
+    <script
+      type="text/javascript"
+      src="https://firebasestorage.googleapis.com/v0/b/isusdk-b4613.appspot.com/o/matmSDK.min.js?alt=media&token=15887a7b-cc66-4d3f-ac19-d502f1808441"
     ></script>
+    <link
+      rel="stylesheet"
+      href="https://firebasestorage.googleapis.com/v0/b/isusdk-b4613.appspot.com/o/matmSDK.css?alt=media&token=9e71b07e-041c-49df-8cd7-959b0d0587a8"
+    />
+    <script
+      src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"
+      async=""
+    ></script>
+    <script>
+      window.OneSignal = window.OneSignal || [];
+      OneSignal.push(function () {
+        OneSignal.init({
+          appId: "02f8d0de-03de-4c37-a0d6-a39718fa8d7e",
+        });
+      });
+    </script>
   </head>
   <body>
     <ngx-app>Loading...</ngx-app>

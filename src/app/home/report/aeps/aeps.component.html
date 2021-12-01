@@ -104,13 +104,29 @@
           <td>{{ t?.bankName }}</td>
           <td>{{ t?.amount }}</td>
           <td>{{ t?.txnType }}</td>
-          <td>{{ t?.rrn }}</td>
-          <td>{{ t?.aadhar ? t?.aadhar : t?.aadhaarNo }}</td>
+          <td>{{ t?.rrn != null ? t?.rrn : "" }}</td>
+          <td>
+            {{
+              t?.aadhar != null
+                ? t?.aadhar
+                : t?.aadhaarNo != ""
+                ? t?.aadhaarNo
+                : ""
+            }}
+          </td>
           <td>{{ t?.status }}</td>
           <td>{{ t?.created_at | date: "dd-MM-yyyy h:mm:ss a" }}</td>
           <td>{{ t?.updated_at | date: "dd-MM-yyyy h:mm:ss a" }}</td>
           <td>{{ t?.fname + " " + t.lname | titlecase }}</td>
-          <td>{{ t?.bank_response_message }}</td>
+          <td>
+            {{
+              t?.bank_response_message != null
+                ? t?.bank_response_message
+                : t?.bankResponseMsg != null
+                ? t?.bankResponseMsg
+                : ""
+            }}
+          </td>
         </tr>
       </tbody>
     </table>

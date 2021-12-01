@@ -1,27 +1,43 @@
 <div class="row">
-  <div class="col-sm-8">
+  <div class="col-12 col-sm-12 col-md-8">
     <nb-card
       status="success"
       [nbSpinner]="loading"
       nbSpinnerMessage="{{ loadingMessage }}"
     >
       <nb-card-body>
-        <strong>CASHAND Digital Account</strong>
-        <h2>
-          ₹ {{ myBalance }}
-          <nb-icon
-            icon="refresh-outline"
-            (click)="loadWalletBalance()"
-          ></nb-icon>
+        <div class="row">
+          <div class="col-10">
+            <strong>CASHAND Digital Account</strong>
+            <h2>
+              ₹ {{ myBalance }}
+              <nb-icon
+                icon="refresh-outline"
+                (click)="loadWalletBalance()"
+              ></nb-icon>
 
-          <nb-icon
-            icon="more-horizontal-outline"
-            nbTooltip="view more.."
-            nbTooltipPlacement="right"
-            [nbPopover]="formComponent"
-            nbPopoverPlacement="bottom"
-          ></nb-icon>
-        </h2>
+              <nb-icon
+                icon="more-horizontal-outline"
+                nbTooltip="view more.."
+                nbTooltipPlacement="right"
+                [nbPopover]="formComponent"
+                nbPopoverPlacement="bottom"
+              ></nb-icon>
+            </h2>
+          </div>
+          <div class="col-2">
+            <nb-user
+              size="large"
+              title="UPI"
+              picture="../../assets/images/qr.png"
+              onlyPicture
+              nbTooltipPlacement="left"
+              [nbPopover]="upiComponent"
+              nbPopoverPlacement="bottom"
+            ></nb-user>
+          </div>
+        </div>
+
         <div style="background-color: #f5f6f8">
           <div class="row" style="padding: 10px">
             <div class="col-6">Bank : {{ user.bankname }}</div>
@@ -33,7 +49,7 @@
       </nb-card-body>
     </nb-card>
   </div>
-  <div class="col-sm-4">
+  <div class="col-12 col-sm-12 col-md-4">
     <nb-card style="text-align: center" status="success" size="large">
       <nb-card-header status="success">News and Updates</nb-card-header>
       <nb-card-body> </nb-card-body>

@@ -1,0 +1,61 @@
+<nb-card [nbSpinner]="loading">
+  <nb-card-header>Settlement List</nb-card-header>
+  <nb-card-body>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>sl#</th>
+            <th>Name</th>
+            <th>Type</th>
+
+            <th>Bank</th>
+
+            <th>Amount</th>
+            <th>Transaction Mode</th>
+
+            <th>Status</th>
+            <th>Wallet Ref</th>
+            <th>Refund Ref</th>
+
+            <th>Created</th>
+            <th>Remark</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let s of settlement?.data">
+            <td>{{ s.id }}</td>
+            <td>{{ s.fname + " " + s.lname }}</td>
+            <td>{{ s.txnType }}</td>
+            <td>{{ s.bankName }}</td>
+            <td>{{ s.amount }}</td>
+            <td>{{ s.txnMedium }}</td>
+            <td>{{ s.status }}</td>
+            <td>{{ s.walletReferenceNo }}</td>
+            <td>{{ s.refundWalletReferenceNo }}</td>
+            <td>{{ s.created_at | date: "d-M-yyyy h:mm:ss a" }}</td>
+            <td>{{ s.remark }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <button
+      nbButton
+      status="success"
+      *ngIf="settlement?.prev_page_url != null"
+      (click)="goToPage(settlement?.prev_page_url)"
+      class="float-left"
+    >
+      Previous
+    </button>
+    <button
+      nbButton
+      status="success"
+      class="float-right"
+      *ngIf="settlement?.next_page_url != null"
+      (click)="goToPage(settlement?.next_page_url)"
+    >
+      Next
+    </button>
+  </nb-card-body>
+</nb-card>

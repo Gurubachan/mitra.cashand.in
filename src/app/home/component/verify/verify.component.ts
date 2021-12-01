@@ -91,14 +91,13 @@ export class VerifyComponent implements OnInit {
         (result) => {
           console.log(result);
           if (result.response) {
-            this.loading = false;
             console.log(this.loading);
             this.services = JSON.parse(atob(result.data));
             this.toast.showToast(result.message, "Service Assigned", "success");
           } else {
-            this.loading = false;
             this.toast.showToast(result.message, "Service Assigned", "danger");
           }
+          this.loading = false;
         },
         (err) => {
           this.loading = false;

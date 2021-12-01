@@ -7,6 +7,7 @@ import {
 } from "@angular/core";
 import { HttpService } from "../../../services/http.service";
 import { MoreviewComponent } from "../../component/popover/moreview/moreview.component";
+import { UpiComponent } from "../../component/popover/upi/upi.component";
 @Component({
   selector: "ngx-retailer-dashboard",
   templateUrl: "./retailer-dashboard.component.html",
@@ -18,6 +19,7 @@ export class RetailerDashboardComponent implements OnInit {
   loading: boolean = false;
   loadingMessage: String = "Fetching account balance.";
   formComponent = MoreviewComponent;
+  upiComponent = UpiComponent;
   myBalance = 0;
   @Input() user: any;
   ngOnInit() {

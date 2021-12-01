@@ -5,6 +5,7 @@ import { ReportRoutingModule } from "./report-routing.module";
 import { AepsComponent } from "./aeps/aeps.component";
 import { ReportComponent } from "./report.component";
 import {
+  NbAutocompleteModule,
   NbButtonModule,
   NbCardModule,
   NbDatepickerModule,
@@ -14,9 +15,20 @@ import {
 } from "@nebular/theme";
 import { WalletComponent } from "./wallet/wallet.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { BconboardingComponent } from './bconboarding/bconboarding.component';
+import { BconboardingComponent } from "./bconboarding/bconboarding.component";
+import { CashoutComponent } from './cashout/cashout.component';
+import { RechargeComponent } from './recharge/recharge.component';
+import { PanComponent } from './pan/pan.component';
 @NgModule({
-  declarations: [AepsComponent, ReportComponent, WalletComponent, BconboardingComponent],
+  declarations: [
+    AepsComponent,
+    ReportComponent,
+    WalletComponent,
+    BconboardingComponent,
+    CashoutComponent,
+    RechargeComponent,
+    PanComponent,
+  ],
   imports: [
     CommonModule,
     ReportRoutingModule,
@@ -28,6 +40,7 @@ import { BconboardingComponent } from './bconboarding/bconboarding.component';
     FormsModule,
     ReactiveFormsModule,
     NbSelectModule,
+    NbAutocompleteModule,
   ],
 })
 export class ReportModule {}

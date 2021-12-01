@@ -1,5 +1,5 @@
 <div class="row" *ngIf="!showForm">
-   <div class="col-sm-12" *ngIf="!bank.isBankAccountVerified">
+  <div class="col-sm-12" *ngIf="!bank.isBankAccountVerified">
     <p class="text-danger text-center">Account details Verification pending.</p>
   </div>
   <div class="col-sm-3">Bank Name: {{ bank.bankname }}</div>
@@ -9,9 +9,7 @@
     <a [href]="passbookImage" target="_blank">
       <img [src]="passbookImage" width="50%" height="50%" />
     </a>
-
   </div>
-
 </div>
 <button
   type="button"
@@ -51,6 +49,7 @@
     #bankform="ngForm"
     aria-labelledby="title"
     class="form-horizontal row"
+    [nbSpinner]="submitted"
   >
     <div class="form-control-group col-sm-3">
       <label class="label" for="input-ifsc">IFSC :</label><br />

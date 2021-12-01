@@ -1,3 +1,81 @@
+<nb-card>
+  <nb-card-header>Filter Form</nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-sm-2">
+        <input
+          nbInput
+          placeholder="From Date"
+          [nbDatepicker]="formcontrol"
+          [formControl]="formControl"
+          required
+          readOnly
+        />
+        <nb-datepicker
+          #formcontrol
+          format="dd-MM-yyyy"
+          [min]="frommin"
+          [max]="frommax"
+          (dateChange)="setMaxdate($event)"
+        ></nb-datepicker>
+      </div>
+      <div class="col-sm-2">
+        <input
+          nbInput
+          placeholder="To Picker"
+          [nbDatepicker]="ngmodel"
+          [(ngModel)]="ngModelDate"
+          required
+          readOnly
+        />
+        <nb-datepicker
+          #ngmodel
+          format="dd-MM-yyyy"
+          [max]="tomax"
+          [min]="tomin"
+        ></nb-datepicker>
+      </div>
+      <div class="col-sm-5">
+        <input
+          [formControl]="inputFormControl"
+          nbInput
+          type="text"
+          placeholder="Search user name"
+          [nbAutocomplete]="auto"
+          fullWidth
+        />
+
+        <nb-autocomplete #auto [handleDisplayFn]="viewHandle">
+          <nb-option
+            *ngFor="let option of filteredOptions$ | async"
+            [value]="option"
+          >
+            {{ option }}
+          </nb-option>
+        </nb-autocomplete>
+      </div>
+      <div class="col-sm-3">
+        <nb-select
+          placeholder="Select Txn Type"
+          [(selected)]="selectedTxnType"
+          fullWidth
+          required
+        >
+          <nb-option value="all">All Transaction</nb-option>
+          <nb-option value="cr">Credit</nb-option>
+          <nb-option value="dr">Debit</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col-sm-12 text-center">
+        <button nbButton status="success" (click)="getWalletReport()">
+          Search
+        </button>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
+
 <nb-card [nbSpinner]="loading">
   <nb-card-body>
     <table class="table table-hover">

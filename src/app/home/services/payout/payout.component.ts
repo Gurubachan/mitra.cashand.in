@@ -159,14 +159,18 @@ export class PayoutComponent implements OnInit {
   }
 
   checkStatus() {
-    this.loading=true;
+    this.loading = true;
     this.http
       .post("wallet/getPayout", { merchant_ref_id: this.bankSettlement.id })
-      .subscribe((res) => {
-        this.bankSettlement = res.data;
-        this.cd.detectChanges();
-      },(err)=>{
-        this.loading=false;
-      });
+      .subscribe(
+        (res) => {
+          this.bankSettlement = res.data;
+          this.loading = false;
+          this.cd.detectChanges();
+        },
+        (err) => {
+          this.loading = false;
+        }
+      );
   }
 }

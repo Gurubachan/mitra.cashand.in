@@ -175,50 +175,11 @@
             ><label *ngIf="!resend">Resend after : {{ timer }}</label>
           </div>
 
-          <div class="form-control-group">
-            <nb-select
-              fullWidth
-              [nbSpinner]="loading"
-              placeholder="Select Device From List.."
-              name="deviceList"
-              id="deviceList"
-              formControlName="deviceList"
-              [status]="
-                ekyc.deviceList.dirty
-                  ? ekyc.deviceList.invalid
-                    ? 'danger'
-                    : 'success'
-                  : 'basic'
-              "
-              [attr.aria-invalid]="
-                ekyc.deviceList.invalid && ekyc.deviceList.touched ? true : null
-              "
-              [required]="true"
-            >
-              <nb-option *ngFor="let dl of deviceList" value="{{ dl.key }}">{{
-                dl.value
-              }}</nb-option>
-            </nb-select>
-            <ng-container
-              *ngIf="ekyc.deviceList.invalid && ekyc.deviceList.touched"
-            >
-              <p
-                class="caption status-danger"
-                *ngIf="ekyc.deviceList.errors?.required"
-              >
-                Please select biometric device.
-              </p>
-            </ng-container>
-            <ng-container *ngIf="ekyc.deviceList.errors?.invalidNumber">
-              <p class="caption status-danger">
-                Please select biometric device.
-              </p>
-            </ng-container>
-          </div>
+          
           <div class="form-control-group">
             <nb-card>
               <nb-card-body [nbSpinner]="fingureScanning">
-                <div class="text-center" (click)="capture()">
+                <div class="text-center" (click)="CaptureNew()">
                   <img
                     src="../../../../assets/images/fingerprint.png"
                     width="40%"
