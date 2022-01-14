@@ -19,6 +19,7 @@ export class RechargeComponent implements OnInit {
   subscription: String = "Recharge Number";
   rechargeForm: FormGroup;
   submitted: boolean = false;
+  modeShow: boolean = false;
 
   constructor(
     private http: HttpService,
@@ -41,7 +42,7 @@ export class RechargeComponent implements OnInit {
       customerNumber: [null, Validators.required],
       //refMobileNo: [null, Validators.required],
       amount: [null, Validators.required],
-      isStv: [null, Validators.required],
+      isStv: [0, Validators.required],
     });
   }
 
@@ -95,7 +96,11 @@ export class RechargeComponent implements OnInit {
   }
 
   operatorChange(e) {
-    console.log(e);
+    if (e == 2) {
+      this.modeShow = true;
+    } else {
+      this.modeShow = false;
+    }
   }
 
   get f() {

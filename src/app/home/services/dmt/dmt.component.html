@@ -1,12 +1,65 @@
-<div class="row">
-  <div class="col-sm-4">
-    <nb-card status="success">
-      <nb-card-header class="success">Check User</nb-card-header>
+<div class="row" [nbSpinner]="loading">
+  <div class="col-sm-12 col-md-4">
+    <nb-card status="success" size="large">
+      <nb-card-header class="success">Sender</nb-card-header>
       <nb-card-body>
         <form
-          (ngSubmit)="chekUser()"
+          (ngSubmit)="verify()"
+          #dmtUserVerify="ngForm"
+          aria-labelledby="title"
+          *ngIf="otpForm"
+        >
+          <div class="form-control-group">
+            <label class="label" for="input-contact">
+              Mobile No:{{ customer?.mobileNo }} </label
+            ><br />
+            <label class="label" for="input-contact">
+              Name :{{ customer?.name }}
+            </label>
+          </div>
+          <div class="form-control-group">
+            <label class="label" for="input-otp">Enter otp:</label>
+            <input
+              nbInput
+              fullWidth
+              [(ngModel)]="dmtCustomer.otp"
+              #otp="ngModel"
+              name="otp"
+              id="input-otp"
+              pattern="[0-9]{6}"
+              placeholder="Enter your OTP"
+              autofocus
+              [status]="
+                otp.dirty ? (otp.invalid ? 'danger' : 'success') : 'basic'
+              "
+              [required]="true"
+              [attr.aria-invalid]="otp.invalid && otp.touched ? true : null"
+            />
+            <ng-container *ngIf="otp.invalid && otp.touched">
+              <p class="caption status-danger" *ngIf="otp.errors?.required">
+                OTP is required!
+              </p>
+              <p class="caption status-danger" *ngIf="otp.errors?.pattern">
+                OTP should be 6 digit number!
+              </p>
+            </ng-container>
+          </div>
+          <button
+            nbButton
+            fullWidth
+            status="success"
+            [disabled]="submitted || !dmtUserVerify.valid"
+            [class.btn-pulse]="submitted"
+          >
+            Verify
+          </button>
+        </form>
+
+        <form
+          (ngSubmit)="onboardUser()"
           #dmtUserCheck="ngForm"
           aria-labelledby="title"
+          *ngIf="!otpForm"
         >
           <div class="form-control-group">
             <label class="label" for="input-contact">Mobile No:</label>
@@ -17,7 +70,7 @@
               #contact="ngModel"
               name="contact"
               id="input-contact"
-              pattern="[0-9]{10}"
+              pattern="[6-9]{1}[0-9]{9}"
               placeholder="Contact Number"
               autofocus
               [status]="
@@ -31,15 +84,160 @@
               [attr.aria-invalid]="
                 contact.invalid && contact.touched ? true : null
               "
+              (ngModelChange)="checkCustomer($event)"
             />
             <ng-container *ngIf="contact.invalid && contact.touched">
               <p class="caption status-danger" *ngIf="contact.errors?.required">
-                User Id is required!
+                Mobile Number is required!
               </p>
               <p class="caption status-danger" *ngIf="contact.errors?.pattern">
-                User Id should be 10 digit number!
+                Mobile Number should be 10 digit number!
               </p>
             </ng-container>
+            <ng-container *ngIf="!contact.touched">
+              <p class="caption status-success">
+                We use your mobile number to send otp.
+              </p>
+            </ng-container>
+          </div>
+          <div *ngIf="showButton">
+            <div class="form-control-group">
+              <label class="label" for="input-customerName"
+                >Customer Name:</label
+              >
+              <input
+                nbInput
+                fullWidth
+                [(ngModel)]="dmt.customerName"
+                #customerName="ngModel"
+                name="customerName"
+                id="input-customerName"
+                pattern="[a-zA-Z ]{4,50}"
+                placeholder="Customer Name"
+                autofocus
+                [status]="
+                  customerName.dirty
+                    ? customerName.invalid
+                      ? 'danger'
+                      : 'success'
+                    : 'basic'
+                "
+                [required]="true"
+                [attr.aria-invalid]="
+                  customerName.invalid && customerName.touched ? true : null
+                "
+              />
+              <ng-container
+                *ngIf="customerName.invalid && customerName.touched"
+              >
+                <p
+                  class="caption status-danger"
+                  *ngIf="customerName.errors?.required"
+                >
+                  Customer name required
+                </p>
+                <p
+                  class="caption status-danger"
+                  *ngIf="customerName.errors?.pattern"
+                >
+                  Customer name must be alphabate and minimum 4 letter.
+                </p>
+              </ng-container>
+            </div>
+            <div class="form-control-group">
+              <label class="label" for="input-pincode"
+                >Customer Pin Code:</label
+              >
+              <input
+                nbInput
+                fullWidth
+                [(ngModel)]="dmt.pincode"
+                #pincode="ngModel"
+                name="pincode"
+                id="input-pincode"
+                pattern="[0-9]{6}"
+                placeholder="Pin Code"
+                autofocus
+                [status]="
+                  pincode.dirty
+                    ? pincode.invalid
+                      ? 'danger'
+                      : 'success'
+                    : 'basic'
+                "
+                [required]="true"
+                [attr.aria-invalid]="
+                  pincode.invalid && pincode.touched ? true : null
+                "
+                (ngModelChange)="checkPinCode($event)"
+              />
+              <ng-container *ngIf="pincode.invalid && pincode.touched">
+                <p
+                  class="caption status-danger"
+                  *ngIf="pincode.errors?.required"
+                >
+                  Customer pin code required
+                </p>
+                <p
+                  class="caption status-danger"
+                  *ngIf="pincode.errors?.pattern"
+                >
+                  Customer pin code must be integer and minimum 6 number.
+                </p>
+              </ng-container>
+            </div>
+            <div class="form-control-group">
+              <label class="label">PIN Code wise area* :</label><br />
+              <nb-select
+                [(ngModel)]="dmt.pinCodeId"
+                #pinCodeId="ngModel"
+                name="pinCodeId"
+                id="pinCodeId"
+                [status]="
+                  pinCodeId.dirty
+                    ? pinCodeId.invalid
+                      ? 'danger'
+                      : 'success'
+                    : 'basic'
+                "
+                [attr.aria-invalid]="
+                  pinCodeId.invalid && pinCodeId.touched ? true : null
+                "
+                [required]="true"
+                placeholder="Select Address"
+                [(selected)]="selectedPinCodeId"
+                fullWidth
+              >
+                <nb-option *ngFor="let p of pinCodes" [value]="p?.id">
+                  <small>
+                    {{
+                      p.village +
+                        "-" +
+                        p.poName +
+                        "-" +
+                        p.district +
+                        "-" +
+                        p.state
+                    }}
+                  </small>
+                </nb-option>
+              </nb-select>
+
+              <ng-container *ngIf="pinCodeId.invalid && pinCodeId.touched">
+                <p
+                  class="caption status-danger"
+                  *ngIf="pinCodeId.errors?.required"
+                >
+                  Pin Code is required!
+                </p>
+                <p
+                  class="caption status-danger"
+                  *ngIf="pinCodeId.errors?.pattern"
+                >
+                  Pin code should be real one and 6 digit number!
+                </p>
+              </ng-container>
+            </div>
           </div>
           <button
             nbButton
@@ -49,22 +247,359 @@
             [class.btn-pulse]="submitted"
             *ngIf="showButton"
           >
-            Check User
+            Register
           </button>
         </form>
+        <nb-card
+          *ngIf="showUserInfo"
+          style="margin-top: 5px"
+          (click)="getBeneList(customer?.id)"
+        >
+          <nb-card-body>
+            <p>Name : {{ customer?.name }}</p>
+            <p>Limit : {{ customer?.remainAmount }}</p>
+            <p>Spent : {{ customer?.debitedAmount }}</p>
+            <p class="caption status-success">Click here to proceed</p>
+          </nb-card-body>
+        </nb-card>
       </nb-card-body>
     </nb-card>
   </div>
-  <div class="col-sm-4">
-    <nb-card status="success">
-      <nb-card-header class="success">Add/ Select Bank</nb-card-header>
-      <nb-card-body></nb-card-body>
+  <div class="col-sm-12 col-md-4">
+    <nb-card status="success" size="large">
+      <nb-card-header class="success"
+        >Recipient
+        <button
+          nbButton
+          size="tiny"
+          status="success"
+          (click)="showForm()"
+          style="float: right"
+          *ngIf="bene.dcId > 0"
+        >
+          {{ addBeneButtonText }}
+        </button></nb-card-header
+      >
+      <nb-card-body>
+        <form
+          (ngSubmit)="addBene()"
+          #addBeneForm="ngForm"
+          aria-labelledby="title"
+          *ngIf="showBeneForm"
+        >
+          <div class="form-control-group">
+            <label class="label">Bank* :</label><br />
+            <nb-select
+              [(ngModel)]="bene.bank"
+              #bank="ngModel"
+              name="bank"
+              id="bank"
+              [status]="
+                bank.dirty ? (bank.invalid ? 'danger' : 'success') : 'basic'
+              "
+              [attr.aria-invalid]="bank.invalid && bank.touched ? true : null"
+              [required]="true"
+              placeholder="Select Bank from List"
+              fullWidth
+              (selectedChange)="selectIfsc($event)"
+            >
+              <nb-option *ngFor="let b of bankList" [value]="b?.id">
+                <small>
+                  {{ b.bankName }}
+                </small>
+              </nb-option>
+            </nb-select>
+
+            <ng-container *ngIf="bank.invalid && bank.touched">
+              <p class="caption status-danger" *ngIf="bank.errors?.required">
+                Please select bank.
+              </p>
+            </ng-container>
+          </div>
+          <div class="form-control-group">
+            <label class="label" for="input-ifsc">IFSC Code:</label>
+            <input
+              nbInput
+              fullWidth
+              [(ngModel)]="bene.ifsc"
+              #ifsc="ngModel"
+              name="ifsc"
+              id="input-ifsc"
+              pattern="[A-Z]{4}0[A-Z0-9]{6}"
+              placeholder="Enter IFSC Code"
+              autofocus
+              [status]="
+                ifsc.dirty ? (ifsc.invalid ? 'danger' : 'success') : 'basic'
+              "
+              [required]="true"
+              [attr.aria-invalid]="ifsc.invalid && ifsc.touched ? true : null"
+              (change)="getIFSCDetails()"
+            />
+            <ng-container *ngIf="ifsc.invalid && ifsc.touched">
+              <p class="caption status-danger" *ngIf="ifsc.errors?.required">
+                IFSC Code required
+              </p>
+              <p class="caption status-danger" *ngIf="ifsc.errors?.pattern">
+                IFSC code must be 11 character having 5th position 0 (zero).
+              </p>
+            </ng-container>
+            <ng-container *ngIf="ifsc.valid">
+              <p class="caption status-success">
+                We are providing default IFSC code for IMPS transaction .
+              </p>
+              <table class="table table-hover" style="font-size: x-small">
+                <tbody>
+                  <tr>
+                    <td colspan="2">
+                      {{ bankDetails?.ADDRESS }}, {{ bankDetails?.BRANCH }},
+                      {{ bankDetails?.STATE }}
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>NEFT</td>
+                    <td>{{ bankDetails?.NEFT }}</td>
+                  </tr>
+                  <tr>
+                    <td>IMPS</td>
+                    <td>{{ bankDetails?.IMPS }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </ng-container>
+          </div>
+          <div class="form-control-group">
+            <label class="label" for="input-account">Account Number:</label>
+            <input
+              nbInput
+              fullWidth
+              [(ngModel)]="bene.account"
+              #account="ngModel"
+              name="account"
+              id="input-account"
+              pattern="[0-9]{9,16}"
+              placeholder="Account Number"
+              autofocus
+              [status]="
+                account.dirty
+                  ? account.invalid
+                    ? 'danger'
+                    : 'success'
+                  : 'basic'
+              "
+              [required]="true"
+              [attr.aria-invalid]="
+                account.invalid && account.touched ? true : null
+              "
+            />
+            <ng-container *ngIf="account.invalid && account.touched">
+              <p class="caption status-danger" *ngIf="account.errors?.required">
+                Account number required
+              </p>
+              <p class="caption status-danger" *ngIf="account.errors?.pattern">
+                Account number must be numeric
+              </p>
+            </ng-container>
+          </div>
+          <div class="form-control-group">
+            <label class="label" for="input-beneName">Benificiary Name:</label>
+            <input
+              nbInput
+              fullWidth
+              [(ngModel)]="bene.beneName"
+              #beneName="ngModel"
+              name="beneName"
+              id="input-beneName"
+              pattern="[A-Za-z ]{4,50}"
+              placeholder="Beneficiary name"
+              autofocus
+              [status]="
+                beneName.dirty
+                  ? beneName.invalid
+                    ? 'danger'
+                    : 'success'
+                  : 'basic'
+              "
+              [required]="true"
+              [attr.aria-invalid]="
+                beneName.invalid && beneName.touched ? true : null
+              "
+            />
+            <ng-container *ngIf="beneName.invalid && beneName.touched">
+              <p
+                class="caption status-danger"
+                *ngIf="beneName.errors?.required"
+              >
+                Bene ficiary Name required
+              </p>
+              <p class="caption status-danger" *ngIf="beneName.errors?.pattern">
+                Beneficiary Name must be character
+              </p>
+            </ng-container>
+          </div>
+          <div class="form-control-group">
+            <br />
+            <button
+              nbButton
+              type="submit"
+              style="float: right"
+              status="success"
+              [disabled]="submitted || addBeneForm.invalid"
+              [class.btn-pulse]="submitted"
+            >
+              Verify and Save
+            </button>
+          </div>
+        </form>
+        <div *ngIf="!showBeneForm && showBeneList">
+          <ul *ngFor="let b of beneList">
+            <li (click)="selectBene(b.id)">
+              <small>
+                {{ b.beneName }}<br />
+                {{ b.bankName }}<br />
+
+                {{ b.accountNo }}<br />
+                {{ b.ifscCode }}<br />
+              </small>
+
+              <nb-icon
+                *ngIf="b.isBeneVerified"
+                icon="checkmark-circle-outline"
+                status="success"
+              ></nb-icon>
+              <p *ngIf="!b.isBeneVerified" class="caption status-danger">
+                Account Not Verified
+              </p>
+            </li>
+          </ul>
+        </div>
+      </nb-card-body>
     </nb-card>
   </div>
-  <div class="col-sm-4">
-    <nb-card status="success">
+  <div class="col-sm-12 col-md-4">
+    <nb-card status="success" size="large">
       <nb-card-header class="success">Initiate Transaction</nb-card-header>
-      <nb-card-body></nb-card-body>
+      <nb-card-body *ngIf="isBeneSelected">
+        <form
+          (ngSubmit)="initTransaction()"
+          #transactionForm="ngForm"
+          aria-labelledby="title"
+        >
+          <h5>Wallet Balance: {{ balance }}</h5>
+          <nb-card>
+            <nb-card-body size="small">
+              <small>
+                Name: {{ selectedBene.beneName }}<br />
+                Account No. :{{ selectedBene.accountNo }}
+              </small>
+            </nb-card-body>
+          </nb-card>
+          <div class="form-control-group">
+            <label class="label" for="input-mode">Transaction Mode:</label>
+            <nb-select
+              [(ngModel)]="transaction.mode"
+              #mode="ngModel"
+              name="mode"
+              id="mode"
+              [status]="
+                mode.dirty ? (mode.invalid ? 'danger' : 'success') : 'basic'
+              "
+              [attr.aria-invalid]="mode.invalid && mode.touched ? true : null"
+              [required]="true"
+              placeholder="Select Transaction Mode"
+              fullWidth
+            >
+              <nb-option value="2">NEFT</nb-option>
+              <nb-option value="4">IMPS</nb-option>
+            </nb-select>
+
+            <ng-container *ngIf="mode.invalid && mode.touched">
+              <p class="caption status-danger" *ngIf="mode.errors?.required">
+                Please select mode.
+              </p>
+            </ng-container>
+          </div>
+          <div class="form-control-group">
+            <label class="label" for="input-amount">Payment amount :</label>
+            <input
+              nbInput
+              fullWidth
+              [(ngModel)]="transaction.amount"
+              #amount="ngModel"
+              name="amount"
+              id="input-amount"
+              pattern="[0-9]{3,6}"
+              min="100"
+              max="{{ customer?.remainAmount }}"
+              placeholder="Transfer Amount"
+              autofocus
+              [status]="
+                amount.dirty ? (amount.invalid ? 'danger' : 'success') : 'basic'
+              "
+              [required]="true"
+              [attr.aria-invalid]="
+                amount.invalid && amount.touched ? true : null
+              "
+              (change)="validateAmount(transaction.amount)"
+              type="number"
+            />
+            <ng-container *ngIf="amount.invalid && amount.touched">
+              <p class="caption status-danger" *ngIf="amount.errors?.required">
+                Please enter amount for payment
+              </p>
+              <p class="caption status-danger" *ngIf="amount.errors?.pattern">
+                Amount must be numeric and less then
+                {{ customer?.remainAmount }} and wallet balance {{ balance }}.
+              </p>
+              <p
+                class="caption status-danger"
+                *ngIf="amount.errors?.min || amount.errors?.max"
+              >
+                Amount should contains from 100 to {{ customer?.remainAmount }}
+              </p>
+              <p
+                class="caption status-danger"
+                *ngIf="amount.errors?.inValidAmount"
+              >
+                Amount should contains from 100 to {{ balance }}
+              </p>
+            </ng-container>
+          </div>
+          <div class="form-control-group">
+            <p class="caption status-danger">
+              <span *ngIf="transaction.amount <= 1000; else elseBlock">
+                Payable amount
+                {{ transaction.amount + 3 }}
+              </span>
+              <ng-template #elseBlock>
+                Payable amount
+                {{ transaction.amount + transaction.amount / 100 }}
+              </ng-template>
+            </p>
+          </div>
+          <br />
+          <button
+            nbButton
+            type="reset"
+            style="float: left"
+            status="danger"
+            [class.btn-pulse]="submitted"
+            (click)="reset()"
+          >
+            Reset
+          </button>
+          <button
+            nbButton
+            type="submit"
+            style="float: right"
+            status="success"
+            [disabled]="submitted || transactionForm.invalid"
+            [class.btn-pulse]="submitted"
+          >
+            Pay
+          </button>
+        </form>
+      </nb-card-body>
     </nb-card>
   </div>
 </div>

@@ -9,6 +9,7 @@ import {
   NbButtonModule,
   NbCardModule,
   NbDatepickerModule,
+  NbIconModule,
   NbInputModule,
   NbSelectModule,
   NbSpinnerModule,
@@ -16,9 +17,11 @@ import {
 import { WalletComponent } from "./wallet/wallet.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BconboardingComponent } from "./bconboarding/bconboarding.component";
-import { CashoutComponent } from './cashout/cashout.component';
-import { RechargeComponent } from './recharge/recharge.component';
-import { PanComponent } from './pan/pan.component';
+import { CashoutComponent } from "./cashout/cashout.component";
+import { RechargeComponent } from "./recharge/recharge.component";
+import { PanComponent } from "./pan/pan.component";
+import { UpiComponent } from './upi/upi.component';
+import { MoneytransferComponent } from './moneytransfer/moneytransfer.component';
 @NgModule({
   declarations: [
     AepsComponent,
@@ -28,6 +31,8 @@ import { PanComponent } from './pan/pan.component';
     CashoutComponent,
     RechargeComponent,
     PanComponent,
+    UpiComponent,
+    MoneytransferComponent,
   ],
   imports: [
     CommonModule,
@@ -41,6 +46,7 @@ import { PanComponent } from './pan/pan.component';
     ReactiveFormsModule,
     NbSelectModule,
     NbAutocompleteModule,
+    NbIconModule,
   ],
 })
 export class ReportModule {}

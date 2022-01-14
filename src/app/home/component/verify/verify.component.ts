@@ -18,6 +18,7 @@ export class VerifyComponent implements OnInit {
   services: any;
   submitted: boolean = false;
   loading: boolean = false;
+
   ngOnInit(): void {
     this.getGroup();
     this.getServices();
@@ -102,6 +103,71 @@ export class VerifyComponent implements OnInit {
         (err) => {
           this.loading = false;
           this.toast.showToast(err.error.message, "Service Assigned", "danger");
+        }
+      );
+  }
+
+  panVerify(office) {
+    this.http
+      .post("profile/verifyKYC", {
+        documentType: 1,
+        isVerified: office.isPanVerified,
+        userId: office.id,
+        remark: null,
+      })
+      .subscribe(
+        (res) => {
+          this.toast.showToast(res.message, "Service Assigned", "success");
+        },
+        (err) => {
+          this.toast.showToast(
+            err.error.message,
+            "Service Assigned",
+            "success"
+          );
+        }
+      );
+  }
+  aadhaarVerify(office) {
+    this.http
+      .post("profile/verifyKYC", {
+        documentType: 2,
+        isVerified: office.isAadhaarVerified,
+        userId: office.id,
+        remark: null,
+      })
+      .subscribe(
+        (res) => {
+          this.toast.showToast(res.message, "Service Assigned", "success");
+        },
+        (err) => {
+          this.toast.showToast(
+            err.error.message,
+            "Service Assigned",
+            "success"
+          );
+        }
+      );
+  }
+
+  kycVerified(office) {
+    this.http
+      .post("profile/verifyKYC", {
+        documentType: 3,
+        isVerified: office.isVerified,
+        userId: office.id,
+        remark: null,
+      })
+      .subscribe(
+        (res) => {
+          this.toast.showToast(res.message, "Service Assigned", "success");
+        },
+        (err) => {
+          this.toast.showToast(
+            err.error.message,
+            "Service Assigned",
+            "success"
+          );
         }
       );
   }

@@ -51,10 +51,10 @@
   </nb-card-body>
 </nb-card>
 
-<nb-card>
+<nb-card [nbSpinner]="userLoading">
   <nb-card-body>
-    <nb-tabset fullWidth>
-      <nb-tab tabTitle="Guest">
+    <nb-tabset fullWidth (changeTab)="changeTab($event)">
+      <nb-tab tabTitle="Guest" [lazyLoad]="true">
         <table class="table table-hover">
           <thead>
             <tr>
@@ -119,7 +119,7 @@
           </tbody>
         </table>
       </nb-tab>
-      <nb-tab tabTitle="Retailers">
+      <nb-tab tabTitle="Retailers" [lazyLoad]="true">
         <table class="table table-hover">
           <thead>
             <tr>
@@ -134,7 +134,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let user of retailerList; let i = index">
+            <tr *ngFor="let user of usersList?.data; let i = index">
               <td>{{ increment(i) }}</td>
               <td>{{ user?.fname + " " + user?.lname }}</td>
               <td>
@@ -190,7 +190,7 @@
       nbButton
       status="success"
       *ngIf="usersList?.prev_page_url != null"
-      (click)="goToPage(usersList?.prev_page_url)"
+      (click)="goToPage(usersList?.prev_page_url, filterData)"
     >
       Previous
     </button>
@@ -199,7 +199,7 @@
       status="success"
       class="float-right"
       *ngIf="usersList?.next_page_url != null"
-      (click)="goToPage(usersList?.next_page_url)"
+      (click)="goToPage(usersList?.next_page_url, filterData)"
     >
       Next
     </button>

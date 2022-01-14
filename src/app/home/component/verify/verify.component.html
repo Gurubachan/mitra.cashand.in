@@ -1,40 +1,89 @@
 <div class="row">
-  <div class="col-sm-4 col-md-4 col-lg-4">
+  <div class="col-sm-6">
+    <nb-card status="success">
+      <nb-card-header>KYC Verification</nb-card-header>
+      <nb-card-body>
+        <div class="col-sm-12">
+          Basic Information : Please check basic information from Basic Tab<br />
+
+          <nb-toggle
+            status="success"
+            [checked]="office.isVerified == '1' ? 'true' : 'false'"
+            (change)="kycVerified(office)"
+            [(ngModel)]="office.isVerified"
+          ></nb-toggle>
+        </div>
+        <div class="col-sm-12">
+          Pan Number: {{ office.panNo }}<br />
+
+          <nb-toggle
+            status="success"
+            [checked]="office.isPanVerified == '1' ? 'true' : 'false'"
+            (change)="panVerify(office)"
+            [(ngModel)]="office.isPanVerified"
+          ></nb-toggle>
+        </div>
+        <div class="col-sm-12">
+          Aadhar Number: {{ office.aadhaar }} <br />
+          <nb-toggle
+            status="success"
+            [checked]="office.isAadhaarVerified == '1' ? 'true' : 'false'"
+            (change)="aadhaarVerify(office)"
+            [(ngModel)]="office.isAadhaarVerified"
+          ></nb-toggle>
+        </div>
+
+        <small class="caption status-danger">
+          Check pan and aadhaar before verify</small
+        >
+      </nb-card-body>
+    </nb-card>
     <nb-card status="success">
       <nb-card-header>Role_Assign</nb-card-header>
       <nb-card-body *ngIf="office.role == 0">
-        <nb-select
-          placeholder="Select Group"
-          [(ngModel)]="roleAssign.userGroup"
-          (selectedChange)="getType()"
-          shape="round"
-        >
-          <nb-option *ngFor="let ug of userGroup" value="{{ ug.id }}">{{
-            ug.groupName
-          }}</nb-option>
-        </nb-select>
-
-        <nb-select
-          placeholder="Select Type"
-          [(ngModel)]="roleAssign.userRole"
-          shape="round"
-        >
-          <nb-option *ngFor="let ut of userType" value="{{ ut.id }}">{{
-            ut.types
-          }}</nb-option>
-        </nb-select>
+        <div class="form-group-controller">
+          <nb-select
+            placeholder="Select Group"
+            [(ngModel)]="roleAssign.userGroup"
+            (selectedChange)="getType()"
+            shape="round"
+            fullWidth
+          >
+            <nb-option *ngFor="let ug of userGroup" value="{{ ug.id }}">{{
+              ug.groupName
+            }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="form-group-controller">
+          <nb-select
+            placeholder="Select Type"
+            [(ngModel)]="roleAssign.userRole"
+            shape="round"
+            fullWidth
+          >
+            <nb-option *ngFor="let ut of userType" value="{{ ut.id }}">{{
+              ut.types
+            }}</nb-option>
+          </nb-select>
+        </div>
       </nb-card-body>
       <nb-card-body *ngIf="office.role > 0">
         {{ office.userRole }}</nb-card-body
       >
       <nb-card-footer *ngIf="office.role == 0"
-        ><button nbButton fullWidth status="success" (click)="assignRole()">
+        ><button
+          nbButton
+          status="success"
+          (click)="assignRole()"
+          class="float-right"
+        >
           Assign Role
         </button></nb-card-footer
       >
     </nb-card>
   </div>
-  <div class="col-sm-8 col-md-8 col-lg-8" *ngIf="office.role == 4">
+
+  <div class="col-sm-6" *ngIf="office.role == 4">
     <nb-card status="success" [nbSpinner]="loading" size="medium">
       <nb-card-header>Service Assign </nb-card-header>
       <nb-card-body>

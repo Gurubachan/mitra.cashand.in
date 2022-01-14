@@ -3,9 +3,11 @@ import { Routes, RouterModule } from "@angular/router";
 import { AepsComponent } from "./aeps/aeps.component";
 import { BconboardingComponent } from "./bconboarding/bconboarding.component";
 import { CashoutComponent } from "./cashout/cashout.component";
+import { MoneytransferComponent } from "./moneytransfer/moneytransfer.component";
 import { PanComponent } from "./pan/pan.component";
 import { RechargeComponent } from "./recharge/recharge.component";
 import { ReportComponent } from "./report.component";
+import { UpiComponent } from "./upi/upi.component";
 import { WalletComponent } from "./wallet/wallet.component";
 
 const routes: Routes = [
@@ -36,7 +38,15 @@ const routes: Routes = [
       {
         path: "pan",
         component: PanComponent,
-      }
+      },
+      {
+        path: "upi",
+        component: UpiComponent,
+      },
+      {
+        path: "money-transfer",
+        component: MoneytransferComponent,
+      },
     ],
   },
 ];

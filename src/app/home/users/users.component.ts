@@ -17,7 +17,11 @@ export class UsersComponent implements OnInit {
   retailerList: any;
   gustaffList: any;
   loading: boolean = false;
-
+  userLoading: boolean = false;
+  filterData: any = {
+    key: String,
+    value: String,
+  };
   search: any = {
     userGroup: Number,
     userRole: Number,
@@ -35,7 +39,9 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
     let user = JSON.parse(window.atob(localStorage.getItem("user")));
     if (admin.adminGroup.indexOf(user.role) > -1) {
-      this.getUserList({ key: "role", value: 0 });
+      this.filterData.key = "role";
+      this.filterData.value = "0";
+      this.getUserList(this.filterData);
     } else {
       this.toast.showToast(
         "You are not authorised to access this url 😒 !",
@@ -50,15 +56,18 @@ export class UsersComponent implements OnInit {
       /* console.log(result);*/
     });
   }
-  getUserList(data: {}) {
+  getUserList(data) {
+    this.userLoading = true;
     this.http.post("users", data).subscribe(
       (result) => {
         if (result.response) {
           this.usersList = result.data;
+          this.userLoading = false;
         }
       },
       (err) => {
         this.toast.showToast(err.error.message, "User List", "danger");
+        this.userLoading = false;
       }
     );
   }
@@ -89,7 +98,7 @@ export class UsersComponent implements OnInit {
       .subscribe((result) => {});
   }
 
-  goToPage(url: string, data: {}) {
+  goToPage(url: string, data) {
     this.loading = true;
     const param = url.split("?");
     // console.log(param);
@@ -121,10 +130,14 @@ export class UsersComponent implements OnInit {
   changeTab(selectedTab) {
     console.log(selectedTab.tabTitle);
     if (selectedTab.tabTitle == "Guest") {
-      
+      this.filterData.key = "role";
+      this.filterData.value = "0";
+      this.getUserList(this.filterData);
     }
     if (selectedTab.tabTitle == "Retailers") {
-      console.log(document.getElementById("bank").offsetWidth);
+      this.filterData.key = "role";
+      this.filterData.value = "4";
+      this.getUserList(this.filterData);
     }
   }
 }

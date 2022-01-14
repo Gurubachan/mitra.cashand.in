@@ -16,12 +16,14 @@ import {
   NbProgressBarModule,
   NbSelectModule,
   NbSpinnerModule,
+  NbUserModule,
+  NbListModule,
 } from "@nebular/theme";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PayoutComponent } from "./payout/payout.component";
 import { AepsnewComponent } from "./aepsnew/aepsnew.component";
-import { PanComponent } from './pan/pan.component';
-import { AtmComponent } from './atm/atm.component';
+import { PanComponent } from "./pan/pan.component";
+import { AtmComponent } from "./atm/atm.component";
 
 @NgModule({
   declarations: [
@@ -49,6 +51,8 @@ import { AtmComponent } from './atm/atm.component';
     NbIconModule,
     NbAutocompleteModule,
     NbProgressBarModule,
+    NbUserModule,
+    NbListModule,
   ],
 })
 export class ServicesModule {}

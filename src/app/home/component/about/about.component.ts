@@ -112,7 +112,7 @@ export class AboutComponent implements OnInit, OnChanges {
     const file: File = target.files[0];
     const reader = new FileReader();
     reader.onload = (e) => {
-      // console.log(e.target.result);
+       console.log(e.target.result);
       this.image = e.target.result;
       this.user.myPic = this.image;
       // this.aboutForm.controls["myPic"].setValue(this.image);

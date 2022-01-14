@@ -26,6 +26,7 @@ import { MoreviewComponent } from "./popover/moreview/moreview.component";
 import { ReferralComponent } from "./referral/referral.component";
 import { RbpTransactionDialogComponent } from "./rbp-transaction-dialog/rbp-transaction-dialog.component";
 import { UpiComponent } from './popover/upi/upi.component';
+import { MoneyTransactionResponseDialogComponent } from './money-transaction-response-dialog/money-transaction-response-dialog.component';
 @NgModule({
   declarations: [
     AboutComponent,
@@ -39,6 +40,7 @@ import { UpiComponent } from './popover/upi/upi.component';
     ReferralComponent,
     RbpTransactionDialogComponent,
     UpiComponent,
+    MoneyTransactionResponseDialogComponent,
   ],
   imports: [
     CommonModule,

@@ -1,4 +1,4 @@
-<div class="row" *ngIf="!showForm">
+<div class="row" *ngIf="!showForm" style="width: 80vw">
   <div class="col-sm-12" *ngIf="!bank.isBankAccountVerified">
     <p class="text-danger text-center">Account details Verification pending.</p>
   </div>
@@ -20,7 +20,7 @@
   Edit
 </button>
 
-<div class="container-fluid" *ngIf="showForm">
+<div class="container-fluid" *ngIf="showForm" style="width: 80vw">
   <nb-alert
     *ngIf="showMessages.error && errors?.length && !submitted"
     outline="danger"
@@ -60,7 +60,7 @@
         #ifsccode="ngModel"
         name="ifsccode"
         id="input-ifsc"
-        pattern="[A-Z]{4}[0-9]{7}"
+        pattern="^[A-Z]{4}0[A-Z0-9]{6}$"
         placeholder="Enter IFSC Code"
         autofocus
         [status]="

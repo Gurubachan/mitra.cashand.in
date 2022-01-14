@@ -46,6 +46,7 @@ export class AepsnewComponent implements OnInit {
       { key: "BE", value: "Balance Enquery" },
       { key: "MS", value: "Mini Statement" },
       { key: "CW", value: "Cash Withdrawal" },
+      { key: "AP", value: "Aadhaar Pay" },
     ];
   }
 
@@ -157,7 +158,7 @@ export class AepsnewComponent implements OnInit {
   }
   txnTypeChange(e) {
     //console.log(e);
-    if (e == "CW") {
+    if (e == "CW" || e == "AP") {
       this.aepsForm.get("txnAmount").setValidators([Validators.required]);
       this.aepsForm.get("txnAmount").updateValueAndValidity();
       this.hideTxnAmount = true;

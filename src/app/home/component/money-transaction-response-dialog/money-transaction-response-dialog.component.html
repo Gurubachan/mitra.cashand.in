@@ -1,0 +1,101 @@
+<div id="printArea">
+  <nb-card size="large" [status]="returnStatus(data.isSuccess)">
+    <nb-card-header>
+      <div style="text-align: center">
+        <h3>Money Transfer</h3>
+      </div>
+      <h6 style="text-align: center">
+        Transaction {{ data.status }}
+      </h6></nb-card-header
+    >
+
+    <nb-card-body>
+      <table style="width: 100%">
+        <tr>
+          <td>Transaction Date:</td>
+          <td>{{ data.time | date: "medium" }}</td>
+        </tr>
+        <tr>
+          <td>Transaction Ref Id:</td>
+          <td>{{ data.refId }}</td>
+        </tr>
+        <tr>
+          <td>Bank Name:</td>
+          <td>{{ data.bankName }}</td>
+        </tr>
+        <tr>
+          <td>Sender Name:</td>
+          <td>{{ data.senderName }}</td>
+        </tr>
+        <tr>
+          <td>Sender Contact:</td>
+          <td>{{ data.senderContact }}</td>
+        </tr>
+        <tr>
+          <td>Receiver Name:</td>
+          <td>{{ data.receiverName }}</td>
+        </tr>
+        <tr>
+          <td>Receiver Account:</td>
+          <td>{{ data.receiverAccount }}</td>
+        </tr>
+        <tr>
+          <td>RRN:</td>
+          <td>{{ data.rrn }}</td>
+        </tr>
+
+        <tr>
+          <td>Status:</td>
+          <td>{{ data.message }}</td>
+        </tr>
+        <tr>
+          <td>Transaction Amount:</td>
+          <td>{{ data.amount }}</td>
+        </tr>
+      </table>
+
+      <table style="width: 100%">
+        <thead style="text-align: center">
+          <tr>
+            <th colspan="2"><strong>Agent Details</strong></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Name :</td>
+            <td>{{ data.merchantName }}</td>
+          </tr>
+          <tr>
+            <td>Mobile :</td>
+            <td>{{ data.merchantContact }}</td>
+          </tr>
+
+          <tr>
+            <td>Location :</td>
+            <td>{{ data.merchantAddress }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </nb-card-body>
+
+    <nb-card-footer>
+      <button
+        nbButton
+        class="btn btn-danger"
+        type="reset"
+        style="float: left"
+        (click)="cancel()"
+      >
+        Close
+      </button>
+      <button
+        class="btn btn-success"
+        type="button"
+        style="float: right"
+        (click)="printPage()"
+      >
+        Print
+      </button>
+    </nb-card-footer>
+  </nb-card>
+</div>

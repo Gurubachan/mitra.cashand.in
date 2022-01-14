@@ -33,7 +33,7 @@ menus[1] = [
     children: [
       {
         title: "Money Transfer",
-        link: "/reports/dmt",
+        link: "/reports/money-transfer",
       },
       {
         title: "AEPS",
@@ -52,8 +52,8 @@ menus[1] = [
         link: "/reports/pan",
       },
       {
-        title: "CMS",
-        link: "/reports/cms",
+        title: "UPI",
+        link: "/reports/upi",
       },
       {
         title: "Insurance",
@@ -135,7 +135,7 @@ menus[4] = [
     children: [
       {
         title: "Money Transfer",
-        link: "/reports/dmt",
+        link: "/reports/money-transfer",
       },
       {
         title: "AEPS",
@@ -154,8 +154,8 @@ menus[4] = [
         link: "/reports/pan",
       },
       {
-        title: "CMS",
-        link: "/reports/cms",
+        title: "UPI",
+        link: "/reports/upi",
       },
       {
         title: "Insurance",
@@ -214,6 +214,14 @@ menus[9] = [
         title: "Pan",
         link: "/reports/pan",
       },
+      {
+        title: "UPI",
+        link: "/reports/upi",
+      },
+      {
+        title: "Money Transfer",
+        link: "/reports/money-transfer",
+      },
     ],
   },
 ];
@@ -258,6 +266,10 @@ menus[11] = [
       {
         title: "Pan",
         link: "/reports/pan",
+      },
+      {
+        title: "UPI",
+        link: "/reports/upi",
       },
     ],
   },

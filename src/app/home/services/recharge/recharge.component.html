@@ -72,7 +72,7 @@
             </ng-container>
           </div>
         </div>
-        <div class="col-sm-4 col-md-4 col-lg-2">
+        <div class="col-sm-4 col-md-4 col-lg-2" *ngIf="modeShow">
           <div class="form-control-group">
             <label class="label" for="isStv">Recharge Mode</label>
             <nb-select
@@ -92,6 +92,7 @@
                 f.isStv.invalid && f.isStv.touched ? true : null
               "
               [required]="true"
+              [selected]="0"
             >
               <nb-option value="0">Top Up</nb-option>
               <nb-option value="1">Special</nb-option>

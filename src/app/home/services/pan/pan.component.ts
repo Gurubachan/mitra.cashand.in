@@ -5,7 +5,7 @@ import { CheckfeaturesService } from "../../../services/checkfeatures.service";
 
 import { HttpService } from "../../../services/http.service";
 import { ToastrService } from "../../../services/toastr.service";
-
+import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 @Component({
   selector: "ngx-pan",
   templateUrl: "./pan.component.html",
@@ -23,13 +23,14 @@ export class PanComponent implements OnInit {
 
   states: any;
   districts: any;
-
+  urlSafe: SafeResourceUrl;
   constructor(
     private http: HttpService,
     private router: Router,
     private toast: ToastrService,
     private formBuilder: FormBuilder,
-    private features: CheckfeaturesService
+    private features: CheckfeaturesService,
+    public sanitizer: DomSanitizer
   ) {}
 
   ngOnInit(): void {
@@ -118,8 +119,8 @@ export class PanComponent implements OnInit {
             let data = res.data.Data[0];
             console.log(data);
             let url =
-               "https://www.myutiitsl.com/panonlineservices/loginCheckin";
-              //"http://203.153.46.10:8080/panonlineservices/loginCheckin";
+              "https://www.myutiitsl.com/panonlineservices/loginCheckin";
+            //"http://203.153.46.10:8080/panonlineservices/loginCheckin";
             url =
               url +
               "?userHandle=" +
@@ -133,6 +134,9 @@ export class PanComponent implements OnInit {
             this.message = "Validating your url and redirect to UTI server...";
             this.closed = true;
             window.open(url, "_blank");
+            /*  this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(
+              url 
+            );*/
           } else {
             this.message = res.data.Message;
             this.sts = "danger";

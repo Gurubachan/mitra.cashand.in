@@ -309,6 +309,7 @@
         [required]="true"
         placeholder="Select Address"
         [(selected)]="selectedPinCodeId"
+        fullWidth
       >
         <nb-option *ngFor="let p of pinCodes" [value]="p?.id">
           <small>

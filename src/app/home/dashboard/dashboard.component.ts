@@ -19,8 +19,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.title = "Dashboard";
     this.user = JSON.parse(window.atob(localStorage.getItem("user")));
-    console.log("Dashboard:", this.user);
-    console.log("Dashboard:", this.user.userGroup);
     this.cd.detectChanges();
   }
 }

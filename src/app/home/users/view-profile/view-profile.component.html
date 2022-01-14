@@ -1,6 +1,6 @@
-<div class="row">
+<div class="row" style="width: 90vw">
   <div class="col-lg-12">
-    <nb-card size="large">
+    <nb-card size="giant" style="overflow-y: scroll">
       <nb-tabset fullWidth (changeTab)="changeTab($event)">
         <nb-tab tabTitle="Basic" [lazyLoad]="true">
           <div class="container-fluid">
@@ -18,7 +18,7 @@
           </div>
         </nb-tab>
         <nb-tab tabTitle="Office" [lazyLoad]="true">
-          <div class="container-fluid">
+          <div class="container-fluid" id="office">
             <ngx-verify [office]="user"></ngx-verify>
           </div>
         </nb-tab>

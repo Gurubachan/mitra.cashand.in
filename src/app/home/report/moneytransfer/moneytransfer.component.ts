@@ -1,53 +1,41 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-} from "@angular/core";
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  NgForm,
-  Validators,
-} from "@angular/forms";
+import { Component, OnInit } from "@angular/core";
+import { FormControl } from "@angular/forms";
 import { NbDateService } from "@nebular/theme";
 import { Observable, of } from "rxjs";
 import { map, startWith } from "rxjs/operators";
-import { WalletRequest } from "../../../@model/wallet/walletRequest";
-import { Data, WalletResponse } from "../../../@model/wallet/walletResponse";
+import {
+  Pagination,
+  TransactionReport,
+} from "../../../@model/moneytransfer/TransactionReport";
 import { HttpService } from "../../../services/http.service";
+import { ToastrService } from "../../../services/toastr.service";
 
 @Component({
-  selector: "ngx-wallet",
-  templateUrl: "./wallet.component.html",
-  styleUrls: ["./wallet.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: "ngx-moneytransfer",
+  templateUrl: "./moneytransfer.component.html",
+  styleUrls: ["./moneytransfer.component.scss"],
 })
-export class WalletComponent implements OnInit {
-  transactions: any;
+export class MoneytransferComponent implements OnInit {
+  transactions: Pagination;
+  loading: Boolean = false;
+
   formControl = new FormControl(new Date());
   ngModelDate = new Date();
-  selectedTxnType = "";
-  selectedTxnStatus;
-  selectedTxnPipe;
   frommin: Date;
   frommax: Date;
   tomin: Date;
   tomax: Date;
   today: Date;
-  loading: boolean = false;
+
+  requestParam: { startDate: Date; endDate: Date } = null;
 
   options: string[];
   filteredOptions$: Observable<string[]>;
   inputFormControl: FormControl;
-
-  searchData: WalletRequest;
   constructor(
     private http: HttpService,
-    protected dateService: NbDateService<Date>,
-    private cd: ChangeDetectorRef,
-    private formBuilder: FormBuilder
+    private toast: ToastrService,
+    protected dateService: NbDateService<Date>
   ) {
     this.frommin = this.dateService.addMonth(this.dateService.today(), -2);
     //this.frommax = this.dateService.addDay(this.min, 15);
@@ -77,7 +65,6 @@ export class WalletComponent implements OnInit {
   viewHandle(value: string) {
     return value.toUpperCase();
   }
-
   setMaxdate(e) {
     const eDate = e.getFullYear() + "" + e.getMonth() + "" + e.getDate();
     const tDate =
@@ -101,34 +88,29 @@ export class WalletComponent implements OnInit {
     }
     console.warn(eDate);
   }
-
-  wallet: Data;
-
-  getWalletReport() {
-    this.loading = true;
+  myDmt() {
     let data = {
-      fromDate: this.formControl.value,
-      toDate: this.ngModelDate,
-      userId: null,
-      txnType: this.selectedTxnType,
+      startDate: this.formControl.value,
+      endDate: this.ngModelDate,
     };
-    this.searchData = data;
-    console.warn(this.searchData);
-    this.http.post("wallet/statement", this.searchData).subscribe(
-      (result: WalletResponse) => {
-        if (result.response) {
-          console.log(result);
-          this.wallet = result.data;
+    this.requestParam = data;
+
+    this.loading = true;
+    this.http.post("dmt/transactions", this.requestParam).subscribe(
+      (res: TransactionReport) => {
+        if (res.response) {
+          this.transactions = res.data;
+          console.warn(this.transactions);
           this.loading = false;
-          this.cd.detectChanges();
         } else {
+          this.toast.showToast(res.message, "Money Transfer", "warning");
           this.loading = false;
         }
       },
       (error) => {
-        console.log(error.error.message);
+        console.warn(error);
+        this.toast.showToast(error.error.message, "Money Transfer", "danger");
         this.loading = false;
-        this.cd.detectChanges();
       }
     );
   }
@@ -136,15 +118,32 @@ export class WalletComponent implements OnInit {
   goToPage(url: string) {
     this.loading = true;
     let param = url.split("?");
-    console.log(param);
-    this.http
-      .post("wallet/statement" + "?" + param[1], this.searchData)
-      .subscribe((res: WalletResponse) => {
+    //console.log(param);
+    /* let data = {
+      startDate: this.formControl.value,
+      endDate: this.ngModelDate,
+      type: this.selectedTxnType,
+      status: this.selectedTxnStatus,
+    }; */
+    let endpoint;
+
+    endpoint = "dmt/transactions";
+
+    this.http.post(endpoint + "?" + param[1], this.requestParam).subscribe(
+      (res: TransactionReport) => {
         if (res.response) {
-          this.wallet = res.data;
+          this.transactions = res.data;
+          console.warn(this.transactions);
           this.loading = false;
+        } else {
+          this.toast.showToast(res.message, "Settlement", "warning");
         }
-        this.cd.detectChanges();
-      });
+      },
+      (error) => {
+        this.toast.showToast(error.error.message, "Settlemet", "danger");
+        console.warn(error.error.message);
+        this.loading = false;
+      }
+    );
   }
 }

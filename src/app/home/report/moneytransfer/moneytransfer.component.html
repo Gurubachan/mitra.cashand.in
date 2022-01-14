@@ -1,0 +1,143 @@
+<nb-card>
+  <nb-card-header>Filter Form</nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-sm-2">
+        <input
+          nbInput
+          placeholder="From Date"
+          [nbDatepicker]="formcontrol"
+          [formControl]="formControl"
+          required
+          readOnly
+        />
+        <nb-datepicker
+          #formcontrol
+          format="dd-MM-yyyy"
+          [min]="frommin"
+          [max]="frommax"
+          (dateChange)="setMaxdate($event)"
+        ></nb-datepicker>
+      </div>
+      <div class="col-sm-2">
+        <input
+          nbInput
+          placeholder="To Picker"
+          [nbDatepicker]="ngmodel"
+          [(ngModel)]="ngModelDate"
+          required
+          readOnly
+        />
+        <nb-datepicker
+          #ngmodel
+          format="dd-MM-yyyy"
+          [max]="tomax"
+          [min]="tomin"
+        ></nb-datepicker>
+      </div>
+      <div class="col-sm-5">
+        <input
+          [formControl]="inputFormControl"
+          nbInput
+          type="text"
+          placeholder="Search user name"
+          [nbAutocomplete]="auto"
+          fullWidth
+        />
+
+        <nb-autocomplete #auto [handleDisplayFn]="viewHandle">
+          <nb-option
+            *ngFor="let option of filteredOptions$ | async"
+            [value]="option"
+          >
+            {{ option }}
+          </nb-option>
+        </nb-autocomplete>
+      </div>
+
+      <div class="col-sm-12 text-center">
+        <button nbButton status="success" (click)="myDmt()">Search</button>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
+<nb-card [nbSpinner]="loading">
+  <nb-card-header>Money Transfer List</nb-card-header>
+  <nb-card-body>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>sl#</th>
+            <th>Sender</th>
+            <th>Receiver</th>
+
+            <th>Bank</th>
+
+            <th>Amount</th>
+            <th>Transaction Mode</th>
+            <th>UTR</th>
+
+            <th>Status</th>
+            <th>Wallet Ref</th>
+            <th>Refund Ref</th>
+
+            <th>Created</th>
+            <th>Updated</th>
+            <th>Remark</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let s of transactions?.data">
+            <td>{{ s.id }}</td>
+            <td>{{ s.name }}, {{ s.mobileNo }}</td>
+            <td>{{ s.beneName }}</td>
+            <td>{{ s.bankName }}, {{ s.accountNo }}</td>
+            <td>{{ s.amount }}</td>
+            <td>{{ s.txnMedium }}</td>
+            <td>{{ s.utr }}</td>
+            <td>{{ s.status }}</td>
+            <td>{{ s.walletReferenceNo }}</td>
+            <td>{{ s.refundReferenceNo }}</td>
+            <td>{{ s.created_at | date: "d-M-yyyy h:mm:ss a" }}</td>
+            <td>{{ s.updated_at | date: "d-M-yyyy h:mm:ss a" }}</td>
+            <td>{{ s.description }}</td>
+            <td>
+              <button
+                class="btn btn-primary"
+                icon="refresh-outline"
+                *ngIf="
+                  s.txnType == 'BS' &&
+                  s.status != 'success' &&
+                  s.status != 'refund'
+                "
+                (click)="check(s.id)"
+              >
+                <nb-icon icon="refresh-outline"></nb-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <button
+      nbButton
+      status="success"
+      *ngIf="transactions?.prev_page_url != null"
+      (click)="goToPage(transactions?.prev_page_url)"
+      class="float-left"
+    >
+      Previous
+    </button>
+    <button
+      nbButton
+      status="success"
+      class="float-right"
+      *ngIf="transactions?.next_page_url != null"
+      (click)="goToPage(transactions?.next_page_url)"
+    >
+      Next
+    </button>
+  </nb-card-body>
+</nb-card>

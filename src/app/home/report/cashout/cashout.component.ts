@@ -26,10 +26,12 @@ export class CashoutComponent implements OnInit {
       (res: SettlementResponse) => {
         if (res.response) {
           this.settlement = res.data;
+          console.warn(this.settlement);
+          this.loading = false;
         } else {
           this.toast.showToast(res.message, "Settlemet", "warning");
+          this.loading = false;
         }
-        this.loading = false;
       },
       (error) => {
         console.warn(error);
@@ -57,6 +59,7 @@ export class CashoutComponent implements OnInit {
       (res: SettlementResponse) => {
         if (res.response) {
           this.settlement = res.data;
+          console.warn(this.settlement);
           this.loading = false;
         } else {
           this.toast.showToast(res.message, "Settlement", "warning");
@@ -65,6 +68,30 @@ export class CashoutComponent implements OnInit {
       (error) => {
         this.toast.showToast(error.error.message, "Settlemet", "danger");
         console.warn(error.error.message);
+        this.loading = false;
+      }
+    );
+  }
+
+  check(id) {
+    this.loading = true;
+    this.http.post("wallet/getPayout", { merchant_ref_id: id }).subscribe(
+      (response) => {
+        if (response.response) {
+          for (let index = 0; index < this.settlement.data.length; index++) {
+            if (this.settlement.data[index].id === id) {
+              this.settlement.data[index].status = response.data.status;
+              this.settlement.data[index].remark = response.data.remark;
+              this.settlement.data[index].updated_at = response.data.updated_at;
+              this.settlement.data[index].description =
+                response.data.description;
+            }
+          }
+        }
+        console.log(response);
+        this.loading = false;
+      },
+      (err) => {
         this.loading = false;
       }
     );
