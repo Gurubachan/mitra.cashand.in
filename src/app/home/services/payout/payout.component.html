@@ -136,14 +136,14 @@
         RRN No : {{ bankSettlement?.txnId }}<br />
         Date : {{ bankSettlement?.txnTime }}<br />
         Status : {{ bankSettlement?.status }} &nbsp;
-        <nb-icon
+       <!--  <nb-icon
           icon="refresh-outline"
           (click)="checkStatus()"
           *ngIf="
             bankSettlement?.status != 'success' &&
             bankSettlement?.txnType != 'BV'
           "
-        ></nb-icon>
+        ></nb-icon> -->
       </nb-card-body>
     </nb-card>
   </div>

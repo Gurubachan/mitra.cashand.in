@@ -38,7 +38,7 @@
           </div>
         </div>
 
-        <div style="background-color: #f5f6f8">
+        <div style="border: 1px solid">
           <div class="row" style="padding: 10px">
             <div class="col-6">Bank : {{ user.bankname }}</div>
             <div class="col-6">A/C No : {{ user.accountNo }}</div>
@@ -49,10 +49,30 @@
       </nb-card-body>
     </nb-card>
   </div>
-  <div class="col-12 col-sm-12 col-md-4">
+ <!--  <div class="col-12 col-sm-12 col-md-4">
     <nb-card style="text-align: center" status="success" size="large">
       <nb-card-header status="success">News and Updates</nb-card-header>
       <nb-card-body> </nb-card-body>
+    </nb-card>
+  </div> -->
+</div>
+<div class="row">
+  <div class="col-12 col-sm-12 col-md-4" *ngFor="let s of serviceWiseBusiness">
+    <nb-card
+      status="success"
+      [nbSpinner]="isLoading"
+      nbSpinnerMessage="{{ loadingMessage }}"
+    >
+      <nb-card-header>{{s.service}}</nb-card-header>
+      <nb-card-body>
+        <h2>
+          ₹ {{ s.amount }} {{s.wallet_operation}} / {{s.count}}
+          <nb-icon
+            icon="refresh-outline"
+            (click)="loadServiceWiseBusiness()"
+          ></nb-icon>
+        </h2>
+      </nb-card-body>
     </nb-card>
   </div>
 </div>

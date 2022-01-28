@@ -58,7 +58,9 @@ export class WalletComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.options = ["Option 1", "Option 2", "Option 3"];
+
     this.filteredOptions$ = of(this.options);
 
     this.inputFormControl = new FormControl();
@@ -147,4 +149,7 @@ export class WalletComponent implements OnInit {
         this.cd.detectChanges();
       });
   }
+
+  /*Get user role from local storage*/
+  
 }

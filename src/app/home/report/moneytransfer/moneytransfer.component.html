@@ -69,6 +69,7 @@
         <thead>
           <tr>
             <th>sl#</th>
+            <th>User</th>
             <th>Sender</th>
             <th>Receiver</th>
 
@@ -91,6 +92,7 @@
         <tbody>
           <tr *ngFor="let s of transactions?.data">
             <td>{{ s.id }}</td>
+            <td>{{ s.fname }} {{s.lname}} <br> {{s.contact}}</td>
             <td>{{ s.name }}, {{ s.mobileNo }}</td>
             <td>{{ s.beneName }}</td>
             <td>{{ s.bankName }}, {{ s.accountNo }}</td>

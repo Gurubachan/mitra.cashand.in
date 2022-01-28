@@ -8,6 +8,7 @@ import { PanComponent } from "./pan/pan.component";
 import { RechargeComponent } from "./recharge/recharge.component";
 import { ReportComponent } from "./report.component";
 import { UpiComponent } from "./upi/upi.component";
+import { UserwalletComponent } from "./userwallet/userwallet.component";
 import { WalletComponent } from "./wallet/wallet.component";
 
 const routes: Routes = [
@@ -46,6 +47,10 @@ const routes: Routes = [
       {
         path: "money-transfer",
         component: MoneytransferComponent,
+      },
+      {
+        path:"user-wallet",
+        component: UserwalletComponent,
       },
     ],
   },

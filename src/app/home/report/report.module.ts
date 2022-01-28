@@ -22,6 +22,7 @@ import { RechargeComponent } from "./recharge/recharge.component";
 import { PanComponent } from "./pan/pan.component";
 import { UpiComponent } from './upi/upi.component';
 import { MoneytransferComponent } from './moneytransfer/moneytransfer.component';
+import { UserwalletComponent } from './userwallet/userwallet.component';
 @NgModule({
   declarations: [
     AepsComponent,
@@ -33,6 +34,7 @@ import { MoneytransferComponent } from './moneytransfer/moneytransfer.component'
     PanComponent,
     UpiComponent,
     MoneytransferComponent,
+    UserwalletComponent,
   ],
   imports: [
     CommonModule,

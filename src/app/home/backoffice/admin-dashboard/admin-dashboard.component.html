@@ -36,5 +36,25 @@
     </nb-card>
   </div>
   <div class="col-sm-4"></div>
-  <div class="col-sm-4"></div>
+  
+</div>
+<div class="row">
+  <div class="col-sm-4" *ngFor="let s of serviceWiseBusiness">
+    <nb-card
+      status="success"
+      [nbSpinner]="isLoading"
+      nbSpinnerMessage="{{ loadingMessage }}"
+    >
+      <nb-card-header>{{s.service}}</nb-card-header>
+      <nb-card-body>
+        <h2>
+          ₹ {{ s.amount }} {{s.wallet_operation}} / {{s.count}}
+          <nb-icon
+            icon="refresh-outline"
+            (click)="loadServiceWiseBusiness()"
+          ></nb-icon>
+        </h2>
+      </nb-card-body>
+    </nb-card>
+  </div>
 </div>

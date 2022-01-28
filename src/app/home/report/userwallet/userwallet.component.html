@@ -1,0 +1,29 @@
+<nb-card [nbSpinner]="loading">
+  <nb-card-header>User Wallet Balance</nb-card-header>
+  <nb-card-body>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Mobile</th>
+            
+            <th>Amount</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let w of wallet">
+              <td>{{w.id}}</td>
+            <td>{{ w.fname }} {{w.lname}}</td>
+            <td>{{ w.contact }}</td>
+            <td>{{w.balance}}</td>
+            
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </nb-card-body>
+</nb-card>
+

@@ -4,6 +4,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
 } from '@angular/core';
+import { Data, ServiceWiseBusinessResponse } from '../../../@model/wallet/ServiceWiseBusinessResponse';
 import { HttpService } from '../../../services/http.service';
 import {ToastrService} from '../../../services/toastr.service';
 
@@ -21,9 +22,12 @@ export class AdminDashboardComponent implements OnInit {
   toDayBusinessloadingMessage: string = '';
   myBalance = 0;
   toDayBusiness = 0;
+  isLoading = false;
+  serviceWiseBusiness:Data[]=null;
   ngOnInit(): void {
     this.loadWalletBalance();
     this.loadTodayBusiness();
+    this.loadServiceWiseBusiness();
   }
 
   loadWalletBalance() {
@@ -76,5 +80,24 @@ export class AdminDashboardComponent implements OnInit {
         this.cd.detectChanges();
       },
     );
+  }
+
+  loadServiceWiseBusiness(){
+    this.isLoading=true;
+    let d = new Date();
+    let month=d.getMonth()+1;
+    let currentDate = d.getDate()+"-"+month+"-"+d.getFullYear();
+    let param={
+      "startDate":currentDate,
+      "endDate":currentDate
+    };
+    this.http.post("reports/dailyBusiness",param).subscribe((res:ServiceWiseBusinessResponse) => {
+      if(res.response){
+        this.serviceWiseBusiness=res.data;
+        this.isLoading=false;
+      }else{
+        this.isLoading=false;
+      }
+    })
   }
 }

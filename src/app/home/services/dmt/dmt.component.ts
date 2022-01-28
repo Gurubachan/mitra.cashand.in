@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { NgModel } from "@angular/forms";
 import { Router } from "@angular/router";
 import { NbDialogService } from "@nebular/theme";
+import { BankList } from "../../../@model/moneytransfer/BankList";
 import { BeneCustomer } from "../../../@model/moneytransfer/BeneCustomer";
 import { BeneResponse } from "../../../@model/moneytransfer/BeneResponse";
 import { Customer } from "../../../@model/moneytransfer/Customer";
@@ -33,7 +34,7 @@ export class DmtComponent implements OnInit {
   showBeneForm: boolean = false;
   showBeneList: boolean = false;
   addBeneButtonText: string = "Add Bene";
-  bankList: any = null;
+  bankList: BankList[] = null;
   bene: any = {};
   beneList: BeneCustomer[] = null;
   bankDetails: any = null;
@@ -156,6 +157,7 @@ export class DmtComponent implements OnInit {
     this.http.post("dmt/bank", null).subscribe((res) => {
       if (res.response) {
         this.bankList = JSON.parse(this.encdec.decrypt(res.data));
+        console.log(this.bankList);
       }
     });
   }
@@ -166,7 +168,7 @@ export class DmtComponent implements OnInit {
       .subscribe((res: BeneResponse) => {
         if (res.response) {
           this.beneList = JSON.parse(this.encdec.decrypt(res.data));
-
+          console.warn(this.beneList);
           this.showBeneList = true;
         } else {
           this.showBeneForm = true;

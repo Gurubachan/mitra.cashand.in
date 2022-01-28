@@ -198,6 +198,10 @@ menus[9] = [
         link: "/reports/statement",
       },
       {
+        title:"User Wallet",
+        link:"/reports/user-wallet"
+      },
+      {
         title: "Settlement",
         link: "/reports/cashout",
       },
@@ -253,6 +257,10 @@ menus[11] = [
       {
         title: "Wallet",
         link: "/reports/statement",
+      },
+      {
+        title:"User Wallet",
+        link:"/reports/user-wallet"
       },
       {
         title: "AEPS",

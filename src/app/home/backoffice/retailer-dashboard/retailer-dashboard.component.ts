@@ -5,6 +5,7 @@ import {
   Input,
   OnInit,
 } from "@angular/core";
+import { Data, ServiceWiseBusinessResponse } from "../../../@model/wallet/ServiceWiseBusinessResponse";
 import { HttpService } from "../../../services/http.service";
 import { MoreviewComponent } from "../../component/popover/moreview/moreview.component";
 import { UpiComponent } from "../../component/popover/upi/upi.component";
@@ -22,8 +23,13 @@ export class RetailerDashboardComponent implements OnInit {
   upiComponent = UpiComponent;
   myBalance = 0;
   @Input() user: any;
+
+   isLoading = false;
+  serviceWiseBusiness:Data[]=null;
+
   ngOnInit() {
     this.loadWalletBalance();
+    this.loadServiceWiseBusiness();
   }
 
   loadWalletBalance() {
@@ -45,5 +51,26 @@ export class RetailerDashboardComponent implements OnInit {
         this.cd.detectChanges();
       }
     );
+  }
+
+   loadServiceWiseBusiness(){
+    this.isLoading=true;
+    let d = new Date();
+    let month=d.getMonth()+1;
+    let currentDate = d.getDate()+"-"+month+"-"+d.getFullYear();
+    let param={
+      "startDate":currentDate,
+      "endDate":currentDate
+    };
+    this.http.post("reports/dailyBusiness",param).subscribe((res:ServiceWiseBusinessResponse) => {
+      if(res.response){
+        this.serviceWiseBusiness=res.data;
+        this.isLoading=false;
+         this.cd.detectChanges();
+      }else{
+        this.isLoading=false;
+         this.cd.detectChanges();
+      }
+    })
   }
 }
