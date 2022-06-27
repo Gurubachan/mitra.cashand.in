@@ -1,0 +1,254 @@
+<div class="row" [nbSpinner]="loading">
+            <div class="col-12 col-sm-12 col-md-4">
+    <form
+      aria-labelledby="title"
+      [formGroup]="licForm"
+      (ngSubmit)="checkPolicy(licForm.value)"
+    >
+<nb-card status="success">
+    <nb-card-header>Check Policy</nb-card-header>
+    
+    
+    <nb-card-body>
+       
+                <div class="form-control-group">
+                    <label class="label" for="input-contact">Contact Number:</label>
+                    <input
+                        nbInput
+                        id="input-contact"
+                        name="contact"
+                        pattern="[6-9]{1}[0-9]{9}"
+                        placeholder="Customer Contact Number"
+                        fullWidth
+                        fieldSize="large"
+                        [status]="
+                            f.contact.dirty
+                            ? f.contact.invalid
+                                ? 'danger'
+                                : 'success'
+                            : 'basic'
+                        "
+                        [required]="true"
+                        [attr.aria-invalid]="
+                            f.contact.invalid && f.contact.touched ? true : null
+                        "
+                        formControlName="contact"
+                    />
+                        <ng-container
+                        *ngIf="f.contact.invalid && f.contact.touched"
+                        >
+                        <p
+                            class="caption status-danger"
+                            *ngIf="f.contact.errors?.required"
+                        >
+                            Contact Number is required!
+                        </p>
+                        <p
+                            class="caption status-danger"
+                            *ngIf="f.contact.errors?.pattern"
+                        >
+                            Contact Number should be 10 digit long.
+                        </p>
+                        <p
+                            class="caption status-danger"
+                            *ngIf="f.contact.errors?.invalidNumber"
+                        >
+                            Invalid contact Number. Please enter correct contact number.
+                        </p>
+                        </ng-container>
+                </div>
+
+                <div class="form-control-group">
+                    <label class="label" for="input-emailId">Email Id :</label>
+                    <input
+                    nbInput
+                    id="input-emailId"
+                    name="emailId"
+                    
+                    placeholder="Customer Email Id"
+                    fullWidth
+                    fieldSize="large"
+                    [status]="
+                        f.emailId.dirty
+                        ? f.emailId.invalid
+                            ? 'danger'
+                            : 'success'
+                        : 'basic'
+                    "
+                    [required]="true"
+                    [attr.aria-invalid]="
+                        f.emailId.invalid && f.emailId.touched ? true : null
+                    "
+                    formControlName="emailId"
+                    
+                    />
+                    <ng-container
+                    *ngIf="f.emailId.invalid && f.emailId.touched"
+                    >
+                    <p
+                        class="caption status-danger"
+                        *ngIf="f.emailId.errors?.required"
+                    >
+                        Email Id is required!
+                    </p>
+                    
+                    </ng-container>
+                </div>
+                <div class="form-control-group">
+                    <label class="label" for="input-policyNumber">Policy Number :</label>
+                    <input
+                    nbInput
+                    id="input-policyNumber"
+                    name="policyNumber"
+                    placeholder="Customer policy number"
+                    fullWidth
+                    fieldSize="large"
+                    [status]="
+                        f.policyNumber.dirty
+                        ? f.policyNumber.invalid
+                            ? 'danger'
+                            : 'success'
+                        : 'basic'
+                    "
+                    [required]="true"
+                    pattern="^[0-9]{7,10}$"
+                    [attr.aria-invalid]="
+                        f.policyNumber.invalid && f.policyNumber.touched ? true : null
+                    "
+                    formControlName="policyNumber"
+                    
+                    />
+                    <ng-container
+                    *ngIf="f.policyNumber.invalid && f.policyNumber.touched"
+                    >
+                    <p
+                        class="caption status-danger"
+                        *ngIf="f.policyNumber.errors?.required"
+                    >
+                        Policy Number is required!
+                    </p>
+                    
+                    </ng-container>
+                </div> 
+    </nb-card-body>
+    <nb-card-footer>
+        <div class="form-control-group">
+            <button nbButton status="danger" type="reset" style="float: left">
+                Reset
+            </button>
+            <button
+                nbButton
+                status="success"
+                type="submit"
+                style="float: right"
+                [disabled]="submitted || licForm.invalid"
+                [class.btn-pulse]="submitted"
+            >
+                Submit
+            </button>
+        </div>
+    </nb-card-footer>
+    
+</nb-card>
+ </form>
+</div>
+<div class="col-12 col-sm-12 col-md-4" *ngIf="viewPolicy">
+    <nb-card size="small" status="success" >
+        <nb-card-header>Policy Payment Details</nb-card-header>
+        <nb-card-body>
+            Name: {{data?.name}} <br />
+            Due Date : {{data?.duedate}} <br />
+            Amount : {{data?.amount}} <br />
+            Accept Payment : {{data?.bill_fetch.acceptPayment}} <br />
+            Accept Part Payment : {{data?.bill_fetch.acceptPartPay}} <br />
+        </nb-card-body>
+        <nb-card-footer>
+           <button nbButton status="success" type="button" style="float: right" (click)="proceedPayment()">
+                Check and Proceed
+            </button>
+                 
+        </nb-card-footer>
+    </nb-card>
+</div>
+<div class="col-12 col-sm-12 col-md-4" *ngIf="payPolicy">
+    <form
+      aria-labelledby="title"
+      [formGroup]="licPaymentForm"
+      (ngSubmit)="initPayment(licPaymentForm.value)"
+    >
+    <nb-card  status="success">
+        <nb-card-header>Policy Payment</nb-card-header>
+        <nb-card-body>
+             <h5>Wallet Balance: {{ balance }}</h5>
+             Policy Amount: {{data?.amount}}
+            <div class="form-control-group">
+            <label class="label" for="input-txnAmount"
+              >Transaction Amount:</label
+            >
+            <input
+              nbInput
+              formControlName="amount"
+              id="input-txnAmount"
+              name="amount"
+              placeholder="Please enter transaction amount"
+              fullWidth
+              fieldSize="large"
+              [status]="
+                lf.amount.dirty
+                  ? lf.amount.invalid
+                    ? 'danger'
+                    : 'success'
+                  : 'basic'
+              "
+              [required]="true"
+              [attr.aria-invalid]="
+                lf.amount.invalid && lf.amount.touched ? true : null
+              "
+              type="number"
+              min="1.00"
+              max="100000.00"
+              (change)="validateAmount()"
+            />
+            <ng-container *ngIf="lf.amount.invalid && lf.amount.touched">
+              <p
+                class="caption status-danger"
+                *ngIf="lf.amount.errors?.required"
+              >
+                Transaction amount must be required!
+              </p>
+              <p
+                class="caption status-danger"
+                *ngIf="lf.amount.errors?.min || lf.amount.errors?.max"
+              >
+                Amount should contains from 1 to 100000
+              </p>
+              <p
+                class="caption status-danger"
+                *ngIf="lf.amount.errors?.inValidAmount"
+              >
+                Wallet does not have sufficient amount.
+              </p>
+            </ng-container>
+          </div>
+        </nb-card-body>
+        <nb-card-footer>
+            <div class="form-control-group">
+            <button nbButton status="danger" type="reset" style="float: left">
+                Reset
+            </button>
+            <button
+                nbButton
+                status="success"
+                type="submit"
+                style="float: right"
+                [disabled]="submitted || licPaymentForm.invalid"
+                [class.btn-pulse]="submitted"
+            >
+                Pay
+            </button>
+        </div>
+        </nb-card-footer>
+    </nb-card>
+    </form>
+</div>
+</div>

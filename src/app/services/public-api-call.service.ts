@@ -15,4 +15,13 @@ export class PublicApiCallService {
         return result;
       });
   }
+
+  getRetailer(data: string) {
+    if(data.length>=3){
+      this.http.post('admin/filterUser',{value:data}).subscribe((result) => {
+        return result;
+      });
+    }
+    
+  }
 }

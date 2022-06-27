@@ -59,6 +59,9 @@
       <div class="col-sm-8">
         <img [src]="about.myPic" width="100px" />
       </div>
+       <div class="col-sm-4">Business Name :</div>
+      <div class="col-sm-8">{{ about?.businessName }}</div>
+
     </div>
   </div>
 </div>
@@ -185,7 +188,7 @@
       </ng-container>
     </div>
 
-    <div class="form-control-group col-sm-4">
+    <div class="form-control-group col-sm-3">
       <label class="label" for="input-email">Email*:</label>
       <input
         nbInput
@@ -213,7 +216,7 @@
       </ng-container>
     </div>
 
-    <div class="form-control-group col-sm-4">
+    <div class="form-control-group col-sm-3">
       <label class="label" for="input-contact">Contact Number*:</label>
       <input
         nbInput
@@ -240,7 +243,7 @@
         </p>
       </ng-container>
     </div>
-    <div class="form-control-group col-sm-4">
+    <div class="form-control-group col-sm-3">
       <label class="label" for="input-whatsapp">Whatsapp* :</label>
       <input
         nbInput
@@ -267,7 +270,36 @@
         </p>
       </ng-container>
     </div>
-
+    <div class="form-control-group col-sm-3">
+      <label class="label" for="input-address">DOB* : </label>
+     <br>
+      
+      <input
+        nbInput
+        fullWidth
+        placeholder="Pick Date"
+        [nbDatepicker]="dateTimePicker"
+        [(ngModel)]="user.dob"
+        #dob="ngModel"
+        name="dob"
+        autofocus
+        [status]="dob.dirty ? (dob.invalid ? 'danger' : 'success') : 'basic'"
+        [required]="true"
+        [attr.aria-invalid]="dob.invalid && dob.touched ? true : null"
+        [readOnly]="true"
+        type="date"
+      /><br>
+       <small> as per pan card</small>
+      <nb-datepicker #dateTimePicker format="yyyy-MM-dd"></nb-datepicker>
+      <ng-container *ngIf="dob.invalid && dob.touched">
+        <p class="caption status-danger" *ngIf="dob.errors?.required">
+          Date of birth is required!
+        </p>
+        <p class="caption status-danger" *ngIf="dob.errors?.pattern">
+          Date of birth always in dd/mm/yyyy format.
+        </p>
+      </ng-container>
+    </div>
     <div class="form-control-group col-sm-4">
       <label class="label" for="input-pin">PIN Code *:</label>
       <input
@@ -294,6 +326,7 @@
         </p>
       </ng-container>
     </div>
+    
 
     <div class="form-control-group col-sm-4">
       <label class="label">PIN Code wise area* :</label><br />
@@ -356,34 +389,7 @@
       </ng-container>
     </div>
 
-    <div class="form-control-group col-sm-4">
-      <label class="label" for="input-address">DOB* : </label>
-      <small> as per pan card</small>
-      <br />
-      <input
-        nbInput
-        placeholder="Pick Date"
-        [nbDatepicker]="dateTimePicker"
-        [(ngModel)]="user.dob"
-        #dob="ngModel"
-        name="dob"
-        autofocus
-        [status]="dob.dirty ? (dob.invalid ? 'danger' : 'success') : 'basic'"
-        [required]="true"
-        [attr.aria-invalid]="dob.invalid && dob.touched ? true : null"
-        [readOnly]="true"
-        type="date"
-      />
-      <nb-datepicker #dateTimePicker format="yyyy-MM-dd"></nb-datepicker>
-      <ng-container *ngIf="dob.invalid && dob.touched">
-        <p class="caption status-danger" *ngIf="dob.errors?.required">
-          Date of birth is required!
-        </p>
-        <p class="caption status-danger" *ngIf="dob.errors?.pattern">
-          Date of birth always in dd/mm/yyyy format.
-        </p>
-      </ng-container>
-    </div>
+    
     <div class="form-control-group col-sm-4">
       <label class="label" for="input-gender">Gender*</label><br />
       <nb-select
@@ -409,6 +415,32 @@
         </p>
         <p class="caption status-danger" *ngIf="gender.errors?.pattern">
           Select gender from dropdown
+        </p>
+      </ng-container>
+    </div>
+    <div class="form-control-group col-sm-4">
+      <label class="label" for="input-businessName">Business Name *:</label>
+      <input
+        nbInput
+        fullWidth
+        [(ngModel)]="user.businessName"
+        #businessName="ngModel"
+        name="businessName"
+        id="input-businessName"
+        pattern="[A-Za-z ]{5,25}"
+        placeholder="Business Name"
+        autofocus
+        [status]="businessName.dirty ? (businessName.invalid ? 'danger' : 'success') : 'basic'"
+        [required]="true"
+        [attr.aria-invalid]="businessName.invalid && businessName.touched ? true : null"
+        
+      />
+      <ng-container *ngIf="businessName.invalid && businessName.touched">
+        <p class="caption status-danger" *ngIf="businessName.errors?.required">
+          Business Name is required!
+        </p>
+        <p class="caption status-danger" *ngIf="businessName.errors?.pattern">
+          Business name should be real one and contain only characters!
         </p>
       </ng-container>
     </div>

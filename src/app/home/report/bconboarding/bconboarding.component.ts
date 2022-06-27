@@ -30,7 +30,7 @@ export class BconboardingComponent implements OnInit {
     let param = url.split("?");
     console.log(param);
     this.http
-      .post("services/onboarded" + "?" + param[1], null)
+      .get("services/onboarded" + "?" + param[1])
       .subscribe((res) => {
         if (res.response) {
           this.onBordedData = res.data;

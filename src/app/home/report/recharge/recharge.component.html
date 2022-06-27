@@ -1,3 +1,77 @@
+<nb-card>
+  <nb-card-header>Filter Form</nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-sm-2">
+        <input
+          nbInput
+          placeholder="From Date"
+          [nbDatepicker]="formcontrol"
+          [formControl]="formControl"
+          required
+          readOnly
+        />
+        <nb-datepicker
+          #formcontrol
+          format="dd-MM-yyyy"
+          [min]="frommin"
+          [max]="frommax"
+          (dateChange)="setMaxdate($event)"
+        ></nb-datepicker>
+      </div>
+      <div class="col-sm-2">
+        <input
+          nbInput
+          placeholder="To Picker"
+          [nbDatepicker]="ngmodel"
+          [(ngModel)]="ngModelDate"
+          required
+          readOnly
+        />
+        <nb-datepicker
+          #ngmodel
+          format="dd-MM-yyyy"
+          [max]="tomax"
+          [min]="tomin"
+        ></nb-datepicker>
+      </div>
+      <div class="col-sm-5">
+        <input
+          [formControl]="inputFormControl"
+          nbInput
+          type="text"
+          placeholder="Search user name"
+          [nbAutocomplete]="auto"
+          fullWidth
+        />
+
+        <nb-autocomplete #auto [handleDisplayFn]="viewHandle">
+          <nb-option
+            *ngFor="let option of filteredOptions$ | async"
+            [value]="option"
+          >
+            {{ option }}
+          </nb-option>
+        </nb-autocomplete>
+      </div>
+<div class="col-sm-3">
+        <input
+          [formControl]="inputFormControl"
+          nbInput
+          type="text"
+          placeholder="Search user name"
+          [nbAutocomplete]="auto"
+          fullWidth
+        />
+
+        
+      </div>
+      <div class="col-sm-12 text-center">
+        <button nbButton status="success" (click)="getRecharge()">Search</button>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
 <nb-card [nbSpinner]="loading">
   <nb-card-header>Recharge List</nb-card-header>
   <nb-card-body>
@@ -7,26 +81,28 @@
           <tr>
             <th>sl#</th>
             <th>User</th>
-            <th>Recharge Number</th>
-            <th>Operator</th>
-            <th>Amount</th>
-            <th>Transaction Id</th>
-            <th>Operator Id</th>
+            <th>Recharge Details</th>
+            <th>Transaction Detais</th>
+            <th>Wallet Ref</th>
+            <th>Discount Ref</th>
+            <th>Refund Ref</th>
             <th>Status</th>
             <th>Created</th>
+            <th *ngIf="user.role==9">action</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let r of myRecharge?.data">
+          <tr *ngFor="let r of myRecharge?.data" >
             <td>{{ r.id }}</td>
             <td>{{ r.fname + " " + r.lname }}</td>
-            <td>{{ r.recharge_number }}</td>
-            <td>{{ r.operator_name }}</td>
-            <td>{{ r.amount }}</td>
-            <td>{{ r.transactionId }}</td>
-            <td>{{ r.operatorId }}</td>
+            <td>{{ r.recharge_number }} / {{ r.operator_name }} / ₹.{{ r.amount }}</td>
+            <td>{{ r.transactionId }} / {{ r.operatorId }}</td>
+            <td>{{ r.walletReferenceNo}}</td>
+            <td>{{r.walletDiscountRefNo}}</td>
+            <td>{{r.walletRefundRefNo}}</td>
             <td>{{ r.status }}</td>
             <td>{{ r.created_at | date: "d-M-yyyy h:mm:ss a" }}</td>
+            <td *ngIf="user.role==9"><nb-icon icon="refresh-outline" size="large" (click)="checkStatus(r.id)" ></nb-icon></td>
           </tr>
         </tbody>
       </table>

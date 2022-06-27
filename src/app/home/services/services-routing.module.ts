@@ -9,6 +9,11 @@ import { PayoutComponent } from "./payout/payout.component";
 import { AepsnewComponent } from "./aepsnew/aepsnew.component";
 import { PanComponent } from "./pan/pan.component";
 import { AtmComponent } from "./atm/atm.component";
+import { AtmMappingComponent } from "../setting/atm-mapping/atm-mapping.component";
+import { AxisCasaComponent } from "./axis-casa/axis-casa.component";
+import { LicComponent } from "./lic/lic.component";
+import { FastagComponent } from "./fastag/fastag.component";
+import { BbpsComponent } from "./bbps/bbps.component";
 
 const routes: Routes = [
   {
@@ -46,6 +51,26 @@ const routes: Routes = [
       {
         path:"matm",
         component:AtmComponent
+      },
+      {
+        path:"atm-mapping",
+        component:AtmMappingComponent
+      },
+      {
+        path:"axis-casa",
+        component:AxisCasaComponent
+      },
+      {
+        path:"lic",
+        component:LicComponent
+      },
+      {
+        path:"fastag",
+        component:FastagComponent
+      },
+      {
+        path:"bbps",
+        component:BbpsComponent
       }
     ],
   },

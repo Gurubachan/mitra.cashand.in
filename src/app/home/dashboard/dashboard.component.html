@@ -7,3 +7,6 @@
 <div *ngIf="user.role == 11">
   <ngx-admin-dashboard></ngx-admin-dashboard>
 </div>
+<div *ngIf="permiteMISRole.indexOf(user.role)!= -1">
+  <ngx-commmon-dashboard></ngx-commmon-dashboard>
+</div>

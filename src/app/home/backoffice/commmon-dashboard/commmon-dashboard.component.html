@@ -1,0 +1,50 @@
+<!-- <div class="row">
+  <div class="col-sm-4" *ngFor="let s of serviceWiseBusiness">
+    <nb-card
+      status="success"
+      [nbSpinner]="isLoading"
+      nbSpinnerMessage="{{ loadingMessage }}"
+    >
+      <nb-card-header>
+        {{s.service}} 
+        <span style="float: right">
+        <nb-icon
+            icon="refresh-outline"
+            (click)="loadServiceWiseBusiness()"
+            right
+          ></nb-icon>
+        </span>
+        
+      </nb-card-header>
+      <nb-card-body>
+        <h2>
+          ₹ {{ s.amount }} {{s.wallet_operation}} / {{s.count}}
+          
+        </h2>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div> -->
+<nb-card
+      status="success"
+      [nbSpinner]="isLoading"
+    >
+     <nb-card-body>
+<table class="table table-hover" >
+<thead>
+    <tr>
+        <th>Service Name</th>
+        <th>Amount</th>
+        <th>Count</th>
+    </tr>
+</thead>
+<tbody>
+    <tr *ngFor="let s of serviceWiseBusiness">
+       <td>{{s.service}} </td>
+       <td>₹ {{ s.amount }} {{s.wallet_operation}}</td>
+       <td>{{s.count}}</td>
+    </tr>
+</tbody>
+</table>
+</nb-card-body>
+</nb-card>

@@ -1,0 +1,127 @@
+<nb-card>
+  <nb-card-header>Search Users</nb-card-header>
+  <nb-card-body>
+    <form
+      (ngSubmit)="getCommission()"
+      #searchForm="ngForm"
+      aria-labelledby="title"
+      class="form-horizontal row"
+    >
+      <div class="form-control-group col-sm-3">
+        <label class="label" for="input-contact">Register Number:</label>
+        <input
+          nbInput
+          fullWidth
+          [(ngModel)]="searchData.contact"
+          #contact="ngModel"
+          name="contact"
+          id="input-cobtact"
+          pattern="[6-9]{1}[0-9]{9}"
+          placeholder="Enter register number"
+          autofocus
+          [status]="
+            contact.dirty ? (contact.invalid ? 'danger' : 'success') : 'basic'
+          "
+          [required]="true"
+          [minlength]="10"
+          [maxlength]="10"
+          [attr.aria-invalid]="contact.invalid && contact.touched ? true : null"
+        />
+        <ng-container *ngIf="contact.invalid && contact.touched">
+          <p class="caption status-danger" *ngIf="contact.errors?.required">
+            Register number required.
+          </p>
+          <p class="caption status-danger" *ngIf="contact.errors?.pattern">
+            Contact number must be valid contact number.
+          </p>
+        </ng-container>
+      </div>
+
+      <button
+        nbButton
+        status="success"
+        [disabled]="submitted || !searchForm.valid"
+        [class.btn-pulse]="submitted"
+        [nbSpinner]="loading"
+        nbSpinnerStatus="danger"
+      >
+        Search
+      </button>
+    </form>
+  </nb-card-body>
+</nb-card>
+<nb-card>
+     <nb-card-header>Commission Details</nb-card-header>
+  <nb-card-body>
+      <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Sl#</th>
+              <th>Service Name</th>
+              <th>Slab</th>
+              <th>Commission</th>
+              <th>Revise Commission</th>
+              <th>is %</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let c of commission; let i = index ">
+                <td>{{ increment(i) }}</td>
+                <td>{{c.serviceName}}</td>
+                <td>{{c.min_amount}} - {{c.max_amount}}</td>
+                <td>{{c.commission}}<span *ngIf="c.isPercentage">%</span><br><small>{{c.txn_type}}</small></td>
+                <td>
+                    <input
+          nbInput
+          fullWidth
+          [(ngModel)]="c.reviseCommission"
+          #reviseCommission="ngModel"
+          name="reviseCommission"
+          id="input-reviseCommission"
+         
+          placeholder="Enter revise commission."
+          autofocus
+          [status]="
+            reviseCommission.dirty ? (reviseCommission.invalid ? 'danger' : 'success') : 'basic'
+          "
+          [required]="true"
+          
+          [attr.aria-invalid]="reviseCommission.invalid && reviseCommission.touched ? true :  null"
+          type="number"
+          [min]="c.minCommission" [max]="c.maxCommission"
+          step="0.10"
+        />
+        <ng-container *ngIf="reviseCommission.invalid && reviseCommission.touched">
+          <p class="caption status-danger" *ngIf="reviseCommission.errors?.required">
+            Commission amount required.
+          </p> 
+          
+        </ng-container> 
+        <ng-container *ngIf="reviseCommission.dirty">
+            <p class="caption status-danger" *ngIf="minError">
+            Min commission value set error
+          </p>
+         <p class="caption status-danger" *ngIf="maxError">
+            Max commission value set error
+          </p>
+        </ng-container>
+        
+                </td>
+                <td></td>
+                <td>
+                    <button
+        nbButton
+        status="success"
+        
+        [class.btn-pulse]="submitted"
+        (click)="onFormSubmit(c)"
+        nbSpinnerStatus="danger"
+      >
+        Modify
+      </button></td>
+            </tr>
+          </tbody>
+      </table>
+  </nb-card-body>
+</nb-card>

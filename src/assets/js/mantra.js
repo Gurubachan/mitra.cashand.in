@@ -413,7 +413,7 @@ function discoverAvdmNew() {
 
   return res;
 }
-$scope = {};
+var $scope = {};
 
 function CaptureAvdmNew(ekyc = false) {
   return new Promise(function (resolve, reject) {

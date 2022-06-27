@@ -9,6 +9,7 @@ import { ProfileComponent } from './profile/profile.component';
 import {UsersComponent} from './users/users.component';
 import { ReportModule } from './report/report.module';
 import { OnboardingModule } from './onboarding/onboarding.module';
+import { SettingModule } from './setting/setting.module';
 
 
 const routes: Routes = [
@@ -49,6 +50,11 @@ const routes: Routes = [
       {
         path: "onboarding",
         loadChildren: () => OnboardingModule,
+        canActivate: [AuthGuard],
+      },
+       {
+        path: "setting",
+        loadChildren: () => SettingModule,
         canActivate: [AuthGuard],
       },
     ],

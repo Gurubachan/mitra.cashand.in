@@ -92,6 +92,7 @@
             <tr>
               <th>Feature</th>
               <th>Asign</th>
+              <th>Activate Service</th>
             </tr>
           </thead>
           <tbody>
@@ -112,9 +113,18 @@
                   [checked]="s.isActive == '1' ? 'true' : 'false'"
                   >{{ s.service }}</nb-toggle
                 > -->
-                <nb-checkbox status="success" [(ngModel)]="s.assigned">{{
-                  s.service
-                }}</nb-checkbox>
+                <nb-checkbox status="success" [(ngModel)]="s.assigned"></nb-checkbox>
+              </td>
+              <td>
+              <nb-toggle
+              *ngIf="s.onBoardRequired==0"
+                  status="success"
+                  [(ngModel)]="s.status_code"
+                  [checked]="s.onBoardRequired == '1' ? 'false' : 'true'"
+                  (change)="serviceLive(s)"
+                  >{{s.remark}}</nb-toggle
+                >
+
               </td>
             </tr>
           </tbody>

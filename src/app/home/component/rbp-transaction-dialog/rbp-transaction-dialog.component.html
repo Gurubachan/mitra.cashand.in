@@ -10,6 +10,9 @@
       <div *ngIf="data.data.txnCode == 'CW'" style="text-align: center">
         <h3>Cash Withdrawal</h3>
       </div>
+      <div *ngIf="data.data.txnCode == 'AP'" style="text-align: center">
+        <h3>Aadhaar Pay</h3>
+      </div>
       <h6 style="text-align: center">
         Transaction {{ data.message }}
       </h6></nb-card-header

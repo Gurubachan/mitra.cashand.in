@@ -50,7 +50,7 @@ export class PayoutComponent implements OnInit {
       this.errors.push("Invalid Transaction medium");
     }
     if (
-      this.wallet.amount >= 5000 &&
+      this.wallet.amount >= 100 &&
       this.wallet.amount <= this.drawableBalance
     ) {
       this.http.post("wallet/initSettlement", this.wallet).subscribe(
@@ -76,7 +76,7 @@ export class PayoutComponent implements OnInit {
       );
     } else {
       this.errors.push(
-        "Enter amount not valid. Amount must be between 5000 and " +
+        "Enter amount not valid. Amount must be between 100 and " +
           this.drawableBalance
       );
     }

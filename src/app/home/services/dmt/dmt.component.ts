@@ -35,7 +35,19 @@ export class DmtComponent implements OnInit {
   showBeneList: boolean = false;
   addBeneButtonText: string = "Add Bene";
   bankList: BankList[] = null;
-  bene: any = {};
+  bene: {
+    dcId: Number,
+    bank: String,
+    ifsc:String,
+    account:String,
+    beneName: String,
+  }={
+    dcId: 0,
+    bank: null,
+    ifsc: null,
+    account: null,
+    beneName: null,
+  };
   beneList: BeneCustomer[] = null;
   bankDetails: any = null;
   transaction: any = {};
@@ -53,10 +65,11 @@ export class DmtComponent implements OnInit {
     private router: Router
   ) {
     this.transaction.mode = 4;
+   
   }
 
   ngOnInit(): void {
-    this.bene.dcId = 0;
+    this.bene.dcId=0;
     this.transaction.amount = 100;
     this.checkOnboard();
   }
@@ -197,13 +210,14 @@ export class DmtComponent implements OnInit {
           this.getBeneList(this.bene.dcId);
           this.showBeneForm = false;
           this.showBeneList = true;
-          this.bene = {};
+          
 
           this.toast.showToast(res.message, "Bene registration", "success");
         } else {
           this.toast.showToast(res.message, "Bene registration", "warning");
-          this.bene = {};
+          
         }
+        this.resetBene();
         this.bene.dcId = this.customer.id;
       },
       (err: any) => {
@@ -239,7 +253,7 @@ export class DmtComponent implements OnInit {
             );
 
             this.reset();
-            this.bene = null;
+            this.resetBene();
           } else {
             this.toast.showToast(
               "Transaction initiated",
@@ -247,8 +261,8 @@ export class DmtComponent implements OnInit {
               "warning"
             );
             this.reset();
-            this.bene = null;
-          }
+            this.resetBene();
+            }
         });
     } else {
     }
@@ -323,6 +337,16 @@ export class DmtComponent implements OnInit {
     this.showButton = false;
     this.otpForm = false;
     this.showBeneList = false;
+  }
+
+  resetBene(){
+    this.bene={
+    dcId: 0,
+    bank: null,
+    ifsc: null,
+    account: null,
+    beneName: null,
+  };
   }
 
   walletBalance() {

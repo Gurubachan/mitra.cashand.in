@@ -25,7 +25,7 @@ export class AdminDashboardComponent implements OnInit {
   isLoading = false;
   serviceWiseBusiness:Data[]=null;
   ngOnInit(): void {
-    this.loadWalletBalance();
+    //this.loadWalletBalance();
     this.loadTodayBusiness();
     this.loadServiceWiseBusiness();
   }
@@ -95,8 +95,10 @@ export class AdminDashboardComponent implements OnInit {
       if(res.response){
         this.serviceWiseBusiness=res.data;
         this.isLoading=false;
+        this.cd.detectChanges();
       }else{
         this.isLoading=false;
+        this.cd.detectChanges();
       }
     })
   }

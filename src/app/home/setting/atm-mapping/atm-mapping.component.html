@@ -1,0 +1,120 @@
+<div class="row">
+    <div class="col-4">
+        <nb-card>
+    <nb-card-header>Add New Device</nb-card-header>
+    <nb-card-body>
+    <form
+      aria-labelledby="title"
+      [formGroup]="deviceAddForm"
+      (ngSubmit)="saveDevice(deviceAddForm.value)"
+    >
+        <div class="form-controller-group">
+            <label class="label" for="modelType">Device List:</label>
+            <nb-select
+              fullWidth
+              [nbSpinner]="loading"
+              placeholder="Select Device Model From List.."
+              name="modelType"
+              id="modelType"
+              formControlName="modelType"
+              [status]="
+                f.modelType.dirty
+                  ? f.modelType.invalid
+                    ? 'danger'
+                    : 'success'
+                  : 'basic'
+              "
+              [attr.aria-invalid]="
+                f.modelType.invalid && f.modelType.touched ? true : null
+              "
+              [required]="true"
+              (ngModelChange)="modelChange($event)"
+            >
+              
+              <nb-option value="MP63">MoreFun MP63</nb-option>
+              <nb-option value="D180">PAX D-180</nb-option>
+              <nb-option value="A910">PAX A-910</nb-option>
+              <nb-option value="wpos3">Wiseasy W-POS3</nb-option>
+            </nb-select>
+            <ng-container *ngIf="f.modelType.invalid && f.modelType.touched">
+              <p
+                class="caption status-danger"
+                *ngIf="f.modelType.errors?.required"
+              >
+                Please select device model.
+              </p>
+            </ng-container>
+        </div>
+
+        <div class="form-controller-group">
+            <label class="label" for="input-slNo">Serial Number:</label>
+            <input
+              nbInput
+              formControlName="slNo"
+              id="input-slNo"
+              name="slNo"
+              placeholder="Please enter device serial number"
+              fullWidth
+              fieldSize="large"
+              [status]="
+                f.slNo.dirty
+                  ? f.slNo.invalid
+                    ? 'danger'
+                    : 'success'
+                  : 'basic'
+              "
+              [required]="true"
+              [attr.aria-invalid]="
+                f.slNo.invalid && f.slNo.touched ? true : null
+              "
+              type="text"
+            />
+            <ng-container *ngIf="f.slNo.invalid && f.slNo.touched">
+              <p
+                class="caption status-danger"
+                *ngIf="f.slNo.errors?.required"
+              >
+                Device serial number required!
+              </p>
+               <p
+                class="caption status-danger"
+                *ngIf="f.slNo.errors?.pattern"
+              >
+                Invalid Device serial number.
+              </p>
+              
+            </ng-container>
+        </div>
+        <br>
+        <div class="form-control-group">
+            <button nbButton status="danger" type="reset" style="float: left">
+            Reset
+          </button>
+          <button
+            nbButton
+            status="success"
+            type="submit"
+            style="float: right"
+            [disabled]="submitted || deviceAddForm.invalid"
+            [class.btn-pulse]="submitted"
+          >
+            Submit
+          </button>
+        </div>
+    </form>
+    </nb-card-body>
+</nb-card>
+    </div>
+    <div class="col-8">
+
+        <nb-card>
+    <nb-card-header>Map New Device</nb-card-header>
+    <nb-card-body>
+        
+    </nb-card-body>
+</nb-card>
+
+    </div>
+    
+</div>
+

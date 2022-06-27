@@ -1,13 +1,15 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { HttpService } from "../../../services/http.service";
 import { ToastrService } from "../../../services/toastr.service";
+import { RemarkDialogComponent } from "../dialog/remark-dialog/remark-dialog.component";
+import { NbDialogService } from "@nebular/theme";
 @Component({
   selector: "ngx-verify",
   templateUrl: "./verify.component.html",
   styleUrls: ["./verify.component.scss"],
 })
 export class VerifyComponent implements OnInit {
-  constructor(private http: HttpService, private toast: ToastrService) {}
+  constructor(private http: HttpService, private toast: ToastrService, private dialogService: NbDialogService) {}
   @Input() office: any;
   userGroup: any;
   userType: any;
@@ -170,5 +172,40 @@ export class VerifyComponent implements OnInit {
           );
         }
       );
+  }
+
+  serviceLive(data: any){
+    
+    this.dialogService
+              .open(RemarkDialogComponent, {
+                autoFocus: false,
+                backdropClass: "",
+                closeOnBackdropClick: false,
+                closeOnEsc: false,
+                dialogClass: "",
+                hasScroll: false,
+                viewContainerRef: undefined,
+                hasBackdrop: false,
+                context: {
+                  title: "User Wise Service Notification Message",
+                 
+                },
+              })
+              .onClose.subscribe((response) => {
+                 data.remark=response;
+                 console.log(data);
+                this.http.post('services/userServiceUpdate',data).subscribe((res)=>{
+                  if(res.response){
+                    this.toast.showToast("Service Updated","Service","success");
+                  }else{
+                     this.toast.showToast("Unable to update service. Please refresh.","Service","warning");
+                  }
+                  
+                },(err: any) => {
+                    console.log(err);
+                    this.toast.showToast(err.error.message, "Service", "danger");
+                  }
+                )               
+              });
   }
 }

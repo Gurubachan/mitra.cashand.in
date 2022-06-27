@@ -1,0 +1,126 @@
+<nb-card>
+  <nb-card-header>Filter Form</nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-sm-2">
+        <input
+          nbInput
+          placeholder="From Date"
+          [nbDatepicker]="formcontrol"
+          [formControl]="formControl"
+          required
+          readOnly
+        />
+        <nb-datepicker
+          #formcontrol
+          format="dd-MM-yyyy"
+          [min]="frommin"
+          [max]="frommax"
+          (dateChange)="setMaxdate($event)"
+        ></nb-datepicker>
+      </div>
+      <div class="col-sm-2">
+        <input
+          nbInput
+          placeholder="To Picker"
+          [nbDatepicker]="ngmodel"
+          [(ngModel)]="ngModelDate"
+          required
+          readOnly
+        />
+        <nb-datepicker
+          #ngmodel
+          format="dd-MM-yyyy"
+          [max]="tomax"
+          [min]="tomin"
+        ></nb-datepicker>
+      </div>
+      <div class="col-sm-5">
+        <input
+          [formControl]="inputFormControl"
+          nbInput
+          type="text"
+          placeholder="Search user name"
+          [nbAutocomplete]="auto"
+          fullWidth
+        />
+
+        <nb-autocomplete #auto [handleDisplayFn]="viewHandle">
+          <nb-option
+            *ngFor="let option of filteredOptions$ | async"
+            [value]="option"
+          >
+            {{ option }}
+          </nb-option>
+        </nb-autocomplete>
+      </div>
+
+      <div class="col-sm-12 text-center">
+        <button nbButton status="success" (click)="myLic()">Search</button>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
+<nb-card [nbSpinner]="loading">
+  <nb-card-header>LIC Transfer List</nb-card-header>
+  <nb-card-body>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>sl#</th>
+            <th>Policy Number</th>
+            <th>contact / Email Id</th>
+            
+            <th>payment Amount</th>
+            <th>Acknowledge No</th>
+            <th>Status</th>
+            <th>Description</th>
+            <th>Waleet Ref No</th>
+            <th>Waleet Refund No</th>
+            <th>User</th>
+            <th>Created At</th>
+            <th>Updated At</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let s of transactions?.data">
+            <td>{{ s.id }}</td>
+            <td>{{ s.caNumber }}</td>
+            <td>{{ s.contact }} / {{ s.emailId }}</td>
+            
+            <td>{{ s.paymentAmount }}</td>
+            <td>{{ s.ackno }}</td>
+            <td>{{ s.status }}</td>
+            <td>{{ s.description }}</td>
+            <td>{{ s.walletRefNo }}</td>
+            <td>{{ s.refundWalletRefNo }}</td>
+            <td>{{ s.fname }} {{s.lname}} <br> {{s.contact}}</td>
+             <td>{{ s.created_at | date: "d-M-yyyy h:mm:ss a" }}</td>
+            <td>{{ s.updated_at | date: "d-M-yyyy h:mm:ss a" }}</td>
+            <td (click)="showFile(s)"><nb-icon icon="file-text-outline" size="large" ></nb-icon></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <button
+      nbButton
+      status="success"
+      *ngIf="transactions?.prev_page_url != null"
+      (click)="goToPage(transactions?.prev_page_url)"
+      class="float-left"
+    >
+      Previous
+    </button>
+    <button
+      nbButton
+      status="success"
+      class="float-right"
+      *ngIf="transactions?.next_page_url != null"
+      (click)="goToPage(transactions?.next_page_url)"
+    >
+      Next
+    </button>
+  </nb-card-body>
+</nb-card>

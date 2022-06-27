@@ -1,0 +1,33 @@
+<nb-card>
+    <nb-card-header>Service List</nb-card-header>
+    <nb-card-body>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Sl#</th>
+                    <th>Service</th>
+                    <th>Status</th>
+                    <th>Live</th>
+                    <th>Remark</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let s of services">
+                    <td>{{s.id}}</td>
+                    <td>{{s.service}}</td>
+                    <td>{{s.isActive == '1' ? 'Active' : 'In Active'}}</td>
+                    <td>
+                        <nb-toggle
+                            status="success"
+                            [checked]="s.isLive == '1' ? 'true' : 'false'"
+                            (change)="serviceLive(s)"
+                            [(ngModel)]="s.isLive"
+                            [disabled]="!s.isActive"
+                        ></nb-toggle>
+                    </td>
+                    <td>{{s.remark}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </nb-card-body>
+</nb-card>

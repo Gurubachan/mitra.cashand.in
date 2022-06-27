@@ -43,6 +43,7 @@
           placeholder="Search user name"
           [nbAutocomplete]="auto"
           fullWidth
+          (ngModelChange)="filterUser($event)"
         />
 
         <nb-autocomplete #auto [handleDisplayFn]="viewHandle">

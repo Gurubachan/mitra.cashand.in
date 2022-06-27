@@ -12,7 +12,7 @@ import {
   NbIconModule,
   NbInputModule,
   NbSelectModule,
-  NbSpinnerModule,
+  NbSpinnerModule
 } from "@nebular/theme";
 import { WalletComponent } from "./wallet/wallet.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -23,6 +23,13 @@ import { PanComponent } from "./pan/pan.component";
 import { UpiComponent } from './upi/upi.component';
 import { MoneytransferComponent } from './moneytransfer/moneytransfer.component';
 import { UserwalletComponent } from './userwallet/userwallet.component';
+import { MatmComponent } from './matm/matm.component';
+import { TeamComponent } from './team/team.component';
+import { LicComponent } from './lic/lic.component';
+import { FastagComponent } from './fastag/fastag.component';
+import { RetailersComponent } from './retailers/retailers.component';
+import { BusinessSummaryComponent } from './business-summary/business-summary.component';
+import { InactivelistComponent } from './inactivelist/inactivelist.component';
 @NgModule({
   declarations: [
     AepsComponent,
@@ -35,6 +42,13 @@ import { UserwalletComponent } from './userwallet/userwallet.component';
     UpiComponent,
     MoneytransferComponent,
     UserwalletComponent,
+    MatmComponent,
+    TeamComponent,
+    LicComponent,
+    FastagComponent,
+    RetailersComponent,
+    BusinessSummaryComponent,
+    InactivelistComponent,
   ],
   imports: [
     CommonModule,
@@ -49,6 +63,7 @@ import { UserwalletComponent } from './userwallet/userwallet.component';
     NbSelectModule,
     NbAutocompleteModule,
     NbIconModule,
+  
   ],
 })
 export class ReportModule {}

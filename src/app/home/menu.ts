@@ -94,12 +94,12 @@ menus[4] = [
         title: "Money Trasfer",
         link: "/services/dmt",
       },
-      {
+     /*  {
         title: "AEPS",
         link: "/services/aeps",
-      },
+      }, */
       {
-        title: "AEPS NEW",
+        title: "AEPS",
         link: "/services/aepsNew",
       },
       {
@@ -111,17 +111,24 @@ menus[4] = [
         link: "/services/recharge",
       },
       {
-        title: "CMS",
-        link: "/services/cms",
+        title: "LIC",
+        link: "/services/lic",
+      },
+       {
+        title: "Fastag",
+        link: "/services/fastag",
       },
       {
+        title: "BBPS",
+        link: "/services/bbps",
+      },
+       {
         title: "PAN Card",
         link: "/services/pan",
       },
       {
-        title: "Insurance",
-        pathMatch: "prefix",
-        link: "/pages/layout/tabs",
+        title: "Bank Account",
+        link: "/services/axis-casa",
       },
     ],
   },
@@ -158,8 +165,16 @@ menus[4] = [
         link: "/reports/upi",
       },
       {
-        title: "Insurance",
-        link: "/reports/insurance",
+        title: "Team",
+        link: "/reports/team",
+      },
+      {
+        title: "Lic",
+        link: "/reports/lic",
+      },
+       {
+        title: "Fastag",
+        link: "/reports/fastag",
       },
     ],
   },
@@ -172,7 +187,7 @@ menus[9] = [
     home: true,
   },
   {
-    title: "Members",
+    title: "Service",
     icon: "person-add-outline",
     children: [
       {
@@ -184,8 +199,16 @@ menus[9] = [
         link: "/reports/bconboarding",
       },
       {
-        title: "Users Service",
-        link: "/member/service",
+        title: "ATM Mapping",
+        link: "/setting/atm-mapping",
+      },
+      {
+        title: "Commission Mapping",
+        link: "/setting/commission",
+      },
+      {
+        title: "Global Service",
+        link: "/setting/service",
       },
     ],
   },
@@ -197,10 +220,7 @@ menus[9] = [
         title: "Wallet",
         link: "/reports/statement",
       },
-      {
-        title:"User Wallet",
-        link:"/reports/user-wallet"
-      },
+      
       {
         title: "Settlement",
         link: "/reports/cashout",
@@ -208,6 +228,10 @@ menus[9] = [
       {
         title: "AEPS",
         link: "/reports/aeps",
+      },
+      {
+        title: "MATM",
+        link: "/reports/matm",
       },
 
       {
@@ -223,8 +247,127 @@ menus[9] = [
         link: "/reports/upi",
       },
       {
+        title: "LIC",
+        link: "/reports/lic",
+      },
+       {
+        title: "Fastag",
+        link: "/reports/fastag",
+      },
+      {
         title: "Money Transfer",
         link: "/reports/money-transfer",
+      },
+    ],
+  },
+  {
+    title: "MIS",
+    icon: "person-add-outline",
+    children: [
+      {
+        title:"User Wallet",
+        link:"/reports/user-wallet"
+      },
+       {
+        title: "Retailers",
+        link: "/reports/retailers",
+      },
+      {
+        title: "Inactive Retailers",
+        link: "/reports/inactive",
+      },
+      {
+        title:"Business Summary",
+        link:"/reports/business-summary"
+      },
+    ],
+  },
+];
+menus[10] = [
+  {
+    title: "Dashboard",
+    icon: "home-outline",
+    link: "/dashboard",
+    home: true,
+  },
+  {
+    title: "Service",
+    icon: "person-add-outline",
+    children: [
+      {
+        title: "Show Users",
+        link: "/members",
+      },
+      
+    ],
+  },
+  {
+    title: "Reports",
+    icon: "person-add-outline",
+    children: [
+      {
+        title: "Wallet",
+        link: "/reports/statement",
+      },
+      
+      {
+        title: "Settlement",
+        link: "/reports/cashout",
+      },
+      {
+        title: "AEPS",
+        link: "/reports/aeps",
+      },
+      {
+        title: "MATM",
+        link: "/reports/matm",
+      },
+
+      {
+        title: "Recharge",
+        link: "/reports/recharge",
+      },
+      {
+        title: "Pan",
+        link: "/reports/pan",
+      },
+      {
+        title: "UPI",
+        link: "/reports/upi",
+      },
+      {
+        title: "LIC",
+        link: "/reports/lic",
+      },
+       {
+        title: "Fastag",
+        link: "/reports/fastag",
+      },
+      {
+        title: "Money Transfer",
+        link: "/reports/money-transfer",
+      },
+    ],
+  },
+  {
+    title: "MIS",
+    icon: "person-add-outline",
+    children: [
+      {
+        title:"User Wallet",
+        link:"/reports/user-wallet"
+      },
+       {
+        title: "Retailers",
+        link: "/reports/retailers",
+      },
+      {
+        title: "Inactive Retailers",
+        link: "/reports/inactive",
+      },
+      {
+        title:"Business Summary",
+        link:"/reports/business-summary"
       },
     ],
   },
@@ -279,6 +422,123 @@ menus[11] = [
         title: "UPI",
         link: "/reports/upi",
       },
+    ],
+  },
+];
+menus[14] = [
+  {
+    title: "Dashboard",
+    icon: "home-outline",
+    link: "/dashboard",
+    home: true,
+  },
+  {
+    title: "Service",
+    icon: "person-add-outline",
+    children: [
+      {
+        title: "Show Users",
+        link: "/members",
+      },
+      
+    ],
+  },
+  {
+    title: "Reports",
+    icon: "person-add-outline",
+    children: [
+      {
+        title: "Wallet",
+        link: "/reports/statement",
+      },
+      
+      {
+        title: "Settlement",
+        link: "/reports/cashout",
+      },
+      {
+        title: "AEPS",
+        link: "/reports/aeps",
+      },
+      {
+        title: "MATM",
+        link: "/reports/matm",
+      },
+
+      {
+        title: "Recharge",
+        link: "/reports/recharge",
+      },
+      {
+        title: "Pan",
+        link: "/reports/pan",
+      },
+      {
+        title: "UPI",
+        link: "/reports/upi",
+      },
+      {
+        title: "LIC",
+        link: "/reports/lic",
+      },
+       {
+        title: "Fastag",
+        link: "/reports/fastag",
+      },
+      {
+        title: "Money Transfer",
+        link: "/reports/money-transfer",
+      },
+    ],
+  },
+  {
+    title: "MIS",
+    icon: "person-add-outline",
+    children: [
+      {
+        title:"User Wallet",
+        link:"/reports/user-wallet"
+      },
+       {
+        title: "Retailers",
+        link: "/reports/retailers",
+      },
+      {
+        title: "Inactive Retailers",
+        link: "/reports/inactive",
+      },
+      {
+        title:"Business Summary",
+        link:"/reports/business-summary"
+      },
+    ],
+  },
+];
+menus[15] = [
+  {
+    title: "Dashboard",
+    icon: "home-outline",
+    link: "/dashboard",
+    home: true,
+  },
+  
+  {
+    title: "MIS",
+    icon: "person-add-outline",
+    children: [
+      {
+        title: "Retailers",
+        link: "/reports/retailers",
+      },
+      {
+        title: "Inactive Retailers",
+        link: "/reports/inactive",
+      },
+      {
+        title:"Business Summary",
+        link:"/reports/business-summary"
+      },
+      
     ],
   },
 ];

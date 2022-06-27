@@ -1,0 +1,28 @@
+<div class="row" NbSpinner="lodder">
+    <div class="col-6">
+         <img [src]="axisCasa" style="width: 100%;" />
+    </div>
+    <div class="col-6">
+        <h2>Get the Axis ASAP Digital Account with video KYC in 4 steps</h2>
+        <ol>
+            <li>PAN and Aadhaar verification</li>
+            <li>Fill personal details</li>
+            <li>Fund your account</li>
+            <li>KYC verification via video call</li>
+        </ol>
+        <small class="text-link">Availability of Video KYC Agents on all 7 days of the week: 9.00 AM - 8.00 PM</small>
+<br>
+<div class="section" id="" style="text-align:center">
+    <nb-select 
+    [(ngModel)]="postData.type"
+    placeholder="Select Account Type From List.."
+    >
+        <nb-option value="1">Saving Account</nb-option>
+        <nb-option value="2">Current Account</nb-option>
+    </nb-select><br>
+<button nbButton status="success" class="float-center" (click)="init()">Open Now</button>
+        
+</div>
+        
+    </div>
+</div>

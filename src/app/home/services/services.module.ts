@@ -24,6 +24,11 @@ import { PayoutComponent } from "./payout/payout.component";
 import { AepsnewComponent } from "./aepsnew/aepsnew.component";
 import { PanComponent } from "./pan/pan.component";
 import { AtmComponent } from "./atm/atm.component";
+import { AxisCasaComponent } from './axis-casa/axis-casa.component';
+import { LicComponent } from './lic/lic.component';
+import { FastagComponent } from './fastag/fastag.component';
+import { BbpsComponent } from './bbps/bbps.component';
+
 
 @NgModule({
   declarations: [
@@ -35,6 +40,10 @@ import { AtmComponent } from "./atm/atm.component";
     AepsnewComponent,
     PanComponent,
     AtmComponent,
+    AxisCasaComponent,
+    LicComponent,
+    FastagComponent,
+    BbpsComponent,
   ],
   imports: [
     CommonModule,

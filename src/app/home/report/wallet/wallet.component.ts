@@ -17,6 +17,7 @@ import { map, startWith } from "rxjs/operators";
 import { WalletRequest } from "../../../@model/wallet/walletRequest";
 import { Data, WalletResponse } from "../../../@model/wallet/walletResponse";
 import { HttpService } from "../../../services/http.service";
+import { PublicApiCallService } from "../../../services/public-api-call.service";
 
 @Component({
   selector: "ngx-wallet",
@@ -47,7 +48,8 @@ export class WalletComponent implements OnInit {
     private http: HttpService,
     protected dateService: NbDateService<Date>,
     private cd: ChangeDetectorRef,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private apiCall: PublicApiCallService
   ) {
     this.frommin = this.dateService.addMonth(this.dateService.today(), -2);
     //this.frommax = this.dateService.addDay(this.min, 15);
@@ -59,7 +61,7 @@ export class WalletComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.options = ["Option 1", "Option 2", "Option 3"];
+    this.options = [];
 
     this.filteredOptions$ = of(this.options);
 
@@ -151,5 +153,18 @@ export class WalletComponent implements OnInit {
   }
 
   /*Get user role from local storage*/
+
+  filterUser(e){
+
+    if (e != null && e.length >= 3){
+      this.http.post('admin/filterUser',{value:e}).subscribe((result) => {
+        console.log(result)
+      });
+     /*  let result=this.apiCall.getRetailer(e);
+      console.log(result) */
+     
+    }
+
+  }
   
 }

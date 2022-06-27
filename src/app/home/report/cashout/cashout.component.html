@@ -21,7 +21,7 @@
             <th>Created</th>
             <th>Updated</th>
             <th>Remark</th>
-            <th>Action</th>
+            
           </tr>
         </thead>
         <tbody>
@@ -38,20 +38,7 @@
             <td>{{ s.created_at | date: "d-M-yyyy h:mm:ss a" }}</td>
             <td>{{ s.updated_at | date: "d-M-yyyy h:mm:ss a" }}</td>
             <td>{{ s.remark }}</td>
-            <td>
-              <button
-                class="btn btn-primary"
-                icon="refresh-outline"
-                *ngIf="
-                  s.txnType == 'BS' &&
-                  s.status != 'success' &&
-                  s.status != 'refund'
-                "
-                (click)="check(s.id)"
-              >
-                <nb-icon icon="refresh-outline"></nb-icon>
-              </button>
-            </td>
+           
           </tr>
         </tbody>
       </table>

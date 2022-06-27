@@ -27,6 +27,8 @@ import { ReferralComponent } from "./referral/referral.component";
 import { RbpTransactionDialogComponent } from "./rbp-transaction-dialog/rbp-transaction-dialog.component";
 import { UpiComponent } from './popover/upi/upi.component';
 import { MoneyTransactionResponseDialogComponent } from './money-transaction-response-dialog/money-transaction-response-dialog.component';
+import { LicReceiptComponent } from "./lic-receipt/lic-receipt.component";
+import { RemarkDialogComponent } from './dialog/remark-dialog/remark-dialog.component';
 @NgModule({
   declarations: [
     AboutComponent,
@@ -41,6 +43,8 @@ import { MoneyTransactionResponseDialogComponent } from './money-transaction-res
     RbpTransactionDialogComponent,
     UpiComponent,
     MoneyTransactionResponseDialogComponent,
+    LicReceiptComponent,
+    RemarkDialogComponent
   ],
   imports: [
     CommonModule,

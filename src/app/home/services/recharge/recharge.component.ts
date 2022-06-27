@@ -20,7 +20,7 @@ export class RechargeComponent implements OnInit {
   rechargeForm: FormGroup;
   submitted: boolean = false;
   modeShow: boolean = false;
-
+  loading:boolean= false;
   constructor(
     private http: HttpService,
     private formBuilder: FormBuilder,
@@ -31,7 +31,8 @@ export class RechargeComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.features.isGiven(3)) {
-      this.getOperator();
+      this.onboard();
+     
     } else {
       this.toast.showToast("Feature not allowed", "Feature", "warning");
       this.router.navigateByUrl("/dashboard");
@@ -43,6 +44,18 @@ export class RechargeComponent implements OnInit {
       //refMobileNo: [null, Validators.required],
       amount: [null, Validators.required],
       isStv: [0, Validators.required],
+    });
+  }
+
+  onboard() {
+    this.http.post("recharge/onboard", {}).subscribe((res) => {
+      if (res.response) {
+        this.loading = false;
+         this.getOperator();
+      } else {
+        this.toast.showToast("Feature not allowed", "Feature", "warning");
+        this.router.navigateByUrl("/dashboard");
+      }
     });
   }
 

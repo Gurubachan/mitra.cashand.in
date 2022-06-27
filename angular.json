@@ -38,7 +38,8 @@
               "node_modules/nebular-icons/scss/nebular-icons.scss",
               "node_modules/pace-js/templates/pace-theme-flash.tmpl.css",
               "node_modules/leaflet/dist/leaflet.css",
-              "src/app/@theme/styles/styles.scss"
+              "src/app/@theme/styles/styles.scss",
+              "src/assets/css/matm-sdk.css"
             ],
             "scripts": [
               "node_modules/pace-js/pace.min.js",
@@ -52,6 +53,7 @@
               "node_modules/chart.js/dist/Chart.min.js",
               "node_modules/jquery/dist/jquery.min.js",
               "src/assets/js/mantra.js"
+              
             ],
             "allowedCommonJsDependencies": [
               "angular2-chartjs",
@@ -121,7 +123,8 @@
               "node_modules/echarts/dist/echarts.min.js",
               "node_modules/echarts/dist/extension/bmap.min.js",
               "node_modules/chart.js/dist/Chart.min.js",
-              "node_modules/jquery/dist/jquey.min.js"
+              "node_modules/jquery/dist/jquey.min.js",
+              "src/assets/js/mantra.js"
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.css",

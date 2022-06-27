@@ -45,14 +45,21 @@
       [nbSpinner]="isLoading"
       nbSpinnerMessage="{{ loadingMessage }}"
     >
-      <nb-card-header>{{s.service}}</nb-card-header>
+      <nb-card-header>
+        {{s.service}} 
+        <span style="float: right">
+        <nb-icon
+            icon="refresh-outline"
+            (click)="loadServiceWiseBusiness()"
+            right
+          ></nb-icon>
+        </span>
+        
+      </nb-card-header>
       <nb-card-body>
         <h2>
           ₹ {{ s.amount }} {{s.wallet_operation}} / {{s.count}}
-          <nb-icon
-            icon="refresh-outline"
-            (click)="loadServiceWiseBusiness()"
-          ></nb-icon>
+          
         </h2>
       </nb-card-body>
     </nb-card>

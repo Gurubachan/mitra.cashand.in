@@ -32,6 +32,10 @@ import { FormsModule } from "@angular/forms";
 import { ViewProfileComponent } from "./users/view-profile/view-profile.component";
 import { RetailerDashboardComponent } from "./backoffice/retailer-dashboard/retailer-dashboard.component";
 
+import { SettingComponent } from './setting/setting.component';
+import { CommmonDashboardComponent } from './backoffice/commmon-dashboard/commmon-dashboard.component';
+
+
 @NgModule({
   declarations: [
     HomeComponent,
@@ -42,6 +46,10 @@ import { RetailerDashboardComponent } from "./backoffice/retailer-dashboard/reta
     UsersComponent,
     ViewProfileComponent,
     RetailerDashboardComponent,
+    SettingComponent,
+    CommmonDashboardComponent,
+
+
   ],
   imports: [
     NbActionsModule,

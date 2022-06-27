@@ -44,7 +44,7 @@
     <nb-card size="tiny" [nbSpinner]="loading">
       <nb-card-header>Setteled to own account</nb-card-header>
       <nb-card-body
-        *ngIf="user.isBankAccountVerified && drawableBalance > 5000"
+        *ngIf="user.isBankAccountVerified && drawableBalance > 100"
       >
         <form (ngSubmit)="initPayout()" #form="ngForm" aria-labelledby="title">
           <div class="form-control-group">
@@ -78,7 +78,7 @@
               type="number"
               [required]="true"
               [(ngModel)]="wallet.amount"
-              min="5000"
+              min="100"
               max="{{ drawableBalance }}"
               [status]="
                 amount.dirty ? (amount.invalid ? 'danger' : 'success') : 'basic'
@@ -89,7 +89,7 @@
               [attr.aria-invalid]="
                 amount.invalid && amount.touched ? true : null
               "
-              placeholder="Enter amount between 5000 and {{ drawableBalance }}"
+              placeholder="Enter amount between 100 and {{ drawableBalance }}"
               
             />
 
@@ -101,7 +101,7 @@
                 class="caption status-danger"
                 *ngIf="amount.errors?.min || amount.errors?.max"
               >
-                Amount should contains from 5000 to
+                Amount should contains from 100 to
                 {{ drawableBalance }}
               </p>
             </ng-container>

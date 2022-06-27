@@ -86,6 +86,7 @@
             <th>Created</th>
             <th>Updated</th>
             <th>Remark</th>
+            <th>Bank Message</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -104,7 +105,9 @@
             <td>{{ s.refundReferenceNo }}</td>
             <td>{{ s.created_at | date: "d-M-yyyy h:mm:ss a" }}</td>
             <td>{{ s.updated_at | date: "d-M-yyyy h:mm:ss a" }}</td>
+            
             <td>{{ s.description }}</td>
+            <td>{{ s.bank_error_message }}</td>
             <td>
               <button
                 class="btn btn-primary"

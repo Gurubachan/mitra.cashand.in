@@ -7,11 +7,14 @@ import { HttpService } from "../../../services/http.service";
 import { LocationService } from "../../../services/location.service";
 import { ToastrService } from "../../../services/toastr.service";
 import { RbpTransactionDialogComponent } from "../../component/rbp-transaction-dialog/rbp-transaction-dialog.component";
+
 const validator = require("aadhaar-validator");
 var convert = require("xml-js");
 /* declare function CaptureAvdm();
 declare function CaptureMorpho(); */
+
 declare function CaptureAvdmNew();
+
 @Component({
   selector: "ngx-aepsnew",
   templateUrl: "./aepsnew.component.html",

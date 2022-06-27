@@ -29,9 +29,9 @@ export class KycComponent implements OnInit, OnChanges {
   errors: string[] = [];
   messages: string[] = [];
 
-  panimage: any = "../../../../assets/images/cs_logo.png";
-  aadhaarimage: any = "../../../../assets/images/cs_logo.png";
-  image: any = "../../../../assets/images/cs_logo.png";
+  panimage: any = "../../../../assets/images/cloud-upload-outline.png";
+  aadhaarimage: any = "../../../../assets/images/cloud-upload-outline.png";
+  image: any = "../../../../assets/images/cloud-upload-outline.png";
 
   constructor(private cd: ChangeDetectorRef, private http: HttpService) {}
 

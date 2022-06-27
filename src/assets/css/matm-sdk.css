@@ -1,0 +1,724 @@
+@import "https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700,800,900";
+.isuSDK-overlay {
+	position: fixed;
+	z-index: 9998;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, .6);
+	line-height: 1;
+	font-family: fira sans, sans-serif
+}
+
+.isuSDK-modal {
+	position: absolute;
+	z-index: 9999;
+	right: 0;
+	left: 0;
+	margin: 0 auto;
+	font-size: 16px;
+	opacity: 0;
+	max-width: 1024px;
+	width: 94%;
+	padding: 20px;
+	border-radius: 2px;
+	background: #fff;
+	line-height: 1;
+	font-family: fira sans, sans-serif
+}
+
+.isuSDK-modal.isuSDK-open.isuSDK-anchored {
+	top: 20px;
+	margin-bottom: 20px;
+	-moz-margin-bottom: 20px;
+	line-height: 1
+}
+
+.isuSDK-overlay.isuSDK-open {
+	opacity: 1;
+	line-height: 1
+}
+
+.isuSDK-close {
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 24px;
+	font-weight: 700;
+	line-height: 12px;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	cursor: pointer;
+	color: #fff;
+	border: 0;
+	outline: 0;
+	line-height: 1
+}
+
+.title {
+	margin-top: 0;
+	color: #7d7d7d;
+	font-size: 22px;
+	line-height: 1;
+	font-family: fira sans, sans-serif
+}
+
+.isuSDK-overlay.fade-and-drop {
+	display: block;
+	opacity: 0;
+	line-height: 1
+}
+
+.isuSDK-modal.fade-and-drop {
+	top: -300%;
+	opacity: 1;
+	display: block;
+	line-height: 1
+}
+
+.isuSDK-modal.fade-and-drop.isuSDK-open {
+	top: 20px;
+	-webkit-transition: .5s top .5s ease;
+	-moz-transition: .5s top .5s ease;
+	-ms-transition: .5s top .5s ease;
+	-o-transition: .5s top .5s ease;
+	transition: .5s top .5s ease
+}
+
+.isuSDK-modal.fade-and-drop.isuSDK-open.isuSDK-anchored {
+	-webkit-transition: .5s top .5s ease;
+	-moz-transition: .5s top .5s ease;
+	-ms-transition: .5s top .5s ease;
+	-o-transition: .5s top .5s ease;
+	transition: .5s top .5s ease
+}
+
+.isuSDK-overlay.fade-and-drop.isuSDK-open {
+	top: 0;
+	-webkit-transition: .5s opacity ease;
+	-moz-transition: .5s opacity ease;
+	-ms-transition: .5s opacity ease;
+	-o-transition: .5s opacity ease;
+	transition: .5s opacity ease;
+	opacity: 1
+}
+
+.isuSDK-modal.fade-and-drop {
+	-webkit-transition: .5s top ease;
+	-moz-transition: .5s top ease;
+	-ms-transition: .5s top ease;
+	-o-transition: .5s top ease;
+	transition: .5s top ease
+}
+
+.isuSDK-overlay.fade-and-drop {
+	-webkit-transition: .5s opacity .5s ease;
+	-moz-transition: .5s opacity .5s ease;
+	-ms-transition: .5s opacity .5s ease;
+	-o-transition: .5s opacity .5s ease;
+	transition: .5s opacity .5s ease
+}
+
+.isuSDK-overlay.zoom {
+	display: block;
+	opacity: 0
+}
+
+.isuSDK-modal.zoom {
+	-webkit-transition: .5s -webkit-transform ease;
+	-moz-transition: .5s -moz-transform ease;
+	-ms-transition: .5s -ms-transform ease;
+	-o-transition: .5s -o-transform ease;
+	transition: .5s transform ease;
+	-webkit-transform: translate(0, -25%) scale(0);
+	-moz-transform: translate(0, -25%) scale(0);
+	-ms-transform: translate(0, -25%) scale(0);
+	-o-transform: translate(0, -25%) scale(0);
+	transform: translate(0, -25%) scale(0);
+	opacity: 1;
+	display: block
+}
+
+.isuSDK-modal.zoom.isuSDK-open {
+	-webkit-transition: .5s -webkit-transform .5s ease;
+	-moz-transition: .5s -moz-transform .5s ease;
+	-ms-transition: .5s -ms-transform .5s ease;
+	-o-transition: .5s -o-transform .5s ease;
+	transition: .5s transform .5s ease;
+	-webkit-transform: translate(0, 0) scale(1);
+	-moz-transform: translate(0, 0) scale(1);
+	-ms-transform: translate(0, 0) scale(1);
+	-o-transform: translate(0, 0) scale(1);
+	transform: translate(0, 0) scale(1)
+}
+
+.isuSDK-modal.zoom.isuSDK-open.isuSDK-anchored {
+	-webkit-transition: .5s -webkit-transform .5s ease;
+	-moz-transition: .5s -moz-transform .5s ease;
+	-ms-transition: .5s -ms-transform .5s ease;
+	-o-transition: .5s -o-transform .5s ease;
+	transition: .5s transform .5s ease
+}
+
+.isuSDK-overlay.zoom.isuSDK-open {
+	top: 0;
+	-webkit-transition: .5s opacity ease;
+	-moz-transition: .5s opacity ease;
+	-ms-transition: .5s opacity ease;
+	-o-transition: .5s opacity ease;
+	transition: .5s opacity ease;
+	opacity: 1
+}
+
+.isuSDK-overlay.zoom {
+	-webkit-transition: .5s opacity .5s ease;
+	-moz-transition: .5s opacity .5s ease;
+	-ms-transition: .5s opacity .5s ease;
+	-o-transition: .5s opacity .5s ease;
+	transition: .5s opacity .5s ease
+}
+
+.isuSDK-overlay.zoom-and-spin {
+	display: block;
+	height: 0;
+	opacity: 0
+}
+
+.isuSDK-modal.zoom-and-spin {
+	-webkit-transition: .5s -webkit-transform ease;
+	-moz-transition: .5s -moz-transform ease;
+	-ms-transition: .5s -ms-transform ease;
+	-o-transition: .5s -o-transform ease;
+	transition: .5s transform ease;
+	-webkit-transform: translate(0, -25%) scale(0) rotateX(0);
+	-moz-transform: translate(0, -25%) scale(0) rotateX(0);
+	-ms-transform: translate(0, -25%) scale(0) rotateX(0);
+	-o-transform: translate(0, -25) scale(0) rotateX(0);
+	transform: translate(0, -25%) scale(0) rotateX(0);
+	opacity: 1;
+	display: block
+}
+
+.isuSDK-modal.zoom-and-spin.isuSDK-open {
+	-webkit-transition: .5s -webkit-transform .5s ease;
+	-moz-transition: .5s -moz-transform .5s ease;
+	-ms-transition: .5s -ms-transform .5s ease;
+	-o-transition: .5s -o-transform .5s ease;
+	transition: .5s transform .5s ease;
+	-webkit-transform: translate(0, 0) scale(1) rotateX(360deg);
+	-moz-transform: translate(0, 0) scale(1) rotateX(360deg);
+	-ms-transform: translate(0, 0) scale(1) rotateX(360deg);
+	-o-transform: translate(0, 0) scale(1) rotateX(360deg);
+	transform: translate(0, 0) scale(1) rotateX(360deg)
+}
+
+.isuSDK-modal.zoom-and-spin.isuSDK-open.isuSDK-anchored {
+	top: 20px;
+	-webkit-transition: .5s -webkit-transform .5s ease;
+	-moz-transition: .5s -moz-transform .5s ease;
+	-ms-transition: .5s -ms-transform .5s ease;
+	-o-transition: .5s -o-transform .5s ease;
+	transition: .5s transform .5s ease
+}
+
+.isuSDK-overlay.zoom-and-spin.isuSDK-open {
+	top: 0;
+	height: 100%;
+	-webkit-transition: .5s all ease;
+	-moz-transition: .5s all ease;
+	-ms-transition: .5s all ease;
+	-o-transition: .5s all ease;
+	transition: .5s all ease;
+	opacity: 1
+}
+
+.isuSDK-overlay.zoom-and-spin {
+	-webkit-transition: .5s all .5s ease;
+	-moz-transition: .5s all .5s ease;
+	-ms-transition: .5s all .5s ease;
+	-o-transition: .5s all .5s ease;
+	transition: .5s all .5s ease
+}
+
+.text-center {
+	text-align: center
+}
+
+#tabs {
+	list-style-type: none;
+	padding: 0 0 .3em;
+	margin: 0 0 1px;
+	z-index: 10;
+	line-height: 1;
+	font-family: fira sans, sans-serif;
+	position: relative
+}
+
+#tabs li {
+	display: inline-block;
+	line-height: 1
+}
+
+#tabs li a {
+	color: #6f6e6e;
+	background-color: transparent;
+	border: 1px solid transparent;
+	border-bottom-width: 1px;
+	padding: .3em;
+	text-decoration: none;
+	line-height: 1;
+	font-family: fira sans, sans-serif
+}
+
+#tabs li a:hover {
+	line-height: 1;
+	border-top-color: #dadada
+}
+
+#tabs li a.selected {
+	color: #53a7e3;
+	border-bottom-color: #f9f9f9!important;
+	background: #f9f9f9
+}
+
+.tabContent {
+	padding: .5em;
+	display: block;
+	position: relative;
+	z-index: 0;
+	font-family: fira sans, sans-serif
+}
+
+.tabContent.hide {
+	display: none
+}
+
+.receiptListContainer {
+	margin-bottom: 10px;
+	overflow: hidden
+}
+
+.receiptListContainer h4 {
+	margin: 5px -9px 10px;
+	padding: 0 12px 10px
+}
+
+.receiptListContainer table th {
+	font-weight: 500;
+	line-height: 24px;
+	text-align: left;
+	padding-right: 10px
+}
+
+* {
+	box-sizing: border-box
+}
+
+.wid-50 {
+	position: relative;
+	min-height: 1px;
+	padding-left: 15px;
+	padding-right: 15px;
+	float: left;
+	width: 50%
+}
+
+.float-none {
+	clear: both!important
+}
+
+:focus {
+	outline: 0
+}
+
+input[type=text] {
+	font: 15px/24px Muli, sans-serif;
+	width: 100%;
+	box-sizing: border-box;
+	letter-spacing: 1px;
+	line-height: 1;
+	font-family: fira sans, sans-serif
+}
+
+.effect-17~.focus-border {
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 0;
+	height: 2px;
+	transition: .4s
+}
+
+.effect-17~.focus-border-adhaar {
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 0;
+	height: 2px;
+	transition: .4s;
+	top: 52%!important
+}
+
+.effect-17:focus~.focus-border,
+.has-content.effect-17~.focus-border {
+	width: 100%;
+	transition: .4s;
+	left: 0
+}
+
+.effect-17~label {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	top: 9px;
+	transition: .3s;
+	z-index: -1;
+	letter-spacing: .5px
+}
+
+.effect-17:focus~label,
+.has-content.effect-17~label {
+	top: -16px;
+	font-size: 12px;
+	transition: .3s
+}
+
+.effect-17 {
+	border: 0;
+	padding: 4px 0;
+	background-color: transparent
+}
+
+.inputWarpper {
+	position: relative;
+	z-index: 1;
+	margin: 30px
+}
+
+.radio-toolbar input[type=radio] {
+	display: none
+}
+
+.radio-toolbar label {
+	display: inline-block;
+	background-color: #cde6e4;
+	padding: 6px;
+	font-family: Arial;
+	color: #464646;
+	font-size: 16px;
+	line-height: 1.7;
+	border-radius: 3px;
+	border: 1px solid transparent;
+	vertical-align: middle
+}
+
+.radio-toolbar label:hover {
+	border-color: #428680
+}
+
+.radio-toolbar input[type=radio]:checked+label {
+	border-color: #799db7;
+	background-color: #c4ddef
+}
+
+.radio-toolbar input[type=radio]:disabled+label {
+	border-color: transparent!important;
+	background-color: #e4eaea!important;
+	color: #c5c5c5!important
+}
+
+.sprite {
+	width: 95px;
+	margin-top: -5px;
+	position: relative;
+	height: 32px;
+	display: inline-block;
+	background: url(https://mydigitalpayment.com/images/bank_wallet_grid_1x.png)
+}
+
+.hdfc {
+	background-position: -480px -72px
+}
+
+.icici {
+	background-position: -575px -72px
+}
+
+.sbi {
+	background-position: 290px -144px
+}
+
+.imageWarpper {
+	height: 130px;
+	margin-top: 30px
+}
+
+#fingerprintBI,
+#fingerprintWD {
+	margin: 0 auto
+}
+
+#fingerprintBI_a,
+#fingerprintBI_b,
+#fingerprintBI_c,
+#fingerprintBI_d,
+#fingerprintBI_e,
+#fingerprintWD_a,
+#fingerprintWD_b,
+#fingerprintWD_c,
+#fingerprintWD_d,
+#fingerprintWD_e {
+	fill: none;
+	stroke-dashoffset: 0;
+	stroke-width: 1;
+	transition: all 3ms ease
+}
+
+#fingerprintBI_a.active,
+#fingerprintBI_b.active,
+#fingerprintBI_c.active,
+#fingerprintBI_d.active,
+#fingerprintBI_e.active,
+#fingerprintWD_a.active,
+#fingerprintWD_b.active,
+#fingerprintWD_c.active,
+#fingerprintWD_d.active,
+#fingerprintWD_e.active {
+	animation: draw 2s infinite
+}
+
+#fingerprintBI_a,
+#fingerprintWD_a {
+	stroke-dasharray: 12.15426254272461
+}
+
+#fingerprintBI_b,
+#fingerprintWD_b {
+	stroke-dasharray: 19.79115867614746
+}
+
+#fingerprintBI_c,
+#fingerprintWD_c {
+	stroke-dasharray: 53.00725173950195
+}
+
+#fingerprintBI_d,
+#fingerprintWD_d {
+	stroke-dasharray: 23.70177841186523
+}
+
+#fingerprintBI_e,
+#fingerprintWD_e {
+	stroke-dasharray: 8.837481498718262
+}
+
+@keyframes draw {
+	40% {
+		stroke-dashoffset: 40
+	}
+	80% {
+		stroke-dashoffset: 0
+	}
+	100% {
+		stroke-dashoffset: 0
+	}
+}
+
+.progressBar {
+	margin: 15px auto;
+	max-width: 400px;
+	border-radius: 10px;
+	height: 15px
+}
+
+.progressBar .progressBarIndicator {
+	height: 13px;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+	text-align: center;
+	font-size: 12px;
+	color: #fff
+}
+
+.btn {
+	padding: 12px 30px;
+	border: none;
+	font-size: 16px;
+	border-radius: 3px;
+	line-height: 1;
+	font-family: fira sans, sans-serif;
+	transition: cubic-bezier(.075, .82, .165, 1) all 1s
+}
+
+.dropbtn {
+	color: #fff;
+	padding: 16px;
+	font-size: 16px;
+	transition: cubic-bezier(.075, .82, .165, 1) all 1s;
+	border: none;
+	cursor: pointer;
+	width: 100%;
+	font-family: fira sans, sans-serif;
+	position: relative
+}
+
+.dropbtn::after {
+	content: '';
+	border: 10px solid transparent;
+	border-top-color: #fff;
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	transform: translateY(-25%);
+	-webkit-transform: translateY(-25%)
+}
+
+#myInput {
+	border-box: box-sizing;
+	background-image: url("../images/search.png");
+	background-position: 14px 12px;
+	background-repeat: no-repeat;
+	font-size: 16px;
+	padding: 14px 20px 12px 45px;
+	border: none;
+	border-bottom: 1px solid #ddd;
+	font-family: fira sans, sans-serif
+}
+
+#myInput:focus {
+	outline: 3px solid #ddd
+}
+
+.dropdown {
+	position: relative;
+	display: block;
+	font-family: fira sans, sans-serif
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f6f6f6;
+	min-width: 230px;
+	border: 1px solid #ddd;
+	z-index: 1;
+	font-family: fira sans, sans-serif
+}
+
+.dropdown-content .dropDwnList {
+	color: #000;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	cursor: pointer;
+	font-family: fira sans, sans-serif
+}
+
+.dropdown-content .dropDwnList:hover {
+	background-color: #f1f1f1
+}
+
+.show {
+	display: block;
+	width: 100%!important;
+	max-height: 300px!important;
+	overflow-y: scroll!important
+}
+
+.errorDiv {
+	color: #fa7575!important;
+	margin-top: 10px;
+	visibility: hidden;
+	display: block
+}
+
+#ISUloader {
+	display: inline-block;
+	position: absolute!important;
+	z-index: 99999!important;
+	right: 50%!important;
+	left: 50%!important;
+	top: 50%!important;
+	bottom: 50%!important
+}
+
+.loaderBackGround {
+	width: 100%;
+	top: 0;
+	left: 0;
+	position: absolute;
+	background: rgba(0, 0, 0, .7);
+	z-index: 999
+}
+
+input[type=text] {
+	font: 20px/24px Muli, sans-serif;
+	color: #333;
+	width: 100%;
+	box-sizing: border-box;
+	letter-spacing: 1px
+}
+
+.lds-comets {
+	position: absolute;
+	left: 48%;
+	right: 50%;
+	top: 45%;
+	bottom: 50%
+}
+
+.alertContainer {
+	box-shadow: 0 0 4px 2px rgba(0, 0, 0, .3);
+	position: absolute;
+	min-width: 500px;
+	min-height: 180px;
+	border-radius: 2px;
+	left: 100px;
+	z-index: 9999;
+	font-family: fira sans, sans-serif;
+	cursor: pointer
+}
+
+.alertHeading {
+	padding: 15px;
+	font-size: 20px;
+	letter-spacing: 1.1;
+	font-family: fira sans, sans-serif
+}
+
+.alertBodyContent {
+	padding: 15px;
+	font-family: fira sans, sans-serif
+}
+
+.alertBodyBtn {
+	text-align: center;
+	padding: 15px;
+	font-family: fira sans, sans-serif
+}
+
+.loderContainer {
+	position: absolute!important;
+	top: 0!important;
+	left: 0!important;
+	height: 100vh!important;
+	width: 100%!important;
+	display: block;
+	cursor: progress;
+	background: rgba(0, 0, 0, .8);
+	z-index: 999999!important
+}
+
+@media all and (max-width:1150px) {
+	.radio-toolbar.bankQuickSelect label {
+		background: 0 0!important;
+		padding: 0!important;
+		border-radius: 0!important
+	}
+	.radio-toolbar.bankQuickSelect input[type=radio]:checked+label,
+	.radio-toolbar.bankQuickSelect label:hover {
+		border-color: transparent;
+		border-bottom-color: #428680
+	}
+}

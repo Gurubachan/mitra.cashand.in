@@ -22,12 +22,12 @@ export class BankComponent implements OnInit, OnChanges {
   @ViewChild("fileInput", { static: false }) fileInput: ElementRef;
   showForm: boolean = false;
   user: any;
-  passbookImage: any = "../../../../assets/images/cs_logo.png";
+  passbookImage: any = "../../../../assets/images/cloud-upload-outline.png";
   showMessages: any = {};
   submitted: Boolean = false;
   errors: string[] = [];
   messages: string[] = [];
-  image: any = "../../../../assets/images/cs_logo.png";
+  image: any = "../../../../assets/images/cloud-upload-outline.png";
   constructor(private cd: ChangeDetectorRef, private http: HttpService) {}
 
   ngOnInit(): void {}

@@ -2,11 +2,18 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { AepsComponent } from "./aeps/aeps.component";
 import { BconboardingComponent } from "./bconboarding/bconboarding.component";
+import { BusinessSummaryComponent } from "./business-summary/business-summary.component";
 import { CashoutComponent } from "./cashout/cashout.component";
+import { FastagComponent } from "./fastag/fastag.component";
+import { InactivelistComponent } from "./inactivelist/inactivelist.component";
+import { LicComponent } from "./lic/lic.component";
+import { MatmComponent } from "./matm/matm.component";
 import { MoneytransferComponent } from "./moneytransfer/moneytransfer.component";
 import { PanComponent } from "./pan/pan.component";
 import { RechargeComponent } from "./recharge/recharge.component";
 import { ReportComponent } from "./report.component";
+import { RetailersComponent } from "./retailers/retailers.component";
+import { TeamComponent } from "./team/team.component";
 import { UpiComponent } from "./upi/upi.component";
 import { UserwalletComponent } from "./userwallet/userwallet.component";
 import { WalletComponent } from "./wallet/wallet.component";
@@ -51,6 +58,34 @@ const routes: Routes = [
       {
         path:"user-wallet",
         component: UserwalletComponent,
+      },
+      {
+        path:"matm",
+        component: MatmComponent,
+      },
+      {
+        path:"team",
+        component: TeamComponent,
+      },
+      {
+        path:"lic",
+        component: LicComponent,
+      },
+      {
+        path:"fastag",
+        component: FastagComponent,
+      },
+      {
+        path:"retailers",
+        component: RetailersComponent,
+      },
+      {
+        path:"business-summary",
+        component: BusinessSummaryComponent,
+      },
+      {
+        path:"inactive",
+        component: InactivelistComponent,
       },
     ],
   },

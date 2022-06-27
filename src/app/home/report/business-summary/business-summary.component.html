@@ -1,0 +1,96 @@
+<nb-card>
+  <nb-card-header>Filter Form</nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-sm-2">
+        <input
+          nbInput
+          placeholder="From Date"
+          [nbDatepicker]="formcontrol"
+          [formControl]="formControl"
+          required
+          readOnly
+        />
+        <nb-datepicker
+          #formcontrol
+          format="dd-MM-yyyy"
+          [min]="frommin"
+          [max]="frommax"
+          (dateChange)="setMaxdate($event)"
+        ></nb-datepicker>
+      </div>
+      <div class="col-sm-2">
+        <input
+          nbInput
+          placeholder="To Picker"
+          [nbDatepicker]="ngmodel"
+          [(ngModel)]="ngModelDate"
+          required
+          readOnly
+        />
+        <nb-datepicker
+          #ngmodel
+          format="dd-MM-yyyy"
+          [max]="tomax"
+          [min]="tomin"
+        ></nb-datepicker>
+      </div>
+      
+
+      <div class="col-sm-12 text-center">
+        <button nbButton status="success" (click)="getRetailers()">Search</button>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
+<nb-card [nbSpinner]="loading">
+  <nb-card-header>User Business Summary</nb-card-header>
+  <nb-card-body>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+              <th>Sl#</th>
+            <th>Name</th>
+
+            <th>Contact</th>
+            <th>Service</th>
+            <th>Count</th>
+            <th>Amount</th>
+            <th>Type</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let s of summary;  let i = index">
+              <td>{{ increment(i) }}</td>
+            <td>{{s.user_name}}</td>
+            <td>{{s.contact}}</td>
+            <td>{{s.service}}</td>
+            <td>{{s.count}}</td>
+            <td>{{s.amount}}</td>
+            <td>{{s.transaction_type}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- <button
+      nbButton
+      status="success"
+      *ngIf="userList?.prev_page_url != null"
+      (click)="goToPage(userList?.prev_page_url)"
+      class="float-left"
+    >
+      Previous
+    </button>
+    <button
+      nbButton
+      status="success"
+      class="float-right"
+      *ngIf="userList?.next_page_url != null"
+      (click)="goToPage(userList?.next_page_url)"
+    >
+      Next
+    </button> -->
+  </nb-card-body>
+</nb-card>

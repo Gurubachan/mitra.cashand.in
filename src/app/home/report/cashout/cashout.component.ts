@@ -73,7 +73,7 @@ export class CashoutComponent implements OnInit {
     );
   }
 
-  check(id) {
+  /* check(id) {
     this.loading = true;
     this.http.post("wallet/getPayout", { merchant_ref_id: id }).subscribe(
       (response) => {
@@ -95,5 +95,5 @@ export class CashoutComponent implements OnInit {
         this.loading = false;
       }
     );
-  }
+  } */
 }

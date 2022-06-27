@@ -1,0 +1,25 @@
+<nb-card>
+    <nb-card-header>My Team</nb-card-header>
+    <nb-card-body>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Sl#</th>
+                        <th>Name</th>
+                        <th>Contact</th>
+                        <th>Pic</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let t of team; let i = index; ">
+                        <td>{{t.id}}</td>
+                        <td>{{t.fname}} {{t.mname}} {{t.lname}}</td>
+                        <td>{{t.contact}}</td>
+                        <td><img [src]=t.myPic height="64" width="64"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </nb-card-body>
+</nb-card>
