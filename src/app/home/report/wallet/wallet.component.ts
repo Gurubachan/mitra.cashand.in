@@ -76,6 +76,7 @@ export class WalletComponent implements OnInit {
     const filterValue = value.toLowerCase();
     return this.options.filter((optionValue) =>
       optionValue.toLowerCase().includes(filterValue)
+      
     );
   }
   viewHandle(value: string) {
@@ -109,6 +110,9 @@ export class WalletComponent implements OnInit {
   wallet: Data;
 
   getWalletReport() {
+    
+    
+   
     this.loading = true;
     let data = {
       fromDate: this.formControl.value,
@@ -116,6 +120,13 @@ export class WalletComponent implements OnInit {
       userId: null,
       txnType: this.selectedTxnType,
     };
+    if(this.inputFormControl.value !=null && this.inputFormControl.value.length > 10 ){
+      console.warn(this.inputFormControl.value);
+      let contact=this.inputFormControl.value.split("-");
+      data.userId= contact[1];
+    }else{
+      data.userId=null;
+    }
     this.searchData = data;
     console.warn(this.searchData);
     this.http.post("wallet/statement", this.searchData).subscribe(
@@ -155,10 +166,16 @@ export class WalletComponent implements OnInit {
   /*Get user role from local storage*/
 
   filterUser(e){
-
-    if (e != null && e.length >= 3){
+ this.options=[];
+    if (e != null && e.length >= 4 && e.length<10){
       this.http.post('admin/filterUser',{value:e}).subscribe((result) => {
         console.log(result)
+        if(result.response){
+          result.data.forEach(u => {
+            let name=u.fname+' '+u.lname;
+            this.options.push(name+'-'+u.contact);
+          });
+        }
       });
      /*  let result=this.apiCall.getRetailer(e);
       console.log(result) */
