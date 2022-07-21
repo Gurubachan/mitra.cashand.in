@@ -44,6 +44,9 @@ export class WalletComponent implements OnInit {
   inputFormControl: FormControl;
 
   searchData: WalletRequest;
+
+  user:any=null
+  permiteMISRole=[9,10,14,15];
   constructor(
     private http: HttpService,
     protected dateService: NbDateService<Date>,
@@ -60,7 +63,7 @@ export class WalletComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.getUserData();
     this.options = [];
 
     this.filteredOptions$ = of(this.options);
@@ -167,9 +170,9 @@ export class WalletComponent implements OnInit {
 
   filterUser(e){
  this.options=[];
-    if (e != null && e.length >= 4 && e.length<10){
+    if (e != null && e.length >= 4 && e.length<=10){
       this.http.post('admin/filterUser',{value:e}).subscribe((result) => {
-        console.log(result)
+        
         if(result.response){
           result.data.forEach(u => {
             let name=u.fname+' '+u.lname;
@@ -182,6 +185,11 @@ export class WalletComponent implements OnInit {
      
     }
 
+  }
+
+  getUserData() {
+    this.user = JSON.parse(window.atob(localStorage.getItem("user")));
+    console.log(this.user);
   }
   
 }

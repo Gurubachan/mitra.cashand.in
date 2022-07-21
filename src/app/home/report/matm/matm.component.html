@@ -35,7 +35,7 @@
           [min]="tomin"
         ></nb-datepicker>
       </div>
-      <div class="col-sm-5">
+      <div class="col-sm-5" *ngIf="permiteMISRole.indexOf(user.role)!= -1">
         <input
           [formControl]="inputFormControl"
           nbInput
@@ -43,6 +43,7 @@
           placeholder="Search user name"
           [nbAutocomplete]="auto"
           fullWidth
+          (ngModelChange)="filterUser($event)"
         />
 
         <nb-autocomplete #auto [handleDisplayFn]="viewHandle">

@@ -35,6 +35,8 @@ export class MatmComponent implements OnInit {
   
 
     endpoint = "atm/transaction";
+    user:any=null;
+    permiteMISRole=[9,10,14,15];
   constructor(
     private http: HttpService,
     private toast: ToastrService,
@@ -50,7 +52,8 @@ export class MatmComponent implements OnInit {
    }
 
   ngOnInit(): void {
-     this.options = ["Option 1", "Option 2", "Option 3"];
+    this.getUserData();
+     this.options = [];
     this.filteredOptions$ = of(this.options);
 
     this.inputFormControl = new FormControl();
@@ -128,7 +131,15 @@ export class MatmComponent implements OnInit {
     let data = {
       startDate: this.formControl.value,
       endDate: this.ngModelDate,
+      userId: null,
     };
+    if(this.inputFormControl.value !=null && this.inputFormControl.value.length > 10 ){
+      console.warn(this.inputFormControl.value);
+      let contact=this.inputFormControl.value.split("-");
+      data.userId= contact[1];
+    }else{
+      data.userId=null;
+    }
     this.requestParam = data;
 
     this.loading = true;
@@ -151,6 +162,30 @@ export class MatmComponent implements OnInit {
     );
   }
 
-  
+  /*Get user role from local storage*/
+
+  filterUser(e){
+ this.options=[];
+    if (e != null && e.length >= 4 && e.length<=10){
+      this.http.post('admin/filterUser',{value:e}).subscribe((result) => {
+        
+        if(result.response){
+          result.data.forEach(u => {
+            let name=u.fname+' '+u.lname;
+            this.options.push(name+'-'+u.contact);
+          });
+        }
+      });
+     /*  let result=this.apiCall.getRetailer(e);
+      console.log(result) */
+     
+    }
+
+  }
+
+   getUserData() {
+    this.user = JSON.parse(window.atob(localStorage.getItem("user")));
+    console.log(this.user);
+  }
 
 }

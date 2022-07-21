@@ -39,14 +39,15 @@
   
 </div>
 <div class="row">
-  <div class="col-sm-4" *ngFor="let s of serviceWiseBusiness">
+  <div class="col-sm-12">
     <nb-card
       status="success"
       [nbSpinner]="isLoading"
       nbSpinnerMessage="{{ loadingMessage }}"
-    >
+      >
       <nb-card-header>
-        {{s.service}} 
+        Transaction report 
+        
         <span style="float: right">
         <nb-icon
             icon="refresh-outline"
@@ -57,11 +58,28 @@
         
       </nb-card-header>
       <nb-card-body>
-        <h2>
-          ₹ {{ s.amount }} {{s.wallet_operation}} / {{s.count}}
-          
-        </h2>
+        <div class="row">
+        <div class="col-sm-4" *ngFor="let s of serviceWiseBusiness">
+          <nb-card
+            status="success"
+            
+          >
+            <nb-card-header>
+              {{s.service}} <br>
+              <small>{{s.transaction_type}}</small>              
+            </nb-card-header>
+            <nb-card-body>
+              <h3>
+                ₹ {{ s.amount }} {{s.wallet_operation}} / {{s.count}}
+                
+              </h3>
+            </nb-card-body>
+          </nb-card>
+        </div>
+      </div>
       </nb-card-body>
+      
     </nb-card>
   </div>
+  
 </div>
