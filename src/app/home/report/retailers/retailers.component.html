@@ -35,7 +35,35 @@
           [min]="tomin"
         ></nb-datepicker>
       </div>
-      
+        <div class="col-sm-3">
+        
+        <input
+          nbInput
+          fullWidth
+          [(ngModel)]="searchData.contact"
+          #contact="ngModel"
+          name="contact"
+          id="input-cobtact"
+          pattern="[6-9]{1}[0-9]{9}"
+          placeholder="Enter register number"
+          autofocus
+          [status]="
+            contact.dirty ? (contact.invalid ? 'danger' : 'success') : 'basic'
+          "
+          [required]="true"
+          [minlength]="10"
+          [maxlength]="10"
+          [attr.aria-invalid]="contact.invalid && contact.touched ? true : null"
+        />
+        <ng-container *ngIf="contact.invalid && contact.touched">
+          <p class="caption status-danger" *ngIf="contact.errors?.required">
+            Register number required.
+          </p>
+          <p class="caption status-danger" *ngIf="contact.errors?.pattern">
+            Contact number must be valid contact number.
+          </p>
+        </ng-container>
+      </div>
 
       <div class="col-sm-12 text-center">
         <button nbButton status="success" (click)="getRetailers()">Search</button>

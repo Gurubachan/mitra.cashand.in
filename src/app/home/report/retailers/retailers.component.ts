@@ -18,7 +18,8 @@ export class RetailersComponent implements OnInit {
   tomax: Date;
   today: Date;
   loading: Boolean = false;
-  requestParam: { startDate: Date; endDate: Date } = null;
+  searchData:any={};
+  requestParam: { startDate: Date; endDate: Date, contact: String} = null;
   endpoint = "reports/onboardUserList";
   userList: Data;
   constructor(
@@ -66,9 +67,11 @@ export class RetailersComponent implements OnInit {
     let data = {
       startDate: this.formControl.value,
       endDate: this.ngModelDate,
+      contact: this.searchData.contact,
     };
     this.requestParam = data;
-
+    console.warn(data);
+     
     this.loading = true;
     this.http.post(this.endpoint, this.requestParam).subscribe(
       (res: OnboardUserListResponse) => {
@@ -86,7 +89,7 @@ export class RetailersComponent implements OnInit {
         this.toast.showToast(error.error.message, "Onboard User List", "danger");
         this.loading = false;
       }
-    );
+    ); 
   }
    goToPage(url: string) {
     this.loading = true;

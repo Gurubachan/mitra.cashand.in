@@ -12,7 +12,8 @@ import {
   NbIconModule,
   NbInputModule,
   NbSelectModule,
-  NbSpinnerModule
+  NbSpinnerModule,
+  NbCheckboxModule
 } from "@nebular/theme";
 import { WalletComponent } from "./wallet/wallet.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -63,6 +64,7 @@ import { InactivelistComponent } from './inactivelist/inactivelist.component';
     NbSelectModule,
     NbAutocompleteModule,
     NbIconModule,
+    NbCheckboxModule
   
   ],
 })
