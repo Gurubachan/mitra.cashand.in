@@ -210,6 +210,10 @@ menus[9] = [
         title: "Global Service",
         link: "/setting/service",
       },
+       {
+        title: "QR Master",
+        link: "/setting/qr-master",
+      },
     ],
   },
   {

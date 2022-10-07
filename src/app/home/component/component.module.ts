@@ -29,6 +29,7 @@ import { UpiComponent } from './popover/upi/upi.component';
 import { MoneyTransactionResponseDialogComponent } from './money-transaction-response-dialog/money-transaction-response-dialog.component';
 import { LicReceiptComponent } from "./lic-receipt/lic-receipt.component";
 import { RemarkDialogComponent } from './dialog/remark-dialog/remark-dialog.component';
+import { UpiMappingDialogComponent } from './dialog/upi-mapping-dialog/upi-mapping-dialog.component';
 @NgModule({
   declarations: [
     AboutComponent,
@@ -44,7 +45,8 @@ import { RemarkDialogComponent } from './dialog/remark-dialog/remark-dialog.comp
     UpiComponent,
     MoneyTransactionResponseDialogComponent,
     LicReceiptComponent,
-    RemarkDialogComponent
+    RemarkDialogComponent,
+    UpiMappingDialogComponent
   ],
   imports: [
     CommonModule,

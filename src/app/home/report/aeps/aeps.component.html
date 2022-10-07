@@ -2,7 +2,7 @@
   <nb-card-header>Filter Form</nb-card-header>
   <nb-card-body>
     <div class="row">
-      <div class="col-sm-2">
+      <div class="col-sm-4">
         <input
           nbInput
           placeholder="From Date"
@@ -10,6 +10,7 @@
           [formControl]="formControl"
           required
           readOnly
+          fullwidth
         />
         <nb-datepicker
           #formcontrol
@@ -19,7 +20,7 @@
           (dateChange)="setMaxdate($event)"
         ></nb-datepicker>
       </div>
-      <div class="col-sm-2">
+      <div class="col-sm-4">
         <input
           nbInput
           placeholder="To Picker"
@@ -27,6 +28,7 @@
           [(ngModel)]="ngModelDate"
           required
           readOnly
+          fullwidth
         />
         <nb-datepicker
           #ngmodel
@@ -35,17 +37,39 @@
           [min]="tomin"
         ></nb-datepicker>
       </div>
-      <div class="col-sm-2">
+      
+      <div class="col-sm-4" *ngIf="permiteMISRole.indexOf(user.role)!= -1">
+        <input
+          [formControl]="inputFormControl"
+          nbInput
+          type="text"
+          placeholder="Search user name"
+          [nbAutocomplete]="auto"
+          fullWidth
+          (ngModelChange)="filterUser($event)"
+        />
+
+        <nb-autocomplete #auto [handleDisplayFn]="viewHandle">
+          <nb-option
+            *ngFor="let option of filteredOptions$ | async"
+            [value]="option"
+          >
+            {{ option }}
+          </nb-option>
+        </nb-autocomplete>
+      </div>
+      <div class="col-sm-4">
         <nb-select
           placeholder="Select AEPS Transaction"
           [(selected)]="selectedTxnPipe"
           required
+          fullwidth
         >
           <nb-option value="0">AEPS</nb-option>
           <nb-option value="1">AEPS New</nb-option>
         </nb-select>
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-4">
         <nb-select
           placeholder="Select Txn Type"
           [(selected)]="selectedTxnType"
@@ -58,7 +82,7 @@
           <nb-option value="AP">Aadhaar Pay</nb-option>
         </nb-select>
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-4">
         <nb-select
           placeholder="Select Txn Status"
           [(selected)]="selectedTxnStatus"

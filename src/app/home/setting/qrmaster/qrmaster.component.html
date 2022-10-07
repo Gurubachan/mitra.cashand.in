@@ -1,0 +1,65 @@
+<nb-card>
+  <nb-card-header>Filter Form</nb-card-header>
+    <nb-card-body>
+        
+    </nb-card-body>
+</nb-card>
+
+
+<nb-card>
+    <nb-card-header>QR Master</nb-card-header>
+    <nb-card-body>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Sl#</th>
+                    <th>Identity</th>
+                    <th>URL</th>
+                    <th>Image</th>
+                    <th>Mapped To</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let qr of qrMaster.data">
+
+                    <td>{{qr.id}}</td>
+                    <td>{{qr.identity}}</td>
+                    <td><a [href]=qr.qrUrl [download]=qr.identity target="_blank" >{{qr.qrUrl}}</a></td>
+                    <td><img [src]=qr.qrUrl height="124" width="124" alt=qr.identity class="img-responsive img-centered" ></td>
+                    <td>{{ qr.fname }} {{qr.mname}} {{qr.lname}} <br> {{qr.contact}}</td>
+                    <td><button class="btn btn-primary btn-xs btn-defaults" (click)="qrMapping(qr)">Download</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <span *ngFor="let l of qrMaster.links; let i = index; let first = first ;let last = last;">
+            <button
+                *ngIf="first"
+                nbButton
+                status="success"
+                (click)="goToPage(l?.url)"
+            >
+                Previous
+            </button>
+                <button
+                *ngIf="!first && !last"
+                    nbButton
+                    status="success"
+                    (click)="goToPage(l?.url)"
+                
+                >
+                {{l.label}}
+                </button>
+
+                <button
+                    *ngIf="last"
+                    nbButton
+                    status="success"
+                    (click)="goToPage(l?.url)"
+                >
+                Next
+                </button>
+            </span>
+    
+    </nb-card-body>
+</nb-card>

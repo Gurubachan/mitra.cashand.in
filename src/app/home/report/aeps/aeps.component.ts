@@ -1,7 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { NbDateService } from "@nebular/theme";
+import { Observable, of } from "rxjs";
+import { map, startWith } from 'rxjs/operators';
 import { HttpService } from "../../../services/http.service";
+import { ToastrService } from "../../../services/toastr.service";
 
 @Component({
   selector: "ngx-aeps",
@@ -21,9 +24,17 @@ export class AepsComponent implements OnInit {
   tomax: Date;
   today: Date;
   loading: boolean = false;
+  permiteMISRole=[9,10,14,15];
+   user:any=null;
+   options: string[];
+     filteredOptions$: Observable<string[]>;
+  inputFormControl: FormControl;
+
+    requestParam: { startDate: Date; endDate: Date } = null;
   constructor(
     private http: HttpService,
-    protected dateService: NbDateService<Date>
+    protected dateService: NbDateService<Date>,
+    private toast: ToastrService,
   ) {
     this.frommin = this.dateService.addMonth(this.dateService.today(), -2);
     //this.frommax = this.dateService.addDay(this.min, 15);
@@ -34,7 +45,25 @@ export class AepsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.fetchTransaction();
+    this.getUserData();
+     this.options = [];
+    this.filteredOptions$ = of(this.options);
+
+    this.inputFormControl = new FormControl();
+
+    this.filteredOptions$ = this.inputFormControl.valueChanges.pipe(
+      startWith(""),
+      map((filterString) => this.filter(filterString))
+    );
+  }
+  private filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.options.filter((optionValue) =>
+      optionValue.toLowerCase().includes(filterValue)
+    );
+  }
+  viewHandle(value: string) {
+    return value.toUpperCase();
   }
   setMaxdate(e) {
     const eDate = e.getFullYear() + "" + e.getMonth() + "" + e.getDate();
@@ -66,23 +95,45 @@ export class AepsComponent implements OnInit {
       endDate: this.ngModelDate,
       type: this.selectedTxnType,
       status: this.selectedTxnStatus,
+      userId: null,
     };
+
+
+    if(this.inputFormControl.value !=null && this.inputFormControl.value.length > 10 ){
+      console.warn(this.inputFormControl.value);
+      let contact=this.inputFormControl.value.split("-");
+      data.userId= contact[0];
+    }else{
+      
+        data.userId=null;
+      
+      
+    }
+
+
     // console.log(data);
     let url;
+
+    this.requestParam = data;
+
     if (this.selectedTxnPipe == 0) {
       url = "services/transaction";
     } else {
       url = "rbp/transaction";
     }
-    this.http.post(url, data).subscribe(
+    this.http.post(url, this.requestParam).subscribe(
       (resulte) => {
         if (resulte.response) {
           this.transactions = resulte.data;
+          this.loading = false;
+        }else{
+          this.toast.showToast(resulte.message, "AEPS Transaction", "warning");
           this.loading = false;
         }
       },
       (err) => {
         console.log(err);
+        this.toast.showToast(err.error.message, "AEPS Transaction", "danger");
         this.loading = false;
       }
     );
@@ -92,23 +143,45 @@ export class AepsComponent implements OnInit {
     this.loading = true;
     let param = url.split("?");
     //console.log(param);
-    let data = {
-      startDate: this.formControl.value,
-      endDate: this.ngModelDate,
-      type: this.selectedTxnType,
-      status: this.selectedTxnStatus,
-    };
+    
     let endpoint;
     if (this.selectedTxnPipe == 0) {
       endpoint = "services/transaction";
     } else {
       endpoint = "rbp/transaction";
     }
-    this.http.post(endpoint + "?" + param[1], data).subscribe((res) => {
+    this.http.post(endpoint + "?" + param[1], this.requestParam).subscribe((res) => {
       if (res.response) {
         this.transactions = res.data;
         this.loading = false;
-      }
+      }else{
+          this.toast.showToast(res.message, "AEPS Transaction", "warning");
+          this.loading = false;
+        }
     });
+  }
+
+  filterUser(e){
+ this.options=[];
+    if (e != null && e.length >= 4 && e.length<=10){
+      this.http.post('admin/filterUser',{value:e}).subscribe((result) => {
+        
+        if(result.response){
+          result.data.forEach(u => {
+            let name=u.fname+' '+u.lname;
+            this.options.push(u.contact+'-'+name);
+          });
+        }
+      });
+     /*  let result=this.apiCall.getRetailer(e);
+      console.log(result) */
+     
+    }
+
+  }
+
+  getUserData() {
+    this.user = JSON.parse(window.atob(localStorage.getItem("user")));
+    console.log(this.user);
   }
 }

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AtmMappingComponent } from './atm-mapping/atm-mapping.component';
 import { CommissionRevisionComponent } from './commission-revision/commission-revision.component';
 import { GlobalServiceComponent } from './global-service/global-service.component';
+import { QRMasterComponent } from './qrmaster/qrmaster.component';
 import { SettingComponent } from './setting.component';
 
 const routes: Routes = [{
@@ -20,6 +21,10 @@ const routes: Routes = [{
       {
         path:"service",
         component:GlobalServiceComponent
+      },
+      {
+        path:"qr-master",
+        component:QRMasterComponent
       },
     ],
     }

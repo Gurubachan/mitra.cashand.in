@@ -136,9 +136,9 @@ export class MatmComponent implements OnInit {
     if(this.inputFormControl.value !=null && this.inputFormControl.value.length > 10 ){
       console.warn(this.inputFormControl.value);
       let contact=this.inputFormControl.value.split("-");
-      data.userId= contact[1];
+      data.userId= contact[0];
     }else{
-      data.userId=null;
+        data.userId=null;
     }
     this.requestParam = data;
 
@@ -172,7 +172,7 @@ export class MatmComponent implements OnInit {
         if(result.response){
           result.data.forEach(u => {
             let name=u.fname+' '+u.lname;
-            this.options.push(name+'-'+u.contact);
+            this.options.push(u.contact+'-'+name);
           });
         }
       });

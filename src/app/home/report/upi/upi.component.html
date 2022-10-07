@@ -1,3 +1,71 @@
+<nb-card>
+  <nb-card-header>Filter Form</nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-sm-2">
+        <input
+          nbInput
+          placeholder="From Date"
+          [nbDatepicker]="formcontrol"
+          [formControl]="formControl"
+          required
+          readOnly
+        />
+        <nb-datepicker
+          #formcontrol
+          format="dd-MM-yyyy"
+          [min]="frommin"
+          [max]="frommax"
+          (dateChange)="setMaxdate($event)"
+        ></nb-datepicker>
+      </div>
+      <div class="col-sm-2">
+        <input
+          nbInput
+          placeholder="To Picker"
+          [nbDatepicker]="ngmodel"
+          [(ngModel)]="ngModelDate"
+          required
+          readOnly
+        />
+        <nb-datepicker
+          #ngmodel
+          format="dd-MM-yyyy"
+          [max]="tomax"
+          [min]="tomin"
+        ></nb-datepicker>
+      </div>
+      <div class="col-sm-5" *ngIf="permiteMISRole.indexOf(user.role)!= -1">
+        <input
+          [formControl]="inputFormControl"
+          nbInput
+          type="text"
+          placeholder="Search user name"
+          [nbAutocomplete]="auto"
+          fullWidth
+          (ngModelChange)="filterUser($event)"
+        />
+
+        <nb-autocomplete #auto [handleDisplayFn]="viewHandle">
+          <nb-option
+            *ngFor="let option of filteredOptions$ | async"
+            [value]="option"
+          >
+            {{ option }}
+          </nb-option>
+        </nb-autocomplete>
+      </div>
+
+      <div class="col-sm-12 text-center">
+        <button nbButton status="success" (click)="getTransaction()">
+          Search
+        </button>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
+
+
 <nb-card [nbSpinner]="loading">
   <nb-card-header>UPI Transaction List</nb-card-header>
   <nb-card-body>
@@ -15,6 +83,8 @@
             <th>Wallet Ref</th>
             <th>Txn Date</th>
             <th>Completion Date</th>
+            <th>Merchant Name</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -29,9 +99,29 @@
             <td>{{ u.walletReferenceNo }}</td>
             <td>{{ u.txnInitDate | date: "d-M-yyyy h:mm:ss a" }}</td>
             <td>{{ u.txnCompleteDate | date: "d-M-yyyy h:mm:ss a" }}</td>
+            <td>{{ u.fname +" "+ u.lname}}</td>
+            <td *ngIf="user.role==9"><nb-icon icon="refresh-outline" size="large" (click)="reconcile(u)" *ngIf="u.apiStatus =='SUCCESS' && u.walletReferenceNo==null"></nb-icon></td>
           </tr>
         </tbody>
       </table>
     </div>
+    <button
+      nbButton
+      status="success"
+      *ngIf="upi?.prev_page_url != null"
+      (click)="goToPage(upi?.prev_page_url)"
+      class="float-left"
+    >
+      Previous
+    </button>
+    <button
+      nbButton
+      status="success"
+      class="float-right"
+      *ngIf="upi?.next_page_url != null"
+      (click)="goToPage(upi?.next_page_url)"
+    >
+      Next
+    </button>
   </nb-card-body>
 </nb-card>

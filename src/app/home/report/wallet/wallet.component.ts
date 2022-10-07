@@ -51,8 +51,6 @@ export class WalletComponent implements OnInit {
     private http: HttpService,
     protected dateService: NbDateService<Date>,
     private cd: ChangeDetectorRef,
-    private formBuilder: FormBuilder,
-    private apiCall: PublicApiCallService
   ) {
     this.frommin = this.dateService.addMonth(this.dateService.today(), -2);
     //this.frommax = this.dateService.addDay(this.min, 15);
@@ -126,7 +124,7 @@ export class WalletComponent implements OnInit {
     if(this.inputFormControl.value !=null && this.inputFormControl.value.length > 10 ){
       console.warn(this.inputFormControl.value);
       let contact=this.inputFormControl.value.split("-");
-      data.userId= contact[1];
+      data.userId= contact[0];
     }else{
       data.userId=null;
     }
@@ -176,8 +174,9 @@ export class WalletComponent implements OnInit {
         if(result.response){
           result.data.forEach(u => {
             let name=u.fname+' '+u.lname;
-            this.options.push(name+'-'+u.contact);
+            this.options.push(u.contact+'-'+name);
           });
+           this.cd.detectChanges();
         }
       });
      /*  let result=this.apiCall.getRetailer(e);

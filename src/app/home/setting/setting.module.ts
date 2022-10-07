@@ -20,6 +20,7 @@ import { SettingRoutingModule } from './setting-routing.module';
 import { AtmMappingComponent } from './atm-mapping/atm-mapping.component';
 import { CommissionRevisionComponent } from './commission-revision/commission-revision.component';
 import { GlobalServiceComponent } from './global-service/global-service.component';
+import { QRMasterComponent } from './qrmaster/qrmaster.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { GlobalServiceComponent } from './global-service/global-service.componen
     AtmMappingComponent,
     CommissionRevisionComponent,
     GlobalServiceComponent,
+    QRMasterComponent,
   ],
   imports: [
     CommonModule,
