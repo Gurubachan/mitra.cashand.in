@@ -446,14 +446,16 @@
               status="success"
               [disabled]="submitted || addBeneForm.invalid"
               [class.btn-pulse]="submitted"
+              size="small"
             >
               Verify and Save
             </button>
           </div>
         </form>
         <div *ngIf="!showBeneForm && showBeneList">
-          <ul *ngFor="let b of beneList">
-            <li (click)="selectBene(b.id)">
+          <ul *ngFor="let b of beneList" style="list-style-type: none; padding-left: 0px;" >
+            <li style="border:1px dashed black ;">
+                         
               <small>
                 {{ b.beneName }}<br />
                 {{ b.bankName }}<br />
@@ -466,10 +468,48 @@
                 *ngIf="b.isBeneVerified"
                 icon="checkmark-circle-outline"
                 status="success"
-              ></nb-icon>
-              <p *ngIf="!b.isBeneVerified" class="caption status-danger">
-                Account Not Verified
+              ></nb-icon><br>
+              <p  class="caption status-danger">
+                
+
+             <button
+              nbButton
+              size="tiny"
+              status="danger"
+              style="float:left"
+              [class.btn-pulse]="submitted"
+              (click)="deleteBeneAccount(b.id)"
+            >
+             
+              Delete
+            </button>
+
+            <button
+              nbButton
+              size="tiny"
+              status="success"
+              [class.btn-pulse]="submitted"
+              (click)="verifyBeneAccount(b.accountNo,b.ifscCode,b.bankCode)"
+              *ngIf="!b.isBeneVerified"
+              style="float:right"
+            >
+             
+              Verify
+            </button>
+            <button
+              nbButton
+              size="tiny"
+              status="success"
+              [class.btn-pulse]="submitted"
+              (click)="selectBene(b.id)"
+              *ngIf="b.isBeneVerified"
+               style="float:right"
+            >
+             
+              Pay
+            </button>
               </p>
+              
             </li>
           </ul>
         </div>

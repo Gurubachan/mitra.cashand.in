@@ -12,6 +12,7 @@ import { CheckfeaturesService } from "../../../services/checkfeatures.service";
 import { EncryptdecryptService } from "../../../services/encryptdecrypt.service";
 import { HttpService } from "../../../services/http.service";
 import { ToastrService } from "../../../services/toastr.service";
+import { BeneVerificationDialogComponent } from "../../component/dialog/bene-verification-dialog/bene-verification-dialog.component";
 import { MoneyTransactionResponseDialogComponent } from "../../component/money-transaction-response-dialog/money-transaction-response-dialog.component";
 
 @Component({
@@ -62,7 +63,8 @@ export class DmtComponent implements OnInit {
     private encdec: EncryptdecryptService,
     private dialogService: NbDialogService,
     private features: CheckfeaturesService,
-    private router: Router
+    private router: Router,
+  
   ) {
     this.transaction.mode = 4;
    
@@ -202,6 +204,40 @@ export class DmtComponent implements OnInit {
       }
     }
   }
+  verifyBeneAccount(account: string, ifsc: String, bank: String){
+    let postData={
+      ifsc:ifsc,
+      account:account,
+      bank:bank
+    }
+    console.log(postData);
+     this.http.post("dmt/verifyBene",postData).subscribe(res => {
+      console.log(res)
+      this.dialogRef= this.dialogService.open(BeneVerificationDialogComponent,{
+                autoFocus: false,
+                backdropClass: "",
+                closeOnBackdropClick: false,
+                closeOnEsc: false,
+                dialogClass: "",
+                hasScroll: false,
+                viewContainerRef: undefined,
+                hasBackdrop: false,
+                context: {
+                  title: "Beneverification"+res.message,
+                  data: res.data,
+                },
+      }).onClose.subscribe((response) =>{
+            if(!response){
+
+            }
+      });
+        
+    },(err: any) => {
+         console.log(err);
+         this.toast.showToast(err.error.message, "Bene Verification", "danger");
+    }); 
+  }
+  
   addBene() {
     console.log(this.bene);
     this.http.post("dmt/registerBene", this.bene).subscribe(
@@ -225,6 +261,10 @@ export class DmtComponent implements OnInit {
         this.toast.showToast(err.error.message, "Bene registration", "danger");
       }
     );
+  }
+
+  updateBene(){
+    
   }
 
   initTransaction() {
