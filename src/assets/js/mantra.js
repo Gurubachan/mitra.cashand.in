@@ -138,7 +138,7 @@ function CaptureAvdm(ekyc = false) {
         '<?xml version="1.0"?> <PidOptions ver="1.0"> <Opts fCount="' +
         1 +
         '" fType="' +
-        0 +
+        2 +
         '" iCount="' +
         0 +
         '" pCount="' +
@@ -163,7 +163,7 @@ function CaptureAvdm(ekyc = false) {
         '<?xml version="1.0"?> <PidOptions ver="1.0"> <Opts fCount="' +
         1 +
         '" fType="' +
-        0 +
+        2 +
         '" iCount="' +
         0 +
         '" pCount="' +
@@ -244,12 +244,12 @@ function CaptureMorpho(ekyc = false) {
     if (ekyc) {
       var PIDOPTS =
         '<PidOptions ver="1.0">' +
-        '<Opts env="P" fCount="1" fType="0" iCount="" iType="" pCount="" pType="" format="0" pidVer="2.0" timeout="10000" otp="" wadh="E0jzJ/P8UopUHAieZn8CKqS4WPMi5ZSYXgfnlfkWjrc=" posh="UNKNOWN"/>' +
+        '<Opts env="P" fCount="1" fType="2" iCount="" iType="" pCount="" pType="" format="0" pidVer="2.0" timeout="10000" otp="" wadh="E0jzJ/P8UopUHAieZn8CKqS4WPMi5ZSYXgfnlfkWjrc=" posh="UNKNOWN"/>' +
         "</PidOptions>";
     } else {
       var PIDOPTS =
         '<PidOptions ver="1.0">' +
-        '<Opts env="P" fCount="1" fType="0" iCount="" iType="" pCount="" pType="" format="0" pidVer="2.0" timeout="10000" otp="" wadh="" posh="UNKNOWN"/>' +
+        '<Opts env="P" fCount="1" fType="2" iCount="" iType="" pCount="" pType="" format="0" pidVer="2.0" timeout="10000" otp="" wadh="" posh="UNKNOWN"/>' +
         "</PidOptions>";
     }
 
@@ -318,7 +318,7 @@ function CaptureMorphoNew() {
           : t(n.response);
       }),
       n.send(
-        '<PidOptions ver="1.0"><Opts fCount="1" fType="0" iCount="" iType="" pCount="" pType="" format="0" pidVer="2.0" timeout="10000" otp="" wadh="" posh=""/></PidOptions>'
+        '<PidOptions ver="1.0"><Opts fCount="1" fType="2" iCount="" iType="" pCount="" pType="" format="0" pidVer="2.0" timeout="10000" otp="" wadh="" posh=""/></PidOptions>'
       );
   });
 }
@@ -430,10 +430,10 @@ function CaptureAvdmNew(ekyc = false) {
       $.support.cors = true;
       if (ekyc) {
         XML =
-          '<?xml version="1.0" ?> <PidOptions ver="1.0"> <Opts fCount="1" fType="0" iCount="0" pCount="0" format="0" pidVer="2.0" timeout="10000" posh="" env="P" wadh="E0jzJ/P8UopUHAieZn8CKqS4WPMi5ZSYXgfnlfkWjrc=" /> <CustOpts><Param name="mantrakey" value="" /></CustOpts> </PidOptions>';
+          '<?xml version="1.0" ?> <PidOptions ver="1.0"> <Opts fCount="1" fType="2" iCount="0" pCount="0" format="0" pidVer="2.0" timeout="10000" posh="" env="P" wadh="E0jzJ/P8UopUHAieZn8CKqS4WPMi5ZSYXgfnlfkWjrc=" /> <CustOpts><Param name="mantrakey" value="" /></CustOpts> </PidOptions>';
       } else {
         XML =
-          '<?xml version="1.0" ?> <PidOptions ver="1.0"> <Opts fCount="1" fType="0" iCount="0" pCount="0" format="0" pidVer="2.0" timeout="10000" posh="" env="P" /> <CustOpts><Param name="mantrakey" value="" /></CustOpts> </PidOptions>';
+          '<?xml version="1.0" ?> <PidOptions ver="1.0"> <Opts fCount="1" fType="2" iCount="0" pCount="0" format="0" pidVer="2.0" timeout="10000" posh="" env="P" /> <CustOpts><Param name="mantrakey" value="" /></CustOpts> </PidOptions>';
       }
       let i = ddlAVDMNew;
       $scope.finalURL = baseURL + i + capture;

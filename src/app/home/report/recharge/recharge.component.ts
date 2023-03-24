@@ -9,6 +9,7 @@ import { NbDateService,  NbDialogService } from "@nebular/theme";
 import { FormControl } from "@angular/forms";
 import { Observable, of } from "rxjs";
 import { map, startWith } from "rxjs/operators";
+import { PublicApiCallService } from "../../../services/public-api-call.service";
 @Component({
   selector: "ngx-recharge",
   templateUrl: "./recharge.component.html",
@@ -32,7 +33,12 @@ export class RechargeComponent implements OnInit {
   options: string[];
   filteredOptions$: Observable<string[]>;
   inputFormControl: FormControl;
-  constructor(private http: HttpService, private toast: ToastrService, protected dateService: NbDateService<Date>,) {
+  inputMobileControl: FormControl;
+  constructor(private http: HttpService, 
+    private toast: ToastrService, 
+    protected dateService: NbDateService<Date>,
+    private commonApi: PublicApiCallService
+    ) {
      this.frommin = this.dateService.addMonth(this.dateService.today(), -2);
     //this.frommax = this.dateService.addDay(this.min, 15);
     this.frommax = this.dateService.today();
@@ -44,10 +50,11 @@ export class RechargeComponent implements OnInit {
   ngOnInit(): void {
    
     this.getUserData();
-     this.options = ["Option 1", "Option 2", "Option 3"];
+     this.options = [];
     this.filteredOptions$ = of(this.options);
 
     this.inputFormControl = new FormControl();
+    this.inputMobileControl = new FormControl();
 
     this.filteredOptions$ = this.inputFormControl.valueChanges.pipe(
       startWith(""),
@@ -91,7 +98,17 @@ viewHandle(value: string) {
     let data = {
       startDate: this.formControl.value,
       endDate: this.ngModelDate,
+      userId:null,
+      rechargeNumber: this.inputMobileControl.value,
     };
+    console.log(data);
+    if(this.inputFormControl.value !=null && this.inputFormControl.value.length > 10 ){
+      console.warn(this.inputFormControl.value);
+      let contact=this.inputFormControl.value.split("-");
+      data.userId= contact[0];
+    }else{
+        data.userId=null;
+    }
     this.requestParam = data;
 
     this.loading = true;
@@ -141,6 +158,7 @@ viewHandle(value: string) {
     );
   }
 
+
   getUserData() {
     this.user = JSON.parse(window.atob(localStorage.getItem("user")));
     console.log(this.user);
@@ -155,5 +173,16 @@ viewHandle(value: string) {
       console.log(res);
       this.loading=false;
     })
+  }
+
+  filterUser(e){
+    if (e != null && e.length >= 4 && e.length<=10){
+      this.commonApi.filterUser(e).then((userList)=>{
+        console.warn("Filter", userList);
+        this.options=userList;
+        
+      }
+    );
+  }
   }
 }

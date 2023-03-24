@@ -1,0 +1,149 @@
+
+        <div class="row">
+            <div class="col-sm-12 col-lg-6 col-md-12">
+                <nb-card [nbSpinner]="loading">
+                    <nb-card-header>Process Your file to check loan eligibility</nb-card-header>
+                    <nb-card-body>
+                        <ul>
+                            <li>Application Id: {{application.data?.cohortUid}}</li>
+                            <li>Applied Date: {{application.data?.created_at | date:'dd-MM-yyyy HH:mm:ss'}}</li>
+                            <li>Status: {{application.data?.status}}</li>
+                        </ul>
+                        <button *ngIf="application.data?.status!='successful'"
+          nbButton
+          class="btn btn-success"
+          type="submit"
+          style="float: right"
+          (click)="cohortStatus()"
+        >
+          Check
+        </button>
+                       
+                    </nb-card-body>
+                </nb-card>
+            </div>
+            <div class="col-sm-12 col-lg-6 col-md-12">
+                <nb-card [nbSpinner]="loading">
+                    <nb-card-header>Your Eligibity status...</nb-card-header>
+                    <nb-card-body>
+                        <ul *ngIf="application.data?.status_check_count>0">
+                            <li>Offer Amount: <strong>{{application.data?.amountOffered}}</strong></li>
+                            <li>Tenure: <strong>{{application.data?.tenure}}</strong></li>
+                            <li>KYC Status: <strong>{{application.data?.kycStatus}}</strong></li>
+                            <li>TNC: <strong>{{application.data?.offerDetails}}</strong></li>
+                        </ul>
+                        <button *ngIf="!application.data?.customerKyc && !displayKycForm"
+          nbButton
+          class="btn btn-success"
+          type="submit"
+          style="float: right"
+          (click)="kyc()"
+        >
+          Complete KYC
+        </button>
+                    </nb-card-body>
+                </nb-card>
+            </div>
+           
+        </div >
+        <!-- <div class="row" *ngIf="!application.data?.customerKyc && displayKycForm" [nbSpinner]="loading">
+            <div class="col-3">
+                <nb-card>
+                    <nb-card-header>PAN Card</nb-card-header>
+                    <nb-card-body>
+                        <img
+        [src]="pan"
+        width="50%"
+        (click)="selectImageSource('panimage')"
+      />
+      <input
+        nbInput
+        type="file"
+        #fileInputPan
+        (change)="uploadFile($event, 'panimage')"
+        hidden="true"
+        [required]="true"
+        accept="image/*"
+      />
+                    </nb-card-body>
+                </nb-card>
+            </div>
+            <div class="col-3">
+                <nb-card>
+                    <nb-card-header>Aadhar Front</nb-card-header>
+                    <nb-card-body>
+                        <img
+        [src]="aadhaarfront"
+        width="50%"
+        (click)="selectImageSource('aadhaarimagefront')"
+      />
+      <input
+        nbInput
+        type="file"
+        #fileInputAadhaarFront
+        (change)="uploadFile($event, 'aadhaarimagefront')"
+        hidden="true"
+        [required]="true"
+        accept="image/*"
+      />
+                    </nb-card-body>
+                </nb-card>
+            </div>
+            <div class="col-3">
+                <nb-card>
+                    <nb-card-header>Aadhar Back</nb-card-header>
+                    <nb-card-body>
+                        <img
+        [src]="aadhaarback"
+        width="50%"
+        (click)="selectImageSource('aadhaarimageback')"
+      />
+      <input
+        nbInput
+        type="file"
+        #fileInputAadhaarBack
+        (change)="uploadFile($event, 'aadhaarimageback')"
+        hidden="true"
+        [required]="true"
+        accept="image/*"
+      />
+                    </nb-card-body>
+                </nb-card>
+            </div>
+            <div class="col-3">
+                <nb-card>
+                    <nb-card-header>Live Selfy</nb-card-header>
+                    <nb-card-body>
+                        <img
+        [src]="live"
+        width="50%"
+        (click)="selectImageSource('liveImage')"
+      />
+      <input
+        nbInput
+        type="file"
+        #fileInputImage
+        (change)="uploadFile($event, 'liveImage')"
+        hidden="true"
+        [required]="true"
+        accept="image/*"
+      />
+     
+                    </nb-card-body>
+                </nb-card>
+            </div>
+            <p *ngIf="showErrors" style="color:red">{{showMessage}}</p>
+            <div class="col-12">
+                <button 
+                nbButton
+                class="btn btn-success"
+                type="submit"
+                style="float: right"
+                (click)="kycProcess()"
+              >
+                Submit
+              </button>
+            </div>
+        
+        </div> -->
+    

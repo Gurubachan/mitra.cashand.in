@@ -15,6 +15,7 @@ import {
 import { catchError, retry, switchMap } from "rxjs/operators";
 import { ToastrService } from "./services/toastr.service";
 import { Router } from "@angular/router";
+import { environment } from "../environments/environment";
 
 @Injectable()
 export class HttpconfigInterceptor implements HttpInterceptor {
@@ -32,15 +33,21 @@ export class HttpconfigInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     // return next.handle(request);
+    
+    let path=request.url.split('api/')
+    
     return this.authService.getToken().pipe(
       switchMap((token: NbAuthSimpleToken) => {
-        if (token && token.getValue()) {
-          request = request.clone({
-            setHeaders: {
-              [this.headerName]: "Bearer " + token.getValue(),
-            },
-          });
+        if(path[0]+"api/" == environment.uri){
+          if (token && token.getValue()) {
+            request = request.clone({
+              setHeaders: {
+                [this.headerName]: "Bearer " + token.getValue(),
+              },
+            });
+          }
         }
+       
         return next.handle(request).pipe(
           retry(0),
           catchError((error: HttpErrorResponse) => {

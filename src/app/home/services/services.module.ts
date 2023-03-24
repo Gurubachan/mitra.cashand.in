@@ -28,6 +28,8 @@ import { AxisCasaComponent } from './axis-casa/axis-casa.component';
 import { LicComponent } from './lic/lic.component';
 import { FastagComponent } from './fastag/fastag.component';
 import { BbpsComponent } from './bbps/bbps.component';
+import { UnifiedaepsComponent } from './unifiedaeps/unifiedaeps.component';
+import { HappyLoansComponent } from './loans/happy-loans/happy-loans.component';
 
 
 @NgModule({
@@ -44,6 +46,8 @@ import { BbpsComponent } from './bbps/bbps.component';
     LicComponent,
     FastagComponent,
     BbpsComponent,
+    UnifiedaepsComponent,
+    HappyLoansComponent,
   ],
   imports: [
     CommonModule,

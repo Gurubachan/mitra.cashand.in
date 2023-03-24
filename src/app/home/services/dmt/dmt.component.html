@@ -282,7 +282,7 @@
       >
       <nb-card-body>
         <form
-          (ngSubmit)="addBene()"
+          
           #addBeneForm="ngForm"
           aria-labelledby="title"
           *ngIf="showBeneForm"
@@ -447,6 +447,7 @@
               [disabled]="submitted || addBeneForm.invalid"
               [class.btn-pulse]="submitted"
               size="small"
+              (click)="verifyBeneAccount(bene.account,bene.ifsc,bene.bank,bene.id)"
             >
               Verify and Save
             </button>
@@ -462,10 +463,11 @@
 
                 {{ b.accountNo }}<br />
                 {{ b.ifscCode }}<br />
+                {{b.remark}}
               </small>
 
               <nb-icon
-                *ngIf="b.isBeneVerified"
+                *ngIf="b.status=='success'"
                 icon="checkmark-circle-outline"
                 status="success"
               ></nb-icon><br>
@@ -489,7 +491,7 @@
               size="tiny"
               status="success"
               [class.btn-pulse]="submitted"
-              (click)="verifyBeneAccount(b.accountNo,b.ifscCode,b.bankCode)"
+              (click)="verifyBeneAccount(b.accountNo,b.ifscCode,b.bankCode,b.id)"
               *ngIf="!b.isBeneVerified"
               style="float:right"
             >
@@ -502,7 +504,7 @@
               status="success"
               [class.btn-pulse]="submitted"
               (click)="selectBene(b.id)"
-              *ngIf="b.isBeneVerified"
+              *ngIf="b.status=='success'"
                style="float:right"
             >
              

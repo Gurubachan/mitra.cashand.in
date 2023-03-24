@@ -3,6 +3,9 @@ import { FormControl } from "@angular/forms";
 import { NbDateService } from "@nebular/theme";
 import { Observable, of } from "rxjs";
 import { map, startWith } from 'rxjs/operators';
+import { environment } from "../../../../environments/environment";
+import { Data } from "../../../@model/athenticate/auth";
+import { CostumehttpService } from "../../../services/costumehttp.service";
 import { HttpService } from "../../../services/http.service";
 import { ToastrService } from "../../../services/toastr.service";
 
@@ -35,6 +38,7 @@ export class AepsComponent implements OnInit {
     private http: HttpService,
     protected dateService: NbDateService<Date>,
     private toast: ToastrService,
+    private costumeHttp: CostumehttpService
   ) {
     this.frommin = this.dateService.addMonth(this.dateService.today(), -2);
     //this.frommax = this.dateService.addDay(this.min, 15);
@@ -46,6 +50,7 @@ export class AepsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserData();
+    
      this.options = [];
     this.filteredOptions$ = of(this.options);
 
@@ -115,12 +120,13 @@ export class AepsComponent implements OnInit {
     let url;
 
     this.requestParam = data;
-
-    if (this.selectedTxnPipe == 0) {
-      url = "services/transaction";
-    } else {
       url = "rbp/transaction";
-    }
+      this.fetchAeps(url);
+   
+    
+  }
+
+  fetchAeps(url){
     this.http.post(url, this.requestParam).subscribe(
       (resulte) => {
         if (resulte.response) {
@@ -138,6 +144,7 @@ export class AepsComponent implements OnInit {
       }
     );
   }
+ 
 
   goToPage(url: string) {
     this.loading = true;
@@ -145,11 +152,9 @@ export class AepsComponent implements OnInit {
     //console.log(param);
     
     let endpoint;
-    if (this.selectedTxnPipe == 0) {
-      endpoint = "services/transaction";
-    } else {
+   
       endpoint = "rbp/transaction";
-    }
+   
     this.http.post(endpoint + "?" + param[1], this.requestParam).subscribe((res) => {
       if (res.response) {
         this.transactions = res.data;

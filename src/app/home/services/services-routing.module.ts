@@ -14,6 +14,8 @@ import { AxisCasaComponent } from "./axis-casa/axis-casa.component";
 import { LicComponent } from "./lic/lic.component";
 import { FastagComponent } from "./fastag/fastag.component";
 import { BbpsComponent } from "./bbps/bbps.component";
+import { UnifiedaepsComponent } from "./unifiedaeps/unifiedaeps.component";
+import { HappyLoansComponent } from "./loans/happy-loans/happy-loans.component";
 
 const routes: Routes = [
   {
@@ -71,6 +73,14 @@ const routes: Routes = [
       {
         path:"bbps",
         component:BbpsComponent
+      },
+      {
+        path:"unified",
+        component:UnifiedaepsComponent
+      },
+      {
+        path:"loan",
+        component:HappyLoansComponent
       }
     ],
   },

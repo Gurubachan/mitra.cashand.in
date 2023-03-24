@@ -18,7 +18,12 @@ export class BeneVerificationDialogComponent implements OnInit {
   }
 
   submit(name: String, account: String, ifsc: String) {
-      
+    let outData={
+      name: name, 
+      account: account, 
+      ifsc: ifsc
+    };
+    this.ref.close(outData);
   }
 
 }

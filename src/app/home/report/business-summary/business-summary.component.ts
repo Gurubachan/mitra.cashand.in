@@ -4,6 +4,8 @@ import { BusinessSummary, BusinessSummaryResponse } from '../../../@model/report
 import { HttpService } from '../../../services/http.service';
 import { ToastrService } from '../../../services/toastr.service';
 import { NbDateService,  NbDialogService } from "@nebular/theme";
+import { Observable, of } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 @Component({
   selector: 'ngx-business-summary',
   templateUrl: './business-summary.component.html',
@@ -20,6 +22,12 @@ export class BusinessSummaryComponent implements OnInit {
   today: Date;
   loading: Boolean = false;
   requestParam: { startDate: Date; endDate: Date } = null;
+
+  permiteMISRole=[9,10,14,15];
+   user:any=null;
+   options: string[];
+     filteredOptions$: Observable<string[]>;
+     inputFormControl: FormControl;
   endpoint = "reports/userBusiness";
   summary: BusinessSummary[];
   constructor(
@@ -37,6 +45,26 @@ export class BusinessSummaryComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.getUserData();
+     this.options = [];
+    this.filteredOptions$ = of(this.options);
+
+    this.inputFormControl = new FormControl();
+
+    this.filteredOptions$ = this.inputFormControl.valueChanges.pipe(
+      startWith(""),
+      map((filterString) => this.filter(filterString))
+    );
+  }
+
+  private filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.options.filter((optionValue) =>
+      optionValue.toLowerCase().includes(filterValue)
+    );
+  }
+  viewHandle(value: string) {
+    return value.toUpperCase();
   }
   myTransaction(){}
 
@@ -68,10 +96,23 @@ export class BusinessSummaryComponent implements OnInit {
     let data = {
       startDate: this.formControl.value,
       endDate: this.ngModelDate,
+      userId: null,
     };
     this.requestParam = data;
 
     this.loading = true;
+
+    if(this.inputFormControl.value !=null && this.inputFormControl.value.length > 10 ){
+      console.warn(this.inputFormControl.value);
+      let contact=this.inputFormControl.value.split("-");
+      data.userId= contact[0];
+    }else{
+      
+        data.userId=null;
+      
+      
+    }
+
     this.http.post(this.endpoint, this.requestParam).subscribe(
       (res: BusinessSummaryResponse) => {
         if (res.response) {
@@ -113,8 +154,33 @@ export class BusinessSummaryComponent implements OnInit {
     );
   }
 
+  filterUser(e){
+    this.options=[];
+       if (e != null && e.length >= 4 && e.length<=10){
+         this.http.post('admin/filterUser',{value:e}).subscribe((result) => {
+           
+           if(result.response){
+            this.options=[];
+             result.data.forEach(u => {
+               let name=u.fname+' '+u.lname;
+               this.options.push(u.contact+'-'+name);
+             });
+           }
+         });
+        /*  let result=this.apiCall.getRetailer(e);
+         console.log(result) */
+        
+       }
+   
+     }
+
   increment(value: number) {
     return (value = value + 1);
+  }
+
+  getUserData() {
+    this.user = JSON.parse(window.atob(localStorage.getItem("user")));
+    console.log(this.user);
   }
 
 }

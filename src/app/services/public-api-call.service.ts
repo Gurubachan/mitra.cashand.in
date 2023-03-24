@@ -27,4 +27,34 @@ export class PublicApiCallService {
     return response;
     
   }
+
+   getPosition(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(
+        (resp) => {
+          resolve({ lng: resp.coords.longitude, lat: resp.coords.latitude });
+        },
+        (err) => {
+          reject(err);
+        },
+      );
+    });
+  }
+
+  filterUser(filter:any): Promise<any> {
+    let listUser=[];
+    return new Promise<any>((resolve, reject) => {
+       
+      this.http.post('admin/filterUser',{value:filter}).subscribe((result) => {
+        result.data.forEach(u => {
+            let name=u.fname+' '+u.mname+' '+u.lname;
+            listUser.push(u.contact+'-'+name.replace(null,'').trim());
+          });
+        resolve( listUser);
+      },(err)=>{
+        reject(listUser)
+      });
+    
+    });
+  }
 }

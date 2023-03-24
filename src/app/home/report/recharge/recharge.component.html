@@ -43,6 +43,7 @@
           placeholder="Search user name"
           [nbAutocomplete]="auto"
           fullWidth
+          (ngModelChange)="filterUser($event)"
         />
 
         <nb-autocomplete #auto [handleDisplayFn]="viewHandle">
@@ -56,11 +57,10 @@
       </div>
 <div class="col-sm-3">
         <input
-          [formControl]="inputFormControl"
+          [formControl]="inputMobileControl"
           nbInput
           type="text"
-          placeholder="Search user name"
-          [nbAutocomplete]="auto"
+          placeholder="Search Mobile Number"
           fullWidth
         />
 

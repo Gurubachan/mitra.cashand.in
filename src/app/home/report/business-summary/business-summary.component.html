@@ -35,7 +35,26 @@
           [min]="tomin"
         ></nb-datepicker>
       </div>
-      
+      <div class="col-sm-4" *ngIf="permiteMISRole.indexOf(user.role)!= -1">
+        <input
+          [formControl]="inputFormControl"
+          nbInput
+          type="text"
+          placeholder="Search user name"
+          [nbAutocomplete]="auto"
+          fullWidth
+          (ngModelChange)="filterUser($event)"
+        />
+
+        <nb-autocomplete #auto [handleDisplayFn]="viewHandle">
+          <nb-option
+            *ngFor="let option of filteredOptions$ | async"
+            [value]="option"
+          >
+            {{ option }}
+          </nb-option>
+        </nb-autocomplete>
+      </div>
 
       <div class="col-sm-12 text-center">
         <button nbButton status="success" (click)="getRetailers()">Search</button>
@@ -51,6 +70,7 @@
         <thead>
           <tr>
               <th>Sl#</th>
+              <th *ngIf="permiteMISRole.indexOf(user.role)!= -1">UserId</th>
             <th>Name</th>
 
             <th>Contact</th>
@@ -64,6 +84,7 @@
         <tbody>
           <tr *ngFor="let s of summary;  let i = index">
               <td>{{ increment(i) }}</td>
+              <td *ngIf="permiteMISRole.indexOf(user.role)!= -1">{{s.id}}</td>
             <td>{{s.user_name}}</td>
             <td>{{s.contact}}</td>
             <td>{{s.service}}</td>

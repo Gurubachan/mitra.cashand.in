@@ -42,12 +42,20 @@ export class DmtComponent implements OnInit {
     ifsc:String,
     account:String,
     beneName: String,
+    isVerified:Boolean,
+    verified_at:String,
+    remark: String,
+    status: String
   }={
     dcId: 0,
     bank: null,
     ifsc: null,
     account: null,
     beneName: null,
+    isVerified:false,
+    verified_at:null,
+    remark: null,
+    status: null
   };
   beneList: BeneCustomer[] = null;
   bankDetails: any = null;
@@ -204,7 +212,7 @@ export class DmtComponent implements OnInit {
       }
     }
   }
-  verifyBeneAccount(account: string, ifsc: String, bank: String){
+  verifyBeneAccount(account: string, ifsc: String, bank: String,id: Number){
     let postData={
       ifsc:ifsc,
       account:account,
@@ -223,12 +231,23 @@ export class DmtComponent implements OnInit {
                 viewContainerRef: undefined,
                 hasBackdrop: false,
                 context: {
-                  title: "Beneverification"+res.message,
+                  title: "Bene "+res.message,
                   data: res.data,
                 },
       }).onClose.subscribe((response) =>{
-            if(!response){
-
+        console.warn(response);
+            if(response == 'false'){
+              
+            }else{
+              if(this.showBeneForm){
+                this.bene.isVerified=true;
+                this.bene.verified_at=res.data.time;
+                this.bene.remark=res.data.message;
+                this.bene.status=res.data.status;
+                this.addBene();
+              }else{
+                this.updateBene(id,response.name,response.ifsc,response.account,true,res.data.time, res.data.message,res.data.status);
+              }
             }
       });
         
@@ -247,7 +266,6 @@ export class DmtComponent implements OnInit {
           this.showBeneForm = false;
           this.showBeneList = true;
           
-
           this.toast.showToast(res.message, "Bene registration", "success");
         } else {
           this.toast.showToast(res.message, "Bene registration", "warning");
@@ -263,8 +281,35 @@ export class DmtComponent implements OnInit {
     );
   }
 
-  updateBene(){
-    
+  updateBene(id: Number,
+    beneName: String,
+    ifsc: String,
+    account: String,
+    isBeneVerified: Boolean,
+    verified_at: String,
+    remark: String,
+    status:String){
+    let postData={
+      id: id,
+      beneName: beneName,
+      ifsc:ifsc,
+      account:account,
+      isBeneVerified: isBeneVerified,
+      verified_at: verified_at,
+      remark:remark,
+      status:status
+    }
+    console.log("update bene execute");
+    this.http.post("dmt/updateBene", postData).subscribe(res=>{
+      if(res.response){
+        this.getBeneList(this.bene.dcId);
+      }else{
+        this.toast.showToast("Unable to update bene details, try after some time","Bene Update", "warning");
+      }
+    },(err: any) => {
+      console.warn(err);
+      this.toast.showToast(err.error.message, "Bene Update", "danger");
+    });
   }
 
   initTransaction() {
@@ -386,6 +431,10 @@ export class DmtComponent implements OnInit {
     ifsc: null,
     account: null,
     beneName: null,
+    isVerified: false,
+    verified_at: null,
+    remark:null,
+    status:null
   };
   }
 

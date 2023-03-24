@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
       <b
         ><a href="https://thinksimple.co.in" target="_blank">Think Simple</a></b
       >
-      2016 - 2021
+      2016 - 2023
     </span>
     <div class="socials">
       <a href="#" target="_blank" class="ion ion-social-github"></a>

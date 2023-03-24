@@ -10,7 +10,9 @@
 
 export const environment = {
   production: false,
-  //uri: "http://127.0.0.1:8000/api/",
-  //uri: "https://sandbox.cashand.in/api/",
-  uri: "https://api.cashand.in/api/",
+  // uri: "http://127.0.0.1:8000/api/",
+  // uri: "https://sandbox.evableindia.com/api/",
+  uri: 'https://api.cashand.in/api/',
+  aeps: 'https://aeps.evableindia.com/api/v1/',
+  loan: 'https://loans.cashand.in/api/v1/',
 };
