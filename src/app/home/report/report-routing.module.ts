@@ -4,6 +4,7 @@ import { AepsComponent } from "./aeps/aeps.component";
 import { BconboardingComponent } from "./bconboarding/bconboarding.component";
 import { BusinessSummaryComponent } from "./business-summary/business-summary.component";
 import { CashoutComponent } from "./cashout/cashout.component";
+import { CommissionSheetComponent } from "./commission-sheet/commission-sheet.component";
 import { FastagComponent } from "./fastag/fastag.component";
 import { InactivelistComponent } from "./inactivelist/inactivelist.component";
 import { LicComponent } from "./lic/lic.component";
@@ -13,7 +14,9 @@ import { PanComponent } from "./pan/pan.component";
 import { RechargeComponent } from "./recharge/recharge.component";
 import { ReportComponent } from "./report.component";
 import { RetailersComponent } from "./retailers/retailers.component";
+import { TeamBusinessSummaryComponent } from "./team-business-summary/team-business-summary.component";
 import { TeamComponent } from "./team/team.component";
+import { UnifiedReportComponent } from "./unified-report/unified-report.component";
 import { UpiComponent } from "./upi/upi.component";
 import { UserwalletComponent } from "./userwallet/userwallet.component";
 import { WalletComponent } from "./wallet/wallet.component";
@@ -26,6 +29,10 @@ const routes: Routes = [
       {
         path: "aeps",
         component: AepsComponent,
+      },
+      {
+        path:"unified-aeps",
+        component:UnifiedReportComponent
       },
       {
         path: "statement",
@@ -84,8 +91,16 @@ const routes: Routes = [
         component: BusinessSummaryComponent,
       },
       {
+        path:"team-business-summary",
+        component: TeamBusinessSummaryComponent,
+      },
+      {
         path:"inactive",
         component: InactivelistComponent,
+      },
+      {
+        path:"commission-sheet",
+        component: CommissionSheetComponent,
       },
     ],
   },

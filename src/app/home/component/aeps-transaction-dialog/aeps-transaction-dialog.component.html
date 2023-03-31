@@ -1,0 +1,123 @@
+<div id="printArea">
+    <nb-card size="large" [status]="returnStatus(data.statusCode)">
+      <nb-card-header
+        ><div  style="text-align: center">
+          <h3>{{data.transactionMode}}</h3>
+        </div>
+        
+        <h6 style="text-align: center">
+          TRANSACTION {{ data.status }}
+        </h6></nb-card-header
+      >
+  
+      <nb-card-body >
+        <table style="width: 100%">
+          <tr>
+            <td>Transaction Date:</td>
+            <td>{{ data.txnDate | date: "medium" }}</td>
+          </tr>
+          <tr>
+            <td>Transaction Ref Id:</td>
+            <td>{{ data.txnRef }}</td>
+          </tr>
+          <tr>
+            <td>Bank Name:</td>
+            <td>{{ data.bank }}</td>
+          </tr>
+         
+          <tr>
+            <td>Aadhaar No.:</td>
+            <td>{{ data.aadhaar }}</td>
+          </tr>
+          <tr>
+            <td>RRN:</td>
+            <td>{{ data.rrn }}</td>
+          </tr>
+          
+          <tr>
+            <td>Status:</td>
+            <td>{{ data.description }}</td>
+          </tr>
+          <tr>
+            <td>Transaction Amount:</td>
+            <td>{{ data.amount }}</td>
+          </tr>
+          <tr>
+            <td>Remaining Balance:</td>
+            <td>
+              <strong>{{ data.balance }}</strong>
+            </td>
+          </tr>
+        </table>
+        <table style="width: 100%" *ngIf="data.transactionMode == 'MINI STATEMENT'">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Narration</th>
+              <th>TxnType</th>
+              <th>amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let p of data.statement">
+              <td>{{ p.Date }}</td>
+              <td>{{ p.Type }}</td>
+              <td>{{ p.DebitCredit }}</td>
+              <td>{{ p.Amount }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <table style="width: 100%">
+          <thead style="text-align: center">
+            <tr>
+              <th colspan="2"><strong>Agent Details</strong></th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            <tr>
+              <td>Merchant Id :</td>
+              <td>{{ data.merchantId }}</td>
+            </tr>
+            <tr>
+              <td>Name :</td>
+              <td>{{ data.name }}</td>
+            </tr>
+            <tr>
+              <td>Shop Name :</td>
+              <td>{{ data.shopName }}</td>
+            </tr>
+            <tr>
+              <td>Mobile No :</td>
+              <td>{{ data.contact }}</td>
+            </tr>
+            <tr>
+              <td>Location :</td>
+              <td>{{ data.address }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </nb-card-body>
+  
+      <nb-card-footer>
+        <button
+          nbButton
+          class="btn btn-danger"
+          type="reset"
+          style="float: left"
+          (click)="cancel()"
+        >
+          Close
+        </button>
+        <button
+          class="btn btn-success"
+          type="button"
+          style="float: right"
+          (click)="printPage()"
+        >
+          Print
+        </button>
+      </nb-card-footer>
+    </nb-card>
+  </div>
+  

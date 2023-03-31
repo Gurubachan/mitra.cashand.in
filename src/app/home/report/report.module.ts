@@ -31,6 +31,10 @@ import { FastagComponent } from './fastag/fastag.component';
 import { RetailersComponent } from './retailers/retailers.component';
 import { BusinessSummaryComponent } from './business-summary/business-summary.component';
 import { InactivelistComponent } from './inactivelist/inactivelist.component';
+import { CommissionSheetComponent } from './commission-sheet/commission-sheet.component';
+import { TeamBusinessSummaryComponent } from './team-business-summary/team-business-summary.component';
+import { UnifiedReportComponent } from './unified-report/unified-report.component';
+
 @NgModule({
   declarations: [
     AepsComponent,
@@ -50,6 +54,10 @@ import { InactivelistComponent } from './inactivelist/inactivelist.component';
     RetailersComponent,
     BusinessSummaryComponent,
     InactivelistComponent,
+    CommissionSheetComponent,
+    TeamBusinessSummaryComponent,
+    UnifiedReportComponent,
+
   ],
   imports: [
     CommonModule,

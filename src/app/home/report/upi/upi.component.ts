@@ -9,6 +9,7 @@ import { map, startWith } from "rxjs/operators";
 import { UPIRequest } from "../../../@model/upi/upiRequest";
 import { error } from "console";
 import { fakeAsync } from "@angular/core/testing";
+import { PublicApiCallService } from "../../../services/public-api-call.service";
 @Component({
   selector: "ngx-upi",
   templateUrl: "./upi.component.html",
@@ -36,7 +37,7 @@ export class UpiComponent implements OnInit {
     private toast: ToastrService, 
     protected dateService: NbDateService<Date>,
     private cd: ChangeDetectorRef,
-    
+    private commonApi:PublicApiCallService
     ) {
     this.frommin = this.dateService.addMonth(this.dateService.today(), -2);
     //this.frommax = this.dateService.addDay(this.min, 15);
@@ -158,22 +159,14 @@ export class UpiComponent implements OnInit {
   }
 
   filterUser(e){
- this.options=[];
-    if (e != null && e.length >= 4 && e.length<=10){
-      this.http.post('admin/filterUser',{value:e}).subscribe((result) => {
-        
-        if(result.response){
-          result.data.forEach(u => {
-            let name=u.fname+' '+u.lname;
-            this.options.push(u.contact+'-'+name);
-          });
-           this.cd.detectChanges();
-        }
-      });
-     /*  let result=this.apiCall.getRetailer(e);
-      console.log(result) */
-     
-    }
+ if (e != null && e.length >= 4 && e.length<=10){
+      this.commonApi.filterUser(e).then((userList)=>{
+        console.warn("Filter", userList);
+        this.options=userList;
+        this.cd.detectChanges();
+      }
+    );
+  }
 
   }
 

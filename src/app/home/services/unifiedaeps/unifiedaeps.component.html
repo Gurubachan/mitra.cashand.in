@@ -1,0 +1,384 @@
+<nb-card *ngIf="displayAepsForm" [nbSpinner]="submitted">
+    <nb-card-header>Aadhaar ATM</nb-card-header>
+    <nb-card-body>
+      <form
+        aria-labelledby="title"
+        [formGroup]="aepsForm"
+        (ngSubmit)="aadhaarAtm(aepsForm.value)"
+      >
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-6">
+            <div class="form-control-group">
+              <label class="label" for="input-contact">Aadhaar Number:</label>
+              <input
+                nbInput
+                id="input-contact"
+                name="aadhaarNumber"
+                pattern="[2-9]{1}[0-9]{11}"
+                placeholder="Customer Aadhar Number"
+                fullWidth
+                fieldSize="large"
+                [status]="
+                  f.aadhaarNumber.dirty
+                    ? f.aadhaarNumber.invalid
+                      ? 'danger'
+                      : 'success'
+                    : 'basic'
+                "
+                [required]="true"
+                [attr.aria-invalid]="
+                  f.aadhaarNumber.invalid && f.aadhaarNumber.touched ? true : null
+                "
+                formControlName="aadhaarNumber"
+                (ngModelChange)="checkAadhar($event)"
+              />
+              <ng-container
+                *ngIf="f.aadhaarNumber.invalid && f.aadhaarNumber.touched"
+              >
+                <p
+                  class="caption status-danger"
+                  *ngIf="f.aadhaarNumber.errors?.required"
+                >
+                  Aadhaar Number is required!
+                </p>
+                <p
+                  class="caption status-danger"
+                  *ngIf="f.aadhaarNumber.errors?.pattern"
+                >
+                  Aadhaar Number should be 12 digit long.
+                </p>
+                <p
+                  class="caption status-danger"
+                  *ngIf="f.aadhaarNumber.errors?.invalidNumber"
+                >
+                  Invalid Aadhaar Number. Please enter correct aadhar number.
+                </p>
+              </ng-container>
+            </div>
+  
+            <div class="form-control-group">
+              <label class="label" for="bankList">Bank List:</label>
+              <nb-select
+                fullWidth
+                [nbSpinner]="loading"
+                placeholder="Select Bank From List.."
+                name="bankList"
+                id="bankList"
+                formControlName="bankList"
+                [status]="
+                  f.bankList.dirty
+                    ? f.bankList.invalid
+                      ? 'danger'
+                      : 'success'
+                    : 'basic'
+                "
+                [attr.aria-invalid]="
+                  f.bankList.invalid && f.bankList.touched ? true : null
+                "
+                [required]="true"
+              >
+                <nb-option
+                  *ngFor="let bank of bank"
+                  value="{{ bank.iin }}"
+                  >{{ bank.bankName }}</nb-option
+                >
+              </nb-select>
+              <ng-container *ngIf="f.bankList.invalid && f.bankList.touched">
+                <p
+                  class="caption status-danger"
+                  *ngIf="f.bankList.errors?.required"
+                >
+                  Please select bank name.
+                </p>
+              </ng-container>
+            </div>
+            <div class="form-control-group">
+              <label class="label" for="txnType">Transaction Type:</label>
+              <nb-select
+                fullWidth
+                placeholder="Select Transaction Type From List.."
+                formControlName="txnType"
+                name="txnType"
+                id="txnType"
+                [status]="
+                  f.txnType.dirty
+                    ? f.txnType.invalid
+                      ? 'danger'
+                      : 'success'
+                    : 'basic'
+                "
+                [attr.aria-invalid]="
+                  f.txnType.invalid && f.txnType.touched ? true : null
+                "
+                [required]="true"
+                (ngModelChange)="txnTypeChange($event)"
+              >
+                <nb-option
+                  *ngFor="let t of transactionAeps"
+                  value="{{ t.key }}"
+                  >{{ t.value }}</nb-option
+                >
+              </nb-select>
+            </div>
+  
+            <div class="form-control-group" *ngIf="hideTxnAmount">
+              <label class="label" for="input-txnAmount"
+                >Transaction Amount:</label
+              >
+              <input
+                nbInput
+                formControlName="txnAmount"
+                id="input-txnAmount"
+                name="txnAmount"
+                placeholder="Please enter transaction amount"
+                fullWidth
+                fieldSize="large"
+                [status]="
+                  f.txnAmount.dirty
+                    ? f.txnAmount.invalid
+                      ? 'danger'
+                      : 'success'
+                    : 'basic'
+                "
+                [required]="true"
+                [attr.aria-invalid]="
+                  f.txnAmount.invalid && f.txnAmount.touched ? true : null
+                "
+                type="number"
+                min="100"
+                max="10000"
+                pattern="^([1-9][0-9]{2,3}|10000)$"
+              />
+              <ng-container *ngIf="f.txnAmount.invalid && f.txnAmount.touched">
+                <p
+                  class="caption status-danger"
+                  *ngIf="f.txnAmount.errors?.required"
+                >
+                  Transaction amount must be required!
+                </p>
+                <p
+                  class="caption status-danger"
+                  *ngIf="f.txnAmount.errors?.min || f.txnAmount.errors?.max"
+                >
+                  Amount should contains from 100 to 10000
+                </p>
+                <p
+                  class="caption status-danger"
+                  *ngIf="f.txnAmount.errors?.pattern"
+                >
+                  Amount should contains from 100 to 10000
+                </p>
+              </ng-container>
+            </div>
+  
+            <div class="form-control-group">
+              <label class="label" for="input-customerContact"
+                >Contact Number:</label
+              >
+              <input
+                nbInput
+                formControlName="customerContact"
+                id="input-customerContact"
+                name="customerContact"
+                pattern="[6-9]{1}[0-9]{9}"
+                placeholder="Customer Contact Number"
+                fullWidth
+                fieldSize="large"
+                [status]="
+                  f.customerContact.dirty
+                    ? f.customerContact.invalid
+                      ? 'danger'
+                      : 'success'
+                    : 'basic'
+                "
+                [required]="true"
+                [attr.aria-invalid]="
+                  f.customerContact.invalid && f.customerContact.touched
+                    ? true
+                    : null
+                "
+                (ngModelChange)="checkCustomer($event)"
+                [nbSpinner]="checkingNewCustomer"
+              />
+              <ng-container
+                *ngIf="f.customerContact.invalid && f.customerContact.touched"
+              >
+                <p
+                  class="caption status-danger"
+                  *ngIf="f.customerContact.errors?.required"
+                >
+                  Contact Number is required!
+                </p>
+                <p
+                  class="caption status-danger"
+                  *ngIf="f.customerContact.errors?.pattern"
+                >
+                  Contact Number should be the real one!
+                </p>
+              </ng-container>
+            </div>
+            <div *ngIf="newCustomer">
+              <div class="form-control-group">
+                <label class="label" for="input-customerName"
+                  >Customer Name:</label
+                >
+                <input
+                  nbInput
+                  formControlName="customerName"
+                  id="input-customerName"
+                  name="customerName"
+                  pattern="[a-zA-Z ]{3,50}"
+                  placeholder="Customer Name"
+                  fullWidth
+                  fieldSize="large"
+                  [status]="
+                    f.customerName.dirty
+                      ? f.customerName.invalid
+                        ? 'danger'
+                        : 'success'
+                      : 'basic'
+                  "
+                  [required]="true"
+                  [attr.aria-invalid]="
+                    f.customerName.invalid && f.customerName.touched ? true : null
+                  "
+                  type="text"
+                />
+                <ng-container
+                  *ngIf="f.customerName.invalid && f.customerName.touched"
+                >
+                  <p
+                    class="caption status-danger"
+                    *ngIf="f.customerName.errors?.required"
+                  >
+                    Customer Name is required!
+                  </p>
+                  <p
+                    class="caption status-danger"
+                    *ngIf="f.customerName.errors?.pattern"
+                  >
+                    Customer Name should be the real one!
+                  </p>
+                </ng-container>
+              </div>
+              <div class="form-control-group">
+                <label class="label" for="input-customerPin">Pin Code:</label>
+                <input
+                  nbInput
+                  formControlName="customerPin"
+                  id="input-customerPin"
+                  name="customerPin"
+                  pattern="[0-9]{6}"
+                  placeholder="Customer Pin Code"
+                  fullWidth
+                  fieldSize="large"
+                  [status]="
+                    f.customerPin.dirty
+                      ? f.customerPin.invalid
+                        ? 'danger'
+                        : 'success'
+                      : 'basic'
+                  "
+                  [required]="true"
+                  [attr.aria-invalid]="
+                    f.customerPin.invalid && f.customerPin.touched ? true : null
+                  "
+                  type="text"
+                />
+                <ng-container
+                  *ngIf="f.customerPin.invalid && f.customerPin.touched"
+                >
+                  <p
+                    class="caption status-danger"
+                    *ngIf="f.customerPin.errors?.required"
+                  >
+                    Customer area pin code is required!
+                  </p>
+                  <p
+                    class="caption status-danger"
+                    *ngIf="f.customerPin.errors?.pattern"
+                  >
+                    Customer area pin code should be the real one!
+                  </p>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6">
+            <!-- div class="form-control-group">
+              <nb-select
+                fullWidth
+                placeholder="Select Device From List.."
+                name="deviceList"
+                id="deviceList"
+                formControlName="deviceList"
+                [status]="
+                  f.deviceList.dirty
+                    ? f.deviceList.invalid
+                      ? 'danger'
+                      : 'success'
+                    : 'basic'
+                "
+                [attr.aria-invalid]="
+                  f.deviceList && f.deviceList.touched ? true : null
+                "
+                [required]="true"
+              >
+                <nb-option *ngFor="let dl of deviceList" value="{{ dl.key }}">{{
+                  dl.value
+                }}</nb-option>
+              </nb-select>
+              <ng-container *ngIf="f.deviceList.invalid && f.deviceList.touched">
+                <p
+                  class="caption status-danger"
+                  *ngIf="f.deviceList.errors?.required"
+                >
+                  Please select biometric device.
+                </p>
+              </ng-container>
+              <ng-container *ngIf="f.deviceList.errors?.invalidNumber">
+                <p class="caption status-danger">
+                  Please select biometric device.
+                </p>
+              </ng-container>
+            </div> -->
+            <div class="form-control-group">
+              <nb-card [nbSpinner]="fingureScanning">
+                <nb-card-body>
+                  <div class="text-center" (click)="CaptureNew()">
+                    <img
+                      src="https://api.cashand.in/laravel/public/storage/fingerprint.png"
+                      width="40%"
+                      [style.opacity]="fingureOpacity"
+                    />
+                    <p>{{ scanMessage }}</p>
+                  </div>
+                  <nb-progress-bar
+                    [value]="fingureScanStrength"
+                    status="primary"
+                    [displayValue]="true"
+                  ></nb-progress-bar>
+                </nb-card-body>
+              </nb-card>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <button nbButton status="danger" type="reset" style="float: left">
+              Reset
+            </button>
+            <button
+              nbButton
+              status="success"
+              type="submit"
+              style="float: right"
+              [disabled]="submitted || aepsForm.invalid"
+              [class.btn-pulse]="submitted"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </form>
+    </nb-card-body>
+  </nb-card>
+  

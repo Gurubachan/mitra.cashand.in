@@ -1,0 +1,698 @@
+<nb-card>
+    <nb-card-header>Aeps Onboarding Form</nb-card-header>
+    <nb-card-body>
+      <form
+        aria-labelledby="title"
+        [formGroup]="onboardingForm"
+        (ngSubmit)="aepsNewOnboarding(onboardingForm.value)"
+      >
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-control-group">
+                  <label class="label" for="fname">First Name :</label>
+                  <input
+                    nbInput
+                    id="fname"
+                    name="fname"
+                    pattern="^[a-zA-Z_ ]*$"
+                    placeholder="Enter First Name"
+                    fullWidth
+                    [status]="
+                      f.fname.dirty
+                        ? f.fname.invalid
+                          ? 'danger'
+                          : 'success'
+                        : 'basic'
+                    "
+                    [required]="true"
+                    [readonly]="true"
+                    [attr.aria-invalid]="
+                      f.fname.invalid && f.fname.touched ? true : null
+                    "
+                    formControlName="fname"
+                  />
+                  <ng-container *ngIf="f.fname.invalid && f.fname.touched">
+                    <p
+                      class="caption status-danger"
+                      *ngIf="f.fname.errors?.required"
+                    >
+                      First Name required!
+                    </p>
+                    <p
+                      class="caption status-danger"
+                      *ngIf="f.fname.errors?.pattern"
+                    >
+                      Only letter allowed.
+                    </p>
+                  </ng-container>
+                </div>
+              </div>
+            <div class="col-sm-3">
+                <div class="form-control-group">
+                  <label class="label" for="mname">Middle Name :</label>
+                  <input
+                    nbInput
+                    id="mname"
+                    name="mname"
+                    pattern="^[a-zA-Z_ ]*$"
+                    placeholder="Enter Middle Name"
+                    fullWidth
+                    [status]="
+                      f.mname.dirty
+                        ? f.mname.invalid
+                          ? 'danger'
+                          : 'success'
+                        : 'basic'
+                    "
+                    [required]="false"
+                    [attr.aria-invalid]="
+                      f.mname.invalid && f.mname.touched ? true : null
+                    "
+                    formControlName="mname"
+                  />
+                  <ng-container *ngIf="f.mname.invalid && f.mname.touched">
+                    <p
+                      class="caption status-danger"
+                      *ngIf="f.mname.errors?.required"
+                    >
+                      Middle Name required!
+                    </p>
+                    <p
+                      class="caption status-danger"
+                      *ngIf="f.mname.errors?.pattern"
+                    >
+                      Only letter allowed.
+                    </p>
+                  </ng-container>
+                </div>
+              </div>
+            <div class="col-sm-3">
+                <div class="form-control-group">
+                  <label class="label" for="lname">Last Name :</label>
+                  <input
+                    nbInput
+                    id="lname"
+                    name="lname"
+                    pattern="^[a-zA-Z_ ]*$"
+                    placeholder="Enter Last Name"
+                    fullWidth
+                    [status]="
+                      f.lname.dirty
+                        ? f.lname.invalid
+                          ? 'danger'
+                          : 'success'
+                        : 'basic'
+                    "
+                    [required]="true"
+                    [attr.aria-invalid]="
+                      f.lname.invalid && f.lname.touched ? true : null
+                    "
+                    formControlName="lname"
+                    [readonly]="true"
+                  />
+                  <ng-container *ngIf="f.lname.invalid && f.lname.touched">
+                    <p
+                      class="caption status-danger"
+                      *ngIf="f.lname.errors?.required"
+                    >
+                      Last Name required!
+                    </p>
+                    <p
+                      class="caption status-danger"
+                      *ngIf="f.lname.errors?.pattern"
+                    >
+                      Only letter allowed.
+                    </p>
+                  </ng-container>
+                </div>
+              </div>
+            <div class="col-sm-3">
+                <div class="form-control-group">
+                  <label class="label" for="mobilenumber">Mobile Number :</label>
+                  <input
+                    nbInput
+                    id="mobilenumber"
+                    name="mobilenumber"
+                    pattern="^[6-9]{1}[0-9]{9}*$"
+                    placeholder="Enter Mobile Number"
+                    fullWidth
+                    [status]="
+                      f.mobilenumber.dirty
+                        ? f.mobilenumber.invalid
+                          ? 'danger'
+                          : 'success'
+                        : 'basic'
+                    "
+                    [required]="true"
+                    [attr.aria-invalid]="
+                      f.mobilenumber.invalid && f.mobilenumber.touched ? true : null
+                    "
+                    formControlName="mobilenumber"
+                  />
+                  <ng-container *ngIf="f.mobilenumber.invalid && f.mobilenumber.touched">
+                    <p
+                      class="caption status-danger"
+                      *ngIf="f.mobilenumber.errors?.required"
+                    >
+                      Mobilenumber required!
+                    </p>
+                    <p
+                      class="caption status-danger"
+                      *ngIf="f.mobilenumber.errors?.pattern"
+                    >
+                      Only number allowed.
+                    </p>
+                  </ng-container>
+                </div>
+              </div>
+            <div class="col-sm-3">
+                <div class="form-control-group">
+                  <label class="label" for="pancard">Pancard :</label>
+                  <input
+                    nbInput
+                    id="pancard"
+                    name="pancard"
+                    pattern="^[A-Z]{5}[0-9]{4}[A-Z]{1}*$"
+                    placeholder="Enter Pancard"
+                    fullWidth
+                    [status]="
+                      f.pancard.dirty
+                        ? f.pancard.invalid
+                          ? 'danger'
+                          : 'success'
+                        : 'basic'
+                    "
+                    [required]="true"
+                    [attr.aria-invalid]="
+                      f.pancard.invalid && f.pancard.touched ? true : null
+                    "
+                    formControlName="pancard"
+                    [readonly]="true"
+                  />
+                  <ng-container *ngIf="f.pancard.invalid && f.pancard.touched">
+                    <p
+                      class="caption status-danger"
+                      *ngIf="f.pancard.errors?.required"
+                    >
+                      Pancard required!
+                    </p>
+                    <p
+                      class="caption status-danger"
+                      *ngIf="f.pancard.errors?.pattern"
+                    >
+                      Only letter allowed.
+                    </p>
+                  </ng-container>
+                </div>
+              </div>
+            <div class="col-sm-3">
+                <div class="form-control-group">
+                  <label class="label" for="aadhaarId">Aadhaar Id :</label>
+                  <input
+                    nbInput
+                    id="aadhaarId"
+                    name="aadhaarId"
+                    pattern="^[0-9]{12}*$"
+                    placeholder="Enter AadhaarId"
+                    fullWidth
+                    [status]="
+                      f.aadhaarId.dirty
+                        ? f.aadhaarId.invalid
+                          ? 'danger'
+                          : 'success'
+                        : 'basic'
+                    "
+                    [required]="true"
+                    [attr.aria-invalid]="
+                      f.aadhaarId.invalid && f.aadhaarId.touched ? true : null
+                    "
+                    formControlName="aadhaarId"
+                    [readonly]="true"
+                  />
+                  <ng-container *ngIf="f.aadhaarId.invalid && f.aadhaarId.touched">
+                    <p
+                      class="caption status-danger"
+                      *ngIf="f.aadhaarId.errors?.required"
+                    >
+                      AadhaarId required!
+                    </p>
+                    <p
+                      class="caption status-danger"
+                      *ngIf="f.aadhaarId.errors?.pattern"
+                    >
+                      Only letter allowed.
+                    </p>
+                  </ng-container>
+                </div>
+              </div>
+            <div class="col-sm-3">
+                <div class="form-control-group">
+                  <label class="label" for="companyname">Company Name :</label>
+                  <input
+                    nbInput
+                    id="companyname"
+                    name="companyname"
+                    pattern="^[a-zA-Z_ ]*$"
+                    placeholder="Enter Company Name"
+                    fullWidth
+                    [status]="
+                      f.companyname.dirty
+                        ? f.companyname.invalid
+                          ? 'danger'
+                          : 'success'
+                        : 'basic'
+                    "
+                    [required]="true"
+                    [attr.aria-invalid]="
+                      f.companyname.invalid && f.companyname.touched ? true : null
+                    "
+                    formControlName="companyname"
+                  />
+                  <ng-container *ngIf="f.companyname.invalid && f.companyname.touched">
+                    <p
+                      class="caption status-danger"
+                      *ngIf="f.companyname.errors?.required"
+                    >
+                      Companyname required!
+                    </p>
+                    <p
+                      class="caption status-danger"
+                      *ngIf="f.companyname.errors?.pattern"
+                    >
+                      Only letter allowed.
+                    </p>
+                  </ng-container>
+                </div>
+              </div>
+            <div class="col-sm-3">
+                <div class="form-control-group">
+                  <label class="label" for="address">Address :</label>
+                  <input
+                    nbInput
+                    id="address"
+                    name="address"
+                    pattern="^[a-zA-Z_, 0-9]*$"
+                    placeholder="Enter Address"
+                    fullWidth
+                    [status]="
+                      f.address.dirty
+                        ? f.address.invalid
+                          ? 'danger'
+                          : 'success'
+                        : 'basic'
+                    "
+                    [required]="true"
+                    [attr.aria-invalid]="
+                      f.address.invalid && f.address.touched ? true : null
+                    "
+                    formControlName="address"
+                  />
+                  <ng-container *ngIf="f.address.invalid && f.address.touched">
+                    <p
+                      class="caption status-danger"
+                      *ngIf="f.address.errors?.required"
+                    >
+                      Address required!
+                    </p>
+                    <p
+                      class="caption status-danger"
+                      *ngIf="f.address.errors?.pattern"
+                    >
+                      Only letter allowed.
+                    </p>
+                  </ng-container>
+                </div>
+              </div>
+            <div class="col-sm-3">
+                <div class="form-control-group">
+                  <label class="label" for="area">Area :</label>
+                  <input
+                    nbInput
+                    id="area"
+                    name="area"
+                    pattern="^[a-zA-Z ]*$"
+                    placeholder="Enter Area"
+                    fullWidth
+                    [status]="
+                      f.area.dirty
+                        ? f.area.invalid
+                          ? 'danger'
+                          : 'success'
+                        : 'basic'
+                    "
+                    [required]="true"
+                    [attr.aria-invalid]="
+                      f.area.invalid && f.area.touched ? true : null
+                    "
+                    formControlName="area"
+                  />
+                  <ng-container *ngIf="f.area.invalid && f.area.touched">
+                    <p
+                      class="caption status-danger"
+                      *ngIf="f.area.errors?.required"
+                    >
+                      Area required!
+                    </p>
+                    <p
+                      class="caption status-danger"
+                      *ngIf="f.area.errors?.pattern"
+                    >
+                      Only letter allowed.
+                    </p>
+                  </ng-container>
+                </div>
+              </div>
+            <div class="col-sm-3">
+                <div class="form-control-group">
+                  <label class="label" for="pincode">Pincode :</label>
+                  <input
+                    nbInput
+                    type="number"
+                    id="pincode"
+                    name="pincode"
+                    pattern="^[0-9]{6}*$"
+                    placeholder="Enter Pincode"
+                    fullWidth
+                    [status]="
+                      f.pincode.dirty
+                        ? f.pincode.invalid
+                          ? 'danger'
+                          : 'success'
+                        : 'basic'
+                    "
+                    [required]="true"
+                    [attr.aria-invalid]="
+                      f.pincode.invalid && f.pincode.touched ? true : null
+                    "
+                    formControlName="pincode"
+                  />
+                  <ng-container *ngIf="f.pincode.invalid && f.pincode.touched">
+                    <p
+                      class="caption status-danger"
+                      *ngIf="f.pincode.errors?.required"
+                    >
+                      Pincode required!
+                    </p>
+                    <p
+                      class="caption status-danger"
+                      *ngIf="f.pincode.errors?.pattern"
+                    >
+                      Only letter allowed.
+                    </p>
+                  </ng-container>
+                </div>
+              </div>
+          <div class="col-sm-3">
+            <div class="form-control-group">
+              <label class="label" for="shopname">Shope Name:</label>
+              <input
+                nbInput
+                id="shopname"
+                name="shopname"
+                pattern="^[a-zA-Z_ 0-9 ]*$"
+                placeholder="Enter Shop Name"
+                fullWidth
+                [status]="
+                  f.shopname.dirty
+                    ? f.shopname.invalid
+                      ? 'danger'
+                      : 'success'
+                    : 'basic'
+                "
+                [required]="true"
+                [attr.aria-invalid]="
+                  f.shopname.invalid && f.shopname.touched ? true : null
+                "
+                formControlName="shopname"
+              />
+              <ng-container *ngIf="f.shopname.invalid && f.shopname.touched">
+                <p
+                  class="caption status-danger"
+                  *ngIf="f.shopname.errors?.required"
+                >
+                  Shop Name required!
+                </p>
+                <p
+                  class="caption status-danger"
+                  *ngIf="f.shopname.errors?.pattern"
+                >
+                  Only letter allowed.
+                </p>
+              </ng-container>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-control-group">
+                <label class="label" for="shopcity">Shope City:</label>
+                <input
+                  nbInput
+                  id="shopcity"
+                  name="shopcity"
+                  pattern="^[a-zA-Z_ ]*$"
+                  placeholder="Enter Shop City"
+                  fullWidth
+                  [status]="
+                    f.shopcity.dirty
+                      ? f.shopcity.invalid
+                        ? 'danger'
+                        : 'success'
+                      : 'basic'
+                  "
+                  [required]="true"
+                  [attr.aria-invalid]="
+                    f.shopcity.invalid && f.shopcity.touched ? true : null
+                  "
+                  [min]="3"
+                  formControlName="shopcity"
+                />
+                <ng-container *ngIf="f.shopcity.invalid && f.shopcity.touched">
+                  <p
+                    class="caption status-danger"
+                    *ngIf="f.shopcity.errors?.required"
+                  >
+                    Shop City required!
+                  </p>
+                  <p
+                    class="caption status-danger"
+                    *ngIf="f.shopcity.errors?.pattern"
+                  >
+                    Only letter allowed.
+                  </p>
+                </ng-container>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-control-group">
+                <label class="label" for="shoparea">Shope Area:</label>
+                <input
+                  nbInput
+                  id="shoparea"
+                  name="shoparea"
+                  pattern="^[a-zA-Z_, ]*$"
+                  placeholder="Enter Shop Area"
+                  fullWidth
+                  [status]="
+                    f.shoparea.dirty
+                      ? f.shoparea.invalid
+                        ? 'danger'
+                        : 'success'
+                      : 'basic'
+                  "
+                  [required]="true"
+                  [attr.aria-invalid]="
+                    f.shoparea.invalid && f.shoparea.touched ? true : null
+                  "
+                  formControlName="shoparea"
+                />
+                <ng-container *ngIf="f.shoparea.invalid && f.shoparea.touched">
+                  <p
+                    class="caption status-danger"
+                    *ngIf="f.shoparea.errors?.required"
+                  >
+                    Shop Area required!
+                  </p>
+                  <p
+                    class="caption status-danger"
+                    *ngIf="f.shoparea.errors?.pattern"
+                  >
+                    Only letter allowed.
+                  </p>
+                </ng-container>
+              </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-control-group">
+                <label class="label" for="shopaddress">Shope Address:</label>
+                <input
+                  nbInput
+                  id="shopaddress"
+                  name="shopaddress"
+                  pattern="^[a-zA-Z_,.0-9 ]*$"
+                  placeholder="Enter Shop Address"
+                  fullWidth
+                  [status]="
+                    f.shopaddress.dirty
+                      ? f.shopaddress.invalid
+                        ? 'danger'
+                        : 'success'
+                      : 'basic'
+                  "
+                  [required]="true"
+                  [attr.aria-invalid]="
+                    f.shopaddress.invalid && f.shopaddress.touched ? true : null
+                  "
+                  formControlName="shopaddress"
+                />
+                <ng-container *ngIf="f.shopaddress.invalid && f.shopaddress.touched">
+                  <p
+                    class="caption status-danger"
+                    *ngIf="f.shopaddress.errors?.required"
+                  >
+                    Shop Address required!
+                  </p>
+                  <p
+                    class="caption status-danger"
+                    *ngIf="f.shopaddress.errors?.pattern"
+                  >
+                    Only letter allowed.
+                  </p>
+                </ng-container>
+              </div>
+          </div>
+
+          <div class="col-sm-3">
+            <div class="form-control-group">
+                <label class="label" for="shopdistrict">Shope District:</label>
+                <input
+                  nbInput
+                  id="shopdistrict"
+                  name="shopdistrict"
+                  pattern="^[a-zA-Z ]*$"
+                  placeholder="Enter Shop District"
+                  fullWidth
+                  [status]="
+                    f.shopdistrict.dirty
+                      ? f.shopdistrict.invalid
+                        ? 'danger'
+                        : 'success'
+                      : 'basic'
+                  "
+                  [required]="true"
+                  [attr.aria-invalid]="
+                    f.shopdistrict.invalid && f.shopdistrict.touched ? true : null
+                  "
+                  formControlName="shopdistrict"
+                />
+                <ng-container *ngIf="f.shopdistrict.invalid && f.shopdistrict.touched">
+                  <p
+                    class="caption status-danger"
+                    *ngIf="f.shopdistrict.errors?.required"
+                  >
+                    Shop District required!
+                  </p>
+                  <p
+                    class="caption status-danger"
+                    *ngIf="f.shopdistrict.errors?.pattern"
+                  >
+                    Only letter allowed.
+                  </p>
+                </ng-container>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-control-group">
+                <label class="label" for="shopstate">Shope State:</label>
+                <input
+                  nbInput
+                  id="shopstate"
+                  name="shopstate"
+                  pattern="^[a-zA-Z ]*$"
+                  placeholder="Enter Shop State"
+                  fullWidth
+                  [status]="
+                    f.shopstate.dirty
+                      ? f.shopstate.invalid
+                        ? 'danger'
+                        : 'success'
+                      : 'basic'
+                  "
+                  [required]="true"
+                  [attr.aria-invalid]="
+                    f.shopstate.invalid && f.shopstate.touched ? true : null
+                  "
+                  formControlName="shopstate"
+                />
+                <ng-container *ngIf="f.shopstate.invalid && f.shopstate.touched">
+                  <p
+                    class="caption status-danger"
+                    *ngIf="f.shopstate.errors?.required"
+                  >
+                    Shop State required!
+                  </p>
+                  <p
+                    class="caption status-danger"
+                    *ngIf="f.shopstate.errors?.pattern"
+                  >
+                    Only letter allowed.
+                  </p>
+                </ng-container>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-control-group">
+                <label class="label" for="shoppincode">Shope Pincode:</label>
+                <input
+                  type="number"
+                  nbInput
+                  id="shoppincode"
+                  name="shoppincode"
+                  pattern="^[0-9]{6}*$"
+                  placeholder="Enter Shop State"
+                  fullWidth
+                  [status]="
+                    f.shoppincode.dirty
+                      ? f.shoppincode.invalid
+                        ? 'danger'
+                        : 'success'
+                      : 'basic'
+                  "
+                  [required]="true"
+                  [attr.aria-invalid]="
+                    f.shoppincode.invalid && f.shoppincode.touched ? true : null
+                  "
+                  formControlName="shoppincode"
+                />
+                <ng-container *ngIf="f.shoppincode.invalid && f.shoppincode.touched">
+                  <p
+                    class="caption status-danger"
+                    *ngIf="f.shoppincode.errors?.required"
+                  >
+                    Shop Pincode required!
+                  </p>
+                  <p
+                    class="caption status-danger"
+                    *ngIf="f.shopstate.errors?.pattern"
+                  >
+                    Only letter allowed.
+                  </p>
+                </ng-container>
+            </div>
+          </div>
+         
+        </div>
+        <br>
+        <p style="color: red;">Merchant name and name in pan card must be same.</p>
+        <button
+          nbButton
+          class="btn btn-success"
+          type="submit"
+          style="float: right"
+          [disabled]="submitted || onboardingForm.invalid"
+          [class.btn-pulse]="submitted"
+        >
+          Submit
+        </button>
+      </form>
+    </nb-card-body>
+    
+  

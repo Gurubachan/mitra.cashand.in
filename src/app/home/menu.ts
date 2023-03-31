@@ -1,4 +1,5 @@
 import { NbMenuItem } from "@nebular/theme";
+import { link } from "fs";
 
 let menus: Array<any>;
 menus = [];
@@ -94,10 +95,10 @@ menus[4] = [
         title: "Money Trasfer",
         link: "/services/dmt",
       },
-     /*  {
-        title: "AEPS",
-        link: "/services/aeps",
-      }, */
+       {
+        title: "Unified AEPS",
+        link: "/services/unified",
+      },
       {
         title: "AEPS",
         link: "/services/aepsNew",
@@ -130,6 +131,10 @@ menus[4] = [
         title: "Bank Account",
         link: "/services/axis-casa",
       },
+      {
+        title: "Loan",
+        link: "/services/loan",
+      },
     ],
   },
   {
@@ -149,6 +154,10 @@ menus[4] = [
         link: "/reports/aeps",
       },
       {
+        title: "Unified Aeps",
+        link: "/reports/unified-aeps",
+      },
+      {
         title: "MATM",
         link: "/reports/matm",
       },
@@ -164,10 +173,7 @@ menus[4] = [
         title: "UPI",
         link: "/reports/upi",
       },
-      {
-        title: "Team",
-        link: "/reports/team",
-      },
+      
       {
         title: "Lic",
         link: "/reports/lic",
@@ -176,8 +182,36 @@ menus[4] = [
         title: "Fastag",
         link: "/reports/fastag",
       },
+     
     ],
   },
+
+  {
+    title: "MIS",
+    group: true,
+  },
+  {
+    title: "MIS",
+    icon: "layout-outline",
+    children: [
+      {
+        title:"Commission Sheet",
+        link:"/reports/commission-sheet"
+      },
+      {
+        title:"My Business Summary",
+        link:"/reports/business-summary"
+      },
+      {
+        title: "Team",
+        link: "/reports/team",
+      },
+      {
+        title:"Team Business Summary",
+        link:"/reports/team-business-summary"
+      },
+    ]
+  }
 ];
 menus[9] = [
   {
@@ -232,6 +266,10 @@ menus[9] = [
       {
         title: "AEPS",
         link: "/reports/aeps",
+      },
+      {
+        title: "UNIFIED AEPS",
+        link: "/reports/unified-aeps",
       },
       {
         title: "MATM",

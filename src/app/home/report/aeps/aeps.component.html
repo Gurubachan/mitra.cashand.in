@@ -118,6 +118,7 @@
           <th>Status</th>
           <th>Transaction Date</th>
           <th>Update Date</th>
+          <th>Wallet Ref No.</th>
           <th>BC Name</th>
           <th>Remark</th>
         </tr>
@@ -141,6 +142,7 @@
           <td>{{ t?.status }}</td>
           <td>{{ t?.created_at | date: "dd-MM-yyyy h:mm:ss a" }}</td>
           <td>{{ t?.updated_at | date: "dd-MM-yyyy h:mm:ss a" }}</td>
+          <td>{{t?.walletReferenceNo}}</td>
           <td>{{ t?.fname + " " + t.lname | titlecase }}</td>
           <td>
             {{

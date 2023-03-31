@@ -1,4 +1,5 @@
 export interface BusinessSummary {
+        id: number;
         user_name: string;
         contact: any;
         service: string;

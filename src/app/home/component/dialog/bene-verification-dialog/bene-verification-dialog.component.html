@@ -1,10 +1,10 @@
 <nb-card>
   <nb-card-header>{{title}}</nb-card-header>
   <nb-card-body>
-    <input #name nbInput placeholder="Verified Name" required="required" fullWidth value="{{data.name}}" readonly disabled><br><br>
+    <input #name nbInput placeholder="Verified Name" required="required" fullWidth value="{{data.name}}" ><br><br>
     <input #account nbInput placeholder="Account Nuber" required="required" fullWidth readonly disabled value="{{data.account}}"><br><br>
     <input #ifsc nbInput placeholder="IFSC Code" required="required" readonly disabled value="{{data.ifscCode}}"><br>
-    <small>{{sata.message}}.</small>
+    <small>{{data.message}}.</small>
   </nb-card-body>
   <nb-card-footer>
     <button class="cancel" nbButton status="danger" (click)="cancel()">Cancel</button>
