@@ -57,6 +57,7 @@ export class UnifiedReportComponent implements OnInit {
     this.tomax = this.dateService.today();
     this.today = this.dateService.today();
     this.selectedTxnType="CW";
+    this.selectedTxnStatus="0";
     this.txnAmount=0;
     this.aadhaarNo="";
     
@@ -117,7 +118,8 @@ export class UnifiedReportComponent implements OnInit {
         aadhaar:this.postData.aadhaar,
         startDate:this.formControl.value,
         endDate: this.ngModelDate,
-        bcAgentId:""
+        bcAgentId:"",
+        txnStatus:this.selectedTxnStatus
     };
     data.bcAgentId=null;
     if(this.inputFormControl.value !=null && this.inputFormControl.value.length > 10 ){

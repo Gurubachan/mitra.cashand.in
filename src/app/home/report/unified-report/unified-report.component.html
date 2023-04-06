@@ -3,7 +3,7 @@
   <nb-card-header>Filter Form</nb-card-header>
   <nb-card-body>
     <div class="row">
-      <div class="col-sm-4">
+      <div class="col-sm-3">
         <input
           nbInput
           placeholder="From Date"
@@ -22,7 +22,7 @@
           (dateChange)="setMaxdate($event)"
         ></nb-datepicker>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-3">
         <input
           nbInput
           placeholder="To Picker"
@@ -41,7 +41,7 @@
       </div>
       
       
-      <div class="col-sm-4">
+      <div class="col-sm-3">
         <nb-select
           placeholder="Select Txn Type"
           [(selected)]="selectedTxnType"
@@ -52,6 +52,20 @@
           <nb-option value="AP">Aadhaar Pay</nb-option>
           <nb-option value="BE">Balance Enquery</nb-option>
           <nb-option value="MS">Mini Statement</nb-option>
+          
+        </nb-select>
+      </div>
+      <div class="col-sm-3">
+        <nb-select
+          placeholder="Select Txn Status"
+          [(selected)]="selectedTxnStatus"
+          required
+          fullWidth
+        >
+          <nb-option value="0" selected>SUCCESS</nb-option>
+          <nb-option value="-1">FAILED</nb-option>
+          <nb-option value="2">INITIATED</nb-option>
+          
           
         </nb-select>
       </div>
