@@ -8,6 +8,7 @@ import { Data } from "../../../@model/athenticate/auth";
 import { CostumehttpService } from "../../../services/costumehttp.service";
 import { HttpService } from "../../../services/http.service";
 import { ToastrService } from "../../../services/toastr.service";
+import { PublicApiCallService } from "../../../services/public-api-call.service";
 
 @Component({
   selector: "ngx-aeps",
@@ -28,17 +29,17 @@ export class AepsComponent implements OnInit {
   today: Date;
   loading: boolean = false;
   permiteMISRole=[9,10,14,15];
-   user:any=null;
-   options: string[];
-     filteredOptions$: Observable<string[]>;
+  user:any=null;
+  options: string[];
+  filteredOptions$: Observable<string[]>;
   inputFormControl: FormControl;
 
-    requestParam: { startDate: Date; endDate: Date } = null;
+  requestParam: { startDate: Date; endDate: Date } = null;
   constructor(
     private http: HttpService,
     protected dateService: NbDateService<Date>,
     private toast: ToastrService,
-    private costumeHttp: CostumehttpService
+    private commonApi: PublicApiCallService
   ) {
     this.frommin = this.dateService.addMonth(this.dateService.today(), -2);
     //this.frommax = this.dateService.addDay(this.min, 15);
@@ -166,23 +167,15 @@ export class AepsComponent implements OnInit {
     });
   }
 
-  filterUser(e){
- this.options=[];
-    if (e != null && e.length >= 4 && e.length<=10){
-      this.http.post('admin/filterUser',{value:e}).subscribe((result) => {
-        
-        if(result.response){
-          result.data.forEach(u => {
-            let name=u.fname+' '+u.lname;
-            this.options.push(u.contact+'-'+name);
-          });
-        }
-      });
-     /*  let result=this.apiCall.getRetailer(e);
-      console.log(result) */
-     
-    }
-
+   filterUser(e){
+ 
+ 
+if (e != null && e.length >= 4 && e.length<=10){
+    this.commonApi.filterUser(e).then((userList)=>{
+      console.warn("Filter", userList);
+      this.options=userList;
+    });
+  }
   }
 
   getUserData() {

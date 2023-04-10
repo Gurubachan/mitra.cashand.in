@@ -37,6 +37,10 @@ export class MatmComponent implements OnInit {
     endpoint = "atm/transaction";
     user:any=null;
     permiteMISRole=[9,10,14,15];
+    postData:any={
+      cardNo:null,
+      amount:0,
+    };
   constructor(
     private http: HttpService,
     private toast: ToastrService,
@@ -132,6 +136,8 @@ export class MatmComponent implements OnInit {
       startDate: this.formControl.value,
       endDate: this.ngModelDate,
       userId: null,
+      cardNo:this.postData.cardNo,
+      amount:this.postData.amount
     };
     if(this.inputFormControl.value !=null && this.inputFormControl.value.length > 10 ){
       console.warn(this.inputFormControl.value);

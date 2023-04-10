@@ -35,7 +35,7 @@
           [min]="tomin"
         ></nb-datepicker>
       </div>
-      <div class="col-sm-5" *ngIf="permiteMISRole.indexOf(user.role)!= -1">
+      <div class="col-sm-4" *ngIf="permiteMISRole.indexOf(user.role)!= -1">
         <input
           [formControl]="inputFormControl"
           nbInput
@@ -55,7 +55,36 @@
           </nb-option>
         </nb-autocomplete>
       </div>
-
+<div class="col-sm-2">
+        <input
+          [(ngModel)]="postData.cardNo"
+          #cardNo="ngModel"
+          name="cardNo"
+          nbInput
+          type="text"
+          placeholder="Enter card last for digit"
+          min="4"
+          max="4"
+          fullWidth
+          
+        />
+      </div>
+      
+      <div class="col-sm-2">
+        <input
+          [(ngModel)]="postData.amount"
+          #amount="ngModel"
+          name="amount"
+        
+          nbInput
+          type="number"
+          placeholder="Enter amount between 100 to 10000"
+          min="100"
+          max="10000"
+          fullWidth
+          
+        />
+      </div>
       <div class="col-sm-12 text-center">
         <button nbButton status="success" (click)="myTransaction()">Search</button>
       </div>
