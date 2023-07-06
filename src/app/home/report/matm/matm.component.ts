@@ -27,6 +27,9 @@ export class MatmComponent implements OnInit {
 
   requestParam: { startDate: Date; endDate: Date } = null;
 
+  selectedTxnType;
+  selectedTxnStatus;
+
   options: string[];
   filteredOptions$: Observable<string[]>;
   inputFormControl: FormControl;
@@ -53,6 +56,9 @@ export class MatmComponent implements OnInit {
     this.tomin = this.dateService.today();
     this.tomax = this.dateService.today();
     this.today = this.dateService.today();
+
+     this.selectedTxnType="CW";
+    this.selectedTxnStatus="0";
    }
 
   ngOnInit(): void {
@@ -137,7 +143,9 @@ export class MatmComponent implements OnInit {
       endDate: this.ngModelDate,
       userId: null,
       cardNo:this.postData.cardNo,
-      amount:this.postData.amount
+      amount:this.postData.amount,
+      txnType:this.selectedTxnType,
+      txnStatus:this.selectedTxnStatus
     };
     if(this.inputFormControl.value !=null && this.inputFormControl.value.length > 10 ){
       console.warn(this.inputFormControl.value);
@@ -187,6 +195,28 @@ export class MatmComponent implements OnInit {
      
     }
 
+  }
+
+  showFile(s, index){
+    this.loading=true;
+    let data ={
+      id: s.id,
+      startDate: s.created_at,
+      endDate: s.updated_at
+    }
+    this.http.post("atm/reconcile", data).subscribe(res =>{
+      console.log(res)
+      this.transactions.data[index].apiStatus = res.data.apiStatus;
+      this.transactions.data[index].apiDescription = res.data.apiDescription;
+      this.transactions.data[index].walletReference = res.data.walletReference;
+       this.loading=false;
+    }, err=>{
+      console.log(err.error.data);
+      this.transactions.data[index].apiStatus = err.error.data.apiStatus;
+      this.transactions.data[index].apiDescription = err.error.data.apiDescription;
+      this.transactions.data[index].walletReference = err.error.data.walletReference;
+       this.loading=false;;
+    });
   }
 
    getUserData() {

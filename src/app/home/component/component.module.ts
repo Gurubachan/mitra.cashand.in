@@ -32,6 +32,7 @@ import { RemarkDialogComponent } from './dialog/remark-dialog/remark-dialog.comp
 import { UpiMappingDialogComponent } from './dialog/upi-mapping-dialog/upi-mapping-dialog.component';
 import { BeneVerificationDialogComponent } from './dialog/bene-verification-dialog/bene-verification-dialog.component';
 import { AepsTransactionDialogComponent } from './aeps-transaction-dialog/aeps-transaction-dialog.component';
+import { ApiMoreViewComponent } from './popover/api-more-view/api-more-view.component';
 @NgModule({
   declarations: [
     AboutComponent,
@@ -50,7 +51,8 @@ import { AepsTransactionDialogComponent } from './aeps-transaction-dialog/aeps-t
     RemarkDialogComponent,
     UpiMappingDialogComponent,
     BeneVerificationDialogComponent,
-    AepsTransactionDialogComponent
+    AepsTransactionDialogComponent,
+    ApiMoreViewComponent
   ],
   imports: [
     CommonModule,

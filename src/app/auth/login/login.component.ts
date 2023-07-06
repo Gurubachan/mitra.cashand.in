@@ -74,11 +74,11 @@ export class LoginComponent extends NbLoginComponent {
           console.log(encr);*/
           localStorage.setItem(
             "user",
-            btoa(JSON.stringify(result.getResponse().body.data.user))
+            btoa(JSON.stringify(result.getResponse().body.data.user)),
           );
           localStorage.setItem(
             "services",
-            result.getResponse().body.data.service
+            result.getResponse().body.data.service,
           );
 
           /*console.log(this.EncrDecr.get(encr));*/

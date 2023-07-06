@@ -21,6 +21,7 @@ import { AtmMappingComponent } from './atm-mapping/atm-mapping.component';
 import { CommissionRevisionComponent } from './commission-revision/commission-revision.component';
 import { GlobalServiceComponent } from './global-service/global-service.component';
 import { QRMasterComponent } from './qrmaster/qrmaster.component';
+import { PayoutMasterComponent } from './payout-master/payout-master.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { QRMasterComponent } from './qrmaster/qrmaster.component';
     CommissionRevisionComponent,
     GlobalServiceComponent,
     QRMasterComponent,
+    PayoutMasterComponent,
   ],
   imports: [
     CommonModule,

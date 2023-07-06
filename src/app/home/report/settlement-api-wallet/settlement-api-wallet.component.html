@@ -35,26 +35,7 @@
           [min]="tomin"
         ></nb-datepicker>
       </div>
-      <div class="col-sm-5" *ngIf="permiteMISRole.indexOf(user.role)!= -1">
-        <input
-          [formControl]="inputFormControl"
-          nbInput
-          type="text"
-          placeholder="Search user name"
-          [nbAutocomplete]="auto"
-          fullWidth
-          (ngModelChange)="filterUser($event)"
-        />
-
-        <nb-autocomplete #auto [handleDisplayFn]="viewHandle">
-          <nb-option
-            *ngFor="let option of filteredOptions$ | async"
-            [value]="option"
-          >
-            {{ option }}
-          </nb-option>
-        </nb-autocomplete>
-      </div>
+      
       <div class="col-sm-3">
         <nb-select
           placeholder="Select Txn Type"
@@ -76,67 +57,57 @@
     </div>
   </nb-card-body>
 </nb-card>
-
 <nb-card [nbSpinner]="loading">
   <nb-card-body>
-    <table class="table table-hover">
+    <table class="table table-hover" style="font-size: 13px;">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Wallet Ref</th>
-          <th>Txn Ref</th>
-          <th>Description</th>
-          <th>Amount</th>
-          <th>Balance</th>
-          <th>Txn Date</th>
-          <th>Created Date</th>
-          <th>Updated Date</th>
+          <th>id</th>
+          <th>Transaction Ref No</th>
+          <th>Type</th>
+          <th>Opening Balance</th>
+          
+          <th>Transaction Amount</th>
+          <th>Closing Balance</th>
+          <th>Status</th>
           <th>Remark</th>
+          <th>Operation</th>
+          <th>Transaction Date</th>
+          <th>Created At</th>
+          <th>Updated At</th>
+          
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let w of wallet?.data">
-           <td>{{ w.fname + " " + w.lname | titlecase }} {{w.contact}}</td>
+        <tr *ngFor="let w of transactions?.data">
+           <td>{{ w.id }} </td>
           <td>
-            {{ w.id }}
+            {{ w.transaction_ref_no }}
           </td>
           <td>
-           {{w.transaction_reference}}
+           {{w.transaction_type}}
           </td>
           <td>
-            {{ w.transaction_type }} <br /><small>{{ w.description }}</small>
+            {{ w.opening_balance }} 
           </td>
-          <td>{{ w.transacting_amount }} {{ w.wallet_operation }}</td>
+          <td>{{ w.transaction_amount }}</td>
           <td>{{ w.closing_balance }}</td>
           <td>
-            {{ w.transaction_date | date: "dd-MM-yyyy h:mm:ss a" }} <br />
+            {{ w.status }}
           </td>
            <td>
-            {{ w.created_at | date: "dd-MM-yyyy h:mm:ss a" }} <br />
+            {{ w.remark }} <br />
           </td>
            <td>
-            {{ w.updated_at | date: "dd-MM-yyyy h:mm:ss a" }} <br />
+            {{ w.operation }} <br />
           </td>
-          <td>{{ w.remark }}</td>
+           <td>
+            {{ w.transaction_date | date: "dd-MM-yyyy h:mm:ss a" }} 
+          </td>
+          <td>{{ w.created_at | date: "dd-MM-yyyy h:mm:ss a" }}</td>
+          <td>{{ w.updated_at | date: "dd-MM-yyyy h:mm:ss a" }}</td>
         </tr>
       </tbody>
     </table>
-    <button
-      nbButton
-      status="success"
-      *ngIf="wallet?.prev_page_url != null"
-      (click)="goToPage(wallet?.prev_page_url)"
-    >
-      Previous
-    </button>
-    <button
-      nbButton
-      status="success"
-      class="float-right"
-      *ngIf="wallet?.next_page_url != null"
-      (click)="goToPage(wallet?.next_page_url)"
-    >
-      Next
-    </button>
   </nb-card-body>
 </nb-card>

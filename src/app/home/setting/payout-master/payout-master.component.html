@@ -52,7 +52,7 @@
 </nb-card>
 
 
-<div class="row">
+<div class="row" *ngIf="showUserForm">
   <div class="col-12">
     <nb-alert
       *ngIf="showMessages.error && errors?.length && !submitted"
@@ -96,7 +96,7 @@
   </div>
   <div class="col-sm-4">
     <nb-card size="tiny" [nbSpinner]="loading">
-      <nb-card-header>Setteled to own account</nb-card-header>
+      <nb-card-header>Settled to user account</nb-card-header>
       <nb-card-body
         *ngIf="user?.isBankAccountVerified && drawableBalance > 100"
       >

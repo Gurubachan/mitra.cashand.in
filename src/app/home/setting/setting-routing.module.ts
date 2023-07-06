@@ -5,27 +5,32 @@ import { CommissionRevisionComponent } from './commission-revision/commission-re
 import { GlobalServiceComponent } from './global-service/global-service.component';
 import { QRMasterComponent } from './qrmaster/qrmaster.component';
 import { SettingComponent } from './setting.component';
+import {PayoutMasterComponent} from './payout-master/payout-master.component';
 
 const routes: Routes = [{
     path: "",
     component: SettingComponent,
     children: [
        {
-        path:"atm-mapping",
+        path:'atm-mapping',
         component:AtmMappingComponent
       },
        {
-        path:"commission",
+        path:'commission',
         component:CommissionRevisionComponent
       },
       {
-        path:"service",
+        path:'service',
         component:GlobalServiceComponent
       },
       {
-        path:"qr-master",
-        component:QRMasterComponent
+        path:'qr-master',
+        component: QRMasterComponent
       },
+      {
+        path: 'payout-master',
+        component: PayoutMasterComponent
+      }
     ],
     }
     ];

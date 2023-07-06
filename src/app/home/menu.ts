@@ -173,7 +173,7 @@ menus[4] = [
         title: "UPI",
         link: "/reports/upi",
       },
-      
+
       {
         title: "Lic",
         link: "/reports/lic",
@@ -182,7 +182,7 @@ menus[4] = [
         title: "Fastag",
         link: "/reports/fastag",
       },
-     
+
     ],
   },
 
@@ -248,6 +248,10 @@ menus[9] = [
         title: "QR Master",
         link: "/setting/qr-master",
       },
+      {
+        title: 'payout-master',
+        link: '/setting/payout-master',
+      }
     ],
   },
   {
@@ -258,7 +262,7 @@ menus[9] = [
         title: "Wallet",
         link: "/reports/statement",
       },
-      
+
       {
         title: "Settlement",
         link: "/reports/cashout",
@@ -340,7 +344,7 @@ menus[10] = [
         title: "Show Users",
         link: "/members",
       },
-      
+
     ],
   },
   {
@@ -351,7 +355,7 @@ menus[10] = [
         title: "Wallet",
         link: "/reports/statement",
       },
-      
+
       {
         title: "Settlement",
         link: "/reports/cashout",
@@ -482,7 +486,7 @@ menus[14] = [
         title: "Show Users",
         link: "/members",
       },
-      
+
     ],
   },
   {
@@ -493,7 +497,7 @@ menus[14] = [
         title: "Wallet",
         link: "/reports/statement",
       },
-      
+
       {
         title: "Settlement",
         link: "/reports/cashout",
@@ -563,7 +567,7 @@ menus[15] = [
     link: "/dashboard",
     home: true,
   },
-  
+
   {
     title: "MIS",
     icon: "person-add-outline",
@@ -580,7 +584,7 @@ menus[15] = [
         title:"Business Summary",
         link:"/reports/business-summary"
       },
-      
+
     ],
   },
 ];

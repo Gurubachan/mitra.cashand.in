@@ -20,6 +20,8 @@ import { UnifiedReportComponent } from "./unified-report/unified-report.componen
 import { UpiComponent } from "./upi/upi.component";
 import { UserwalletComponent } from "./userwallet/userwallet.component";
 import { WalletComponent } from "./wallet/wallet.component";
+import { SettlementApiWalletComponent } from "./settlement-api-wallet/settlement-api-wallet.component";
+import { SettlementApiWalletTransactionComponent } from "./settlement-api-wallet-transaction/settlement-api-wallet-transaction.component";
 
 const routes: Routes = [
   {
@@ -37,6 +39,14 @@ const routes: Routes = [
       {
         path: "statement",
         component: WalletComponent,
+      },
+      {
+        path: "api-statement",
+        component: SettlementApiWalletComponent,
+      },
+      {
+        path: "api-transaction",
+        component: SettlementApiWalletTransactionComponent,
       },
       {
         path: "bconboarding",

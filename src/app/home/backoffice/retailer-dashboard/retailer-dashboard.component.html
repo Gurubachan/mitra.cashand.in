@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-12 col-sm-12 col-md-8">
+  <div class="col-12 col-sm-12 col-md-4">
     <nb-card
       status="success"
       [nbSpinner]="loading"
@@ -49,14 +49,141 @@
       </nb-card-body>
     </nb-card>
   </div>
- <!--  <div class="col-12 col-sm-12 col-md-4">
-    <nb-card style="text-align: center" status="success" size="large">
-      <nb-card-header status="success">News and Updates</nb-card-header>
-      <nb-card-body> </nb-card-body>
+ <div class="col-12 col-sm-12 col-md-4" *ngIf="!settlementWallet?.response">
+   <nb-card
+     status="success"
+     [nbSpinner]="loading"
+     nbSpinnerMessage="{{ loadingMessage }}"
+   >
+     <nb-card-body>
+       <div class="row">
+         <div class="col-10">
+           <strong>CASHAND Loyalty Program</strong>
+           <h2>
+             ₹ {{ loyaltyBalance }}
+             <nb-icon
+               icon="refresh-outline"
+               (click)="loadLoyalty()"
+             ></nb-icon>
+
+             <!--<nb-icon
+               icon="more-horizontal-outline"
+               nbTooltip="view more.."
+               nbTooltipPlacement="right"
+               [nbPopover]="formComponent"
+               nbPopoverPlacement="bottom"
+             ></nb-icon>-->
+           </h2>
+         </div>
+
+       </div>
+
+       <div style="border: 1px solid">
+         <div class="row" style="padding: 10px">
+           <div class="col-12">
+               <p>Get upto <strong>12% </strong>on your Cashand balance.*</p>
+           </div>
+
+         </div>
+       </div>
+     </nb-card-body>
+   </nb-card>
+  </div>
+
+  <div class="col-12 col-sm-12 col-md-4" *ngIf="!settlementWallet?.response">
+    <nb-card
+      status="success"
+      [nbSpinner]="loading"
+      nbSpinnerMessage="{{ loadingMessage }}"
+    >
+      <nb-card-body>
+        <div class="row">
+          <div class="col-10">
+            <strong>CASHAND Referral Income</strong>
+            <h2>
+              ₹ {{ levelIncome }}
+              <nb-icon
+                icon="refresh-outline"
+                (click)="loadLevelIncome()"
+              ></nb-icon>
+
+              <!--<nb-icon
+                icon="more-horizontal-outline"
+                nbTooltip="view more.."
+                nbTooltipPlacement="right"
+                [nbPopover]="formComponent"
+                nbPopoverPlacement="bottom"
+              ></nb-icon>-->
+            </h2>
+          </div>
+
+        </div>
+
+        <div style="border: 1px solid">
+          <div class="row" style="padding: 10px">
+            <div class="col-12">
+              <ul>
+                <li>Level 1 : {{levelOneIncome}} </li>
+                <li>Level 2 : {{levelTwoIncome}} </li>
+                <li>Level 3 : {{levelThreeIncome}}</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </nb-card-body>
     </nb-card>
-  </div> -->
+  </div>
+
+  <div class="col-12 col-sm-12 col-md-4" *ngIf="settlementWallet?.response">
+    <nb-card
+      status="success"
+      [nbSpinner]="loading"
+      nbSpinnerMessage="{{ loadingMessage }}"
+    >
+      <nb-card-body>
+        <div class="row">
+          <div class="col-10">
+            <strong>CASHAND Settlement Wallet Balance</strong>
+            <h2>
+              ₹ {{ settlementWallet?.data?.effectiveAmount }}
+              <nb-icon
+                icon="refresh-outline"
+                (click)="loadApiBalance()"
+              ></nb-icon>
+
+              <nb-icon
+                icon="more-horizontal-outline"
+                nbTooltip="view more.."
+                nbTooltipPlacement="right"
+                [nbPopover]="apiMoreView"
+                nbPopoverPlacement="bottom"
+              ></nb-icon>
+            </h2>
+          </div>
+
+        </div>
+
+        <div style="border: 1px solid">
+          <div class="row" style="padding: 10px">
+            <div class="col-12">
+              <ul>
+                <li>Float Amount : {{settlementWallet?.data?.floatAmount}} </li>
+                <li>Hold Amount : {{settlementWallet?.data?.holdAmount}} </li>
+                <li>Minimum Balance : {{settlementWallet?.data?.minimumBalance}}</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
 </div>
 <div class="row">
+  <div class="col-12 col-sm-12">
+    <div><span><strong>NEWS : </strong><marquee>Test Message</marquee></span>  </div>
+  </div>
   <div class="col-12 col-sm-12 col-md-4" *ngFor="let s of serviceWiseBusiness">
     <nb-card
       status="success"

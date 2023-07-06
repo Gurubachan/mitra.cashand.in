@@ -143,7 +143,7 @@
           <th>Status</th>
           <th>Transaction Date</th>
           <th>Update Date</th>
-          <th>Wallet Ref No.</th>
+          <th>Wallet Ref No. / Date</th>
           <th>BC Info</th>
           <th>Remark</th>
           <th *ngIf="user.role==9">Action</th>
@@ -165,7 +165,7 @@
           <td>{{ t?.status }}</td>
           <td>{{ t?.apiCreatedDate | date: "dd-MM-yyyy h:mm:ss a" }}</td>
           <td>{{ t?.apiUpdatedDate | date: "dd-MM-yyyy h:mm:ss a" }}</td>
-          <td>{{t?.walletTxnRef}}</td>
+          <td>{{t?.walletTxnRef}} <br> {{ t?.updated_at | date: "dd-MM-yyyy h:mm:ss a" }} </td>
           <td>{{ t?.fname + " "  +t.lname | titlecase }} - {{t?.bcagentid}}</td>
           <td>{{t?.apiComment}}</td>
           <td *ngIf="user.role==9"><nb-icon icon="refresh-outline" size="large" (click)="checkStatus(t, i)" *ngIf="t?.status=='INITIATED'"></nb-icon></td>

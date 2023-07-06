@@ -34,6 +34,8 @@ import { InactivelistComponent } from './inactivelist/inactivelist.component';
 import { CommissionSheetComponent } from './commission-sheet/commission-sheet.component';
 import { TeamBusinessSummaryComponent } from './team-business-summary/team-business-summary.component';
 import { UnifiedReportComponent } from './unified-report/unified-report.component';
+import { SettlementApiWalletComponent } from './settlement-api-wallet/settlement-api-wallet.component';
+import { SettlementApiWalletTransactionComponent } from './settlement-api-wallet-transaction/settlement-api-wallet-transaction.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { UnifiedReportComponent } from './unified-report/unified-report.componen
     CommissionSheetComponent,
     TeamBusinessSummaryComponent,
     UnifiedReportComponent,
+    SettlementApiWalletComponent,
+    SettlementApiWalletTransactionComponent,
 
   ],
   imports: [

@@ -1,0 +1,29 @@
+<div class="p-4">
+  <nb-user
+    size="large"
+    name="Load Money"
+    title="transfer wallet money to your linked account."
+    picture="https://api.cashand.in/laravel/public/storage/collection.svg"
+    (click)="loadMoney()"
+  >
+  </nb-user>
+  <nb-user
+    size="large"
+    name="View Transaction"
+    title="Your wallet transaction report."
+    picture="https://api.cashand.in/laravel/public/storage/passbook.svg"
+    (click)="viewTransaction()"
+  >
+  </nb-user>
+
+  <nb-user
+    size="large"
+    name="View Passbook"
+    title="Your wallet credit debit report."
+    picture="https://api.cashand.in/laravel/public/storage/credit-expenses.svg"
+    (click)="viewStatement()"
+  >
+  </nb-user>
+  <!-- <a class="btn btn-link" (click)="payout()"><img src="https://open-frontend-bucket.s3.ap-south-1.amazonaws.com/open-money/icons/dashboard/withdraw-money.svg"> Withdrawal Money </a><br /> -->
+  <!-- <a class="btn btn-link" (click)="viewStatement()">View Statement</a> -->
+</div>

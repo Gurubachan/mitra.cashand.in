@@ -2,7 +2,7 @@
   <nb-card-header>Filter Form</nb-card-header>
   <nb-card-body>
     <div class="row">
-      <div class="col-sm-2">
+      <div class="col-sm-3">
         <input
           nbInput
           placeholder="From Date"
@@ -19,7 +19,7 @@
           (dateChange)="setMaxdate($event)"
         ></nb-datepicker>
       </div>
-      <div class="col-sm-2">
+      <div class="col-sm-3">
         <input
           nbInput
           placeholder="To Picker"
@@ -34,6 +34,31 @@
           [max]="tomax"
           [min]="tomin"
         ></nb-datepicker>
+      </div>
+      <div class="col-sm-3">
+        <nb-select
+          placeholder="Select Txn Type"
+          [(selected)]="selectedTxnType"
+          required
+          fullWidth
+        >
+          <nb-option value="CW" selected>Cash Withdrawal</nb-option>
+          <nb-option value="BE">Balance Enquery</nb-option>
+        </nb-select>
+      </div>
+      <div class="col-sm-3">
+        <nb-select
+          placeholder="Select Txn Status"
+          [(selected)]="selectedTxnStatus"
+          required
+          fullWidth
+        >
+          <nb-option value="0" selected>SUCCESS</nb-option>
+          <nb-option value="-1">FAILED</nb-option>
+          <nb-option value="2">INITIATED</nb-option>
+          
+          
+        </nb-select>
       </div>
       <div class="col-sm-4" *ngIf="permiteMISRole.indexOf(user.role)!= -1">
         <input
@@ -55,7 +80,7 @@
           </nb-option>
         </nb-autocomplete>
       </div>
-<div class="col-sm-2">
+<div class="col-sm-4">
         <input
           [(ngModel)]="postData.cardNo"
           #cardNo="ngModel"
@@ -70,7 +95,7 @@
         />
       </div>
       
-      <div class="col-sm-2">
+      <div class="col-sm-4">
         <input
           [(ngModel)]="postData.amount"
           #amount="ngModel"
@@ -110,11 +135,11 @@
           <th>Update Date</th>
           <th>BC Name</th>
           
-            <th>Action</th>
+            <th *ngIf="permiteMISRole.indexOf(user.role)!= -1">Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let s of transactions?.data">
+          <tr *ngFor="let s of transactions?.data, let i = index">
             <td>{{ s.id }}</td>
             
             <td>{{ s.txnType }}</td>
@@ -128,7 +153,7 @@
              <td>{{ s.created_at | date: "d-M-yyyy h:mm:ss a" }}</td>
             <td>{{ s.updated_at | date: "d-M-yyyy h:mm:ss a" }}</td>
             <td>{{ s.fname }} {{s.lname}} <br> {{s.contact}}</td>
-            <td (click)="showFile(s)"><nb-icon icon="file-text-outline" size="large" ></nb-icon></td>
+            <td *ngIf="permiteMISRole.indexOf(user.role)!= -1"><nb-icon icon="refresh-outline" size="large" (click)="showFile(s, i)" *ngIf="s.apiStatus=='initiated'"></nb-icon></td>
           </tr>
         </tbody>
       </table>

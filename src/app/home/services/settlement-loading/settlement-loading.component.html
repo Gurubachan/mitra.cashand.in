@@ -1,0 +1,115 @@
+<div class="row">
+  <div class="col-12">
+    <nb-alert
+      *ngIf="showMessages.error && errors?.length && !submitted"
+      outline="danger"
+      role="alert"
+    >
+      <p class="alert-title"><b>Oh snap!</b></p>
+      <ul class="alert-message-list">
+        <li *ngFor="let error of errors" class="alert-message">{{ error }}</li>
+      </ul>
+    </nb-alert>
+
+    <nb-alert
+      *ngIf="showMessages.success && messages?.length && !submitted"
+      outline="success"
+      role="alert"
+    >
+      <p class="alert-title"><b>Hooray!</b></p>
+      <ul class="alert-message-list">
+        <li *ngFor="let message of messages" class="alert-message">
+          {{ message }}
+        </li>
+      </ul>
+    </nb-alert>
+  </div>
+
+  <div class="col-sm-4">
+    <nb-card size="tiny">
+      <nb-card-header>Cashand Wallet Balance</nb-card-header>
+      <nb-card-body>
+       
+        Wallet Balance : ₹ {{ myBalance }}<br />
+        Drawable Balance : ₹ {{ drawableBalance }}<br/>
+       <b>Minimum loading amount above 1000</b>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-sm-4">
+    <nb-card size="tiny" [nbSpinner]="loading">
+      <nb-card-header>Settlement Wallet Loading</nb-card-header>
+      <nb-card-body
+        *ngIf="drawableBalance >= 1000"
+      >
+        <form (ngSubmit)="initPayout()" #form="ngForm" aria-labelledby="title"> 
+          <div class="form-control-group">
+            <input
+              nbInput
+              fullWidth
+              type="number"
+              [required]="true"
+              [(ngModel)]="wallet.amount"
+              min="1000"
+              max="{{ drawableBalance }}"
+              [status]="
+                amount.dirty ? (amount.invalid ? 'danger' : 'success') : 'basic'
+              "
+              #amount="ngModel"
+              name="amount"
+              id="input-amount"
+              [attr.aria-invalid]="
+                amount.invalid && amount.touched ? true : null
+              "
+              placeholder="Enter amount between 1000 and {{ drawableBalance }}"
+              
+            />
+
+            <ng-container *ngIf="amount.invalid && amount.touched">
+              <p class="caption status-danger" *ngIf="amount.errors?.required">
+                Amount must required for payout!
+              </p>
+              <p
+                class="caption status-danger"
+                *ngIf="amount.errors?.min || amount.errors?.max"
+              >
+                Amount should contains from 1000 to
+                {{ drawableBalance }}
+              </p>
+            </ng-container>
+          </div>
+
+          <button
+            nbButton
+            class="btn btn-success"
+            type="submit"
+            style="float: right"
+            [disabled]="submitted || form.invalid"
+            [class.btn-pulse]="submitted"
+          >
+            Initiate
+          </button>
+        </form>
+      </nb-card-body>
+      
+    </nb-card>
+  </div>
+  <div class="col-sm-4">
+    <nb-card size="tiny" [nbSpinner]="loading">
+        <nb-card-header>Settlement Wallet Balance</nb-card-header>
+      <nb-card-body>
+       <div style="border: 1px solid">
+          <div class="row" style="padding: 10px">
+            <div class="col-12">
+              <ul>
+                <li>Float Amount : {{settlementWallet?.data?.floatAmount}} </li>
+                <li>Hold Amount : {{settlementWallet?.data?.holdAmount}} </li>
+                <li>Minimum Balance : {{settlementWallet?.data?.minimumBalance}}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

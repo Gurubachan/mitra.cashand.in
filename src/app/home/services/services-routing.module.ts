@@ -16,6 +16,7 @@ import { FastagComponent } from "./fastag/fastag.component";
 import { BbpsComponent } from "./bbps/bbps.component";
 import { UnifiedaepsComponent } from "./unifiedaeps/unifiedaeps.component";
 import { HappyLoansComponent } from "./loans/happy-loans/happy-loans.component";
+import { SettlementLoadingComponent } from "./settlement-loading/settlement-loading.component";
 
 const routes: Routes = [
   {
@@ -45,6 +46,10 @@ const routes: Routes = [
       {
         path: "payout",
         component: PayoutComponent,
+      },
+      {
+        path: "settlement_loading",
+        component: SettlementLoadingComponent,
       },
       {
         path: "pan",

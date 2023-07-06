@@ -13,6 +13,6 @@ export const environment = {
   // uri: "http://127.0.0.1:8000/api/",
   // uri: "https://sandbox.evableindia.com/api/",
   uri: 'https://api.cashand.in/api/',
-  aeps: 'https://aeps.evableindia.com/api/v1/',
+  aeps: 'https://aeps.cashand.in/api/v1/',
   loan: 'https://loans.cashand.in/api/v1/',
 };

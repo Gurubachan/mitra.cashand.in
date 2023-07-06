@@ -30,6 +30,7 @@ import { FastagComponent } from './fastag/fastag.component';
 import { BbpsComponent } from './bbps/bbps.component';
 import { UnifiedaepsComponent } from './unifiedaeps/unifiedaeps.component';
 import { HappyLoansComponent } from './loans/happy-loans/happy-loans.component';
+import { SettlementLoadingComponent } from './settlement-loading/settlement-loading.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { HappyLoansComponent } from './loans/happy-loans/happy-loans.component';
     BbpsComponent,
     UnifiedaepsComponent,
     HappyLoansComponent,
+    SettlementLoadingComponent,
   ],
   imports: [
     CommonModule,
